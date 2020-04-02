@@ -1,10 +1,5 @@
  
 
-
-
-
-
-
 <div>
   <?php 
   if(isset($valier)){
