@@ -6,7 +6,6 @@ class LoginModel extends CI_Controller {
 	{
 		parent:: __construct();
 		$this->load->database('pdo');
- 
 	} 
  
 	public function create($datos)
@@ -24,22 +23,32 @@ class LoginModel extends CI_Controller {
  
 	public function validar(string $correo_usuario, string $password_usuario)
 	{
+ 
       $this->load->library('form_validation');  //se ve en la documentacion las validaciones posibles
-	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required|is_unique[usuario.correo_usuario]',
+	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required|trim|is_unique[usuario.correo_usuario]',
 	  array(
-			  'required'      => 'You have not provided %s.',
-			  'is_unique'     => 'This %s already exists.'
+			  'required'      => 'Debes escribir un %s.',
+			  'is_unique'     => 'Este %s ya está registrado.'
 	  )
-);  
-	  $this->form_validation->set_rules('password_usuario','Password','required');
-	  
+      );  
+	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim',
+	  array(
+			  'required'      => 'Debes escribir una constraseña.' 
+	  )
+      );  
+     $this->form_validation->set_error_delimiters('', '');  
 	  if ($this->form_validation->run() == FALSE)
 	  { 
-		return FALSE; 	 
+		 $errors = array(
+			 'correo_usuario'=>form_error('correo_usuario'),
+			 'password_usuario'=>form_error('password_usuario') 
+		 );
+		 echo json_encode($errors);
+		// $this->output->set_status_header(400);
 	  } 
 	  else
 	  {
-		return TRUE; 	 
+		 	 
 	  }
 	}
 

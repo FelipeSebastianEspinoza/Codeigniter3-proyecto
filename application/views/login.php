@@ -1,7 +1,7 @@
 <?php
 include 'headers/header1.php';
 ?>
-  
+   
 <div class="container">
 
     <!-- Outer Row -->
@@ -27,8 +27,11 @@ include 'headers/header1.php';
   ?>
 </div>
                   </div>
-                  <?php echo form_open('login/create');?>  
-                    <div class="form-group">
+                  <?php 
+                  $attributes = array('id' => 'form_login');
+                  echo form_open('login/create', $attributes);       
+                  ?>  
+                    <div class="form-group" id="correo_usuario">
                       <input type="email" class="form-control form-control-user" id="InputEmail" name="correo_usuario" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
@@ -40,11 +43,9 @@ include 'headers/header1.php';
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                    <?php echo form_submit(['type'=>'submit','class' =>'btn btn-primary btn-user btn-block','value'=>'Login']); ?>
                     <hr>
-                    <?php echo form_submit(['type'=>'submit','value'=>'Submit']); ?>
+                    
                     <?php echo form_reset(['type'=>'reset','value'=>'Reset']); ?>
                   <hr>
                   <div class="text-center">
@@ -65,9 +66,36 @@ include 'headers/header1.php';
   </div>
  
  
-
+  
+ 
 
 
 <?php
 include 'footers/footer1.php';
 ?>
+
+<script>
+
+(function($){
+  $("#form_login").submit(function(ev){ 
+    ev.preventDefault();
+      $.ajax({
+        type:'POST',
+        url: "<?php echo site_url().'/login/validarajax' ?>",
+        data: $(this).serialize(),
+        success: function(data){
+          var json = JSON.parse(data); 
+              console.log(json.correo_usuario);
+      },
+      error: function(){
+
+      },
+    });
+  });
+})(jQuery)
+
+
+</script>
+
+
+ 
