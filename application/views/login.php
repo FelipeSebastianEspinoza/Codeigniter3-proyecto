@@ -30,13 +30,28 @@ include 'headers/header1.php';
                   <?php 
                   $attributes = array('id' => 'form_login');
                   echo form_open('login/create', $attributes);       
-                  ?>  
+                  ?>  <!--
                     <div class="form-group" id="correo_usuario">
                       <input type="email" class="form-control form-control-user" id="InputEmail" name="correo_usuario" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                    </div>   --> 
+
+                    <div class="form-group" id="correo_usuario">
+          
+                      <input type="email" id="inputEmail" name="correo_usuario" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <div class="invalid-feedback" id="inputEmailText">
+
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="InputPassword" name="password_usuario" placeholder="Password">
+
+                    <div class="form-group" id="password_usuario">
+          
+                      <input type="password" id="inputPassword" name="password_usuario" class="form-control form-control-user"    placeholder="Enter Password...">
+                      <div class="invalid-feedback" id="inputPasswordText">
+
+                      </div>
                     </div>
+
+ 
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
@@ -75,8 +90,8 @@ include 'footers/footer1.php';
 ?>
 
 <script>
-
 (function($){
+  
   $("#form_login").submit(function(ev){ 
     ev.preventDefault();
       $.ajax({
@@ -84,17 +99,39 @@ include 'footers/footer1.php';
         url: "<?php echo site_url().'/login/validarajax' ?>",
         data: $(this).serialize(),
         success: function(data){
-          var json = JSON.parse(data); 
-              console.log(json.correo_usuario);
+          var element1 = document.getElementById("inputEmail");
+          element1.classList.remove("is-invalid"); 
+          var element3 = document.getElementById("inputPassword");
+          element3.classList.remove("is-invalid"); 
+          var json = JSON.parse(data);                   
       },
-      error: function(){
-
+      error: function(xhr){
+           if(xhr.status == 400){
+            var element1 = document.getElementById("inputEmail");
+               element1.classList.remove("is-invalid"); 
+             var json = JSON.parse(xhr.responseText);
+             if(json.correo_usuario.length !=0){
+               var $errorcorreo = json.correo_usuario;
+               var element1 = document.getElementById("inputEmail");
+               element1.classList.add("is-invalid");
+               var element2 = document.getElementById("inputEmailText");
+               element2.innerHTML = $errorcorreo;   
+             }
+             var element3 = document.getElementById("inputPassword");
+               element3.classList.remove("is-invalid"); 
+             var json = JSON.parse(xhr.responseText);
+             if(json.password_usuario.length !=0){
+               var $errorpassword = json.password_usuario;
+               var element3 = document.getElementById("inputPassword");
+               element3.classList.add("is-invalid");
+               var element4 = document.getElementById("inputPasswordText");
+               element4.innerHTML = $errorpassword;   
+             }
+           }
       },
     });
   });
 })(jQuery)
-
-
 </script>
 
 

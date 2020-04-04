@@ -15,20 +15,22 @@ class Login extends CI_Controller { //modelo de codeigniter
 	}
 
 	public function validarajax(){
-    $this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"]);
-		 
-	 
+ 
+     $this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"]);
+       
 	}
 
-	public function create(){
-	/*	if($this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"])==FALSE){
+	/*
+	public function create($data){
+ 	if($this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"])==FALSE){
 			$data = array('msg' => validation_errors());
 			$this->load->view('login',$data);
-		}else{ */
+		}else{  
+			 
 			$data = array(
 				'correo_usuario'=>$_POST["correo_usuario"],
 				'password_usuario'=>$_POST["password_usuario"] 
-			);
+			);  
 
 			if(!$this->loginModel->create($data)){
 				$data['msg']='error';
@@ -37,9 +39,9 @@ class Login extends CI_Controller { //modelo de codeigniter
 				$data['msg']='exito';
 				$this->load->view('login',$data);
 			}
-/*		} */
+ 		}  
 	}  
- 
+	*/
 
  
 

@@ -8,7 +8,7 @@ class LoginModel extends CI_Controller {
 		$this->load->database('pdo');
 	} 
  
-	public function create($datos)
+	public function insertarUsuario($datos)
 	{
 		$datos = array(
 			'correo_usuario'=>$datos['correo_usuario'],
@@ -31,9 +31,10 @@ class LoginModel extends CI_Controller {
 			  'is_unique'     => 'Este %s ya está registrado.'
 	  )
       );  
-	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim',
+	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim|min_length[5]',
 	  array(
-			  'required'      => 'Debes escribir una constraseña.' 
+			  'required'      => 'Debes escribir una constraseña.',
+			  'min_length' => 'Su contraseña debe tener por lo menos 5 caracteres'
 	  )
       );  
      $this->form_validation->set_error_delimiters('', '');  
@@ -44,11 +45,17 @@ class LoginModel extends CI_Controller {
 			 'password_usuario'=>form_error('password_usuario') 
 		 );
 		 echo json_encode($errors);
-		// $this->output->set_status_header(400);
-	  } 
+		 $this->output->set_status_header(400);
+	  }  
 	  else
 	  {
-		 	 
+		$data = array(
+			'correo_usuario'=>$correo_usuario,
+			'password_usuario'=>$password_usuario 
+		);
+		echo json_encode($data); // esto es porque esta esperando el data, sino se manda tira error
+		//$this->db->insert('Usuario',$data);
+		$this->insertarUsuario($data); 
 	  }
 	}
 
