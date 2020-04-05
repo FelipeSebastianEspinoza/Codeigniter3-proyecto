@@ -7,7 +7,7 @@ class Login extends CI_Controller { //modelo de codeigniter
 	{
 		parent:: __construct();
 		$this->load->model('loginModel');
- 
+		$this->load->model('autentificarModel');
 	} 
  
 	public function index(){

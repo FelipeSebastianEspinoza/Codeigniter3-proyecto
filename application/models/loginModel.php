@@ -6,6 +6,7 @@ class LoginModel extends CI_Controller {
 	{
 		parent:: __construct();
 		$this->load->database('pdo');
+		$this->load->model('autentificarModel');
 	} 
  
 	public function insertarUsuario($datos)
@@ -25,10 +26,9 @@ class LoginModel extends CI_Controller {
 	{
  
       $this->load->library('form_validation');  //se ve en la documentacion las validaciones posibles
-	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required|trim|is_unique[usuario.correo_usuario]',
+	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required',
 	  array(
-			  'required'      => 'Debes escribir un %s.',
-			  'is_unique'     => 'Este %s ya está registrado.'
+			  'required'      => 'Debes escribir un %s.' 
 	  )
       );  
 	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim|min_length[5]',
@@ -49,20 +49,45 @@ class LoginModel extends CI_Controller {
 	  }  
 	  else
 	  {
+		  
+		  $correo_usuario = $this->input->post('correo_usuario');
+		  $password_usuario = $this->input->post('password_usuario'); 
+		  if(!$res = $this->autentificarModel->login($correo_usuario, $password_usuario)){ 
+		   echo json_encode(array('msg'=>'Verifique sus credenciales'));
+		   $this->output->set_status_header(401);
+		   exit;
+		  }else{
+			echo json_encode(array('msg'=>'funcionó'));
+		  }
+		  
+	 
+
+
+
+
+
+
+
+
+
+
+
+		  /*
 		$data = array(
 			'correo_usuario'=>$correo_usuario,
 			'password_usuario'=>$password_usuario 
 		);
 		echo json_encode($data); // esto es porque esta esperando el data, sino se manda tira error
 		//$this->db->insert('Usuario',$data);
-		$this->insertarUsuario($data); 
+	//	$this->insertarUsuario($data); 
+	*/
 	  }
 	}
 
 
 
-
-
+ 
+	
 	 
 }
 ?> 

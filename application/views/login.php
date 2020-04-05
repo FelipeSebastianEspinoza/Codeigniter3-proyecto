@@ -127,9 +127,13 @@ include 'footers/footer1.php';
                var element4 = document.getElementById("inputPasswordText");
                element4.innerHTML = $errorpassword;   
              }
+           } else if(xhr.status == 401){
+             var json = JSON.parse(xhr.responseText);
+             console.log(json);
            }
       },
     });
+    ev.preventDefault();
   });
 })(jQuery)
 </script>
