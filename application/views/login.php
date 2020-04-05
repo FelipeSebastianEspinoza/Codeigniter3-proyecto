@@ -58,11 +58,19 @@ include 'headers/header1.php';
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
+                    <div class="form-group" id="correo_usuario">
+
                     <?php echo form_submit(['type'=>'submit','class' =>'btn btn-primary btn-user btn-block','value'=>'Login']); ?>
                     <hr>
                     
-                    <?php echo form_reset(['type'=>'reset','value'=>'Reset']); ?>
+                    <?php // echo form_reset(['type'=>'reset','value'=>'Reset']); ?>
                   <hr>
+                  </div>
+
+                  <div class="" role="alert" id="alert">
+                   
+                  </div>
+
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div>
@@ -88,10 +96,9 @@ include 'headers/header1.php';
 <?php
 include 'footers/footer1.php';
 ?>
-
+ 
 <script>
 (function($){
-  
   $("#form_login").submit(function(ev){ 
     ev.preventDefault();
       $.ajax({
@@ -99,37 +106,30 @@ include 'footers/footer1.php';
         url: "<?php echo site_url().'/login/validarajax' ?>",
         data: $(this).serialize(),
         success: function(data){
-          var element1 = document.getElementById("inputEmail");
-          element1.classList.remove("is-invalid"); 
-          var element3 = document.getElementById("inputPassword");
-          element3.classList.remove("is-invalid"); 
-          var json = JSON.parse(data);                   
+          document.getElementById("inputEmail").classList.remove("is-invalid"); 
+          document.getElementById("inputPassword").classList.remove("is-invalid"); 
+          var json = JSON.parse(data);       
+          document.getElementById("alert").classList.remove("alert-danger")
+          document.getElementById("alert").innerHTML = "";            
       },
-      error: function(xhr){
-           if(xhr.status == 400){
-            var element1 = document.getElementById("inputEmail");
-               element1.classList.remove("is-invalid"); 
+     statusCode: {
+           400: function(xhr){
+             document.getElementById("inputEmail").classList.remove("is-invalid"); 
              var json = JSON.parse(xhr.responseText);
-             if(json.correo_usuario.length !=0){
-               var $errorcorreo = json.correo_usuario;
-               var element1 = document.getElementById("inputEmail");
-               element1.classList.add("is-invalid");
-               var element2 = document.getElementById("inputEmailText");
-               element2.innerHTML = $errorcorreo;   
+             if(json.correo_usuario.length !=0){  
+               document.getElementById("inputEmail").classList.add("is-invalid");
+               document.getElementById("inputEmailText").innerHTML = json.correo_usuario;   
              }
-             var element3 = document.getElementById("inputPassword");
-               element3.classList.remove("is-invalid"); 
+             document.getElementById("inputPassword").classList.remove("is-invalid"); 
              var json = JSON.parse(xhr.responseText);
              if(json.password_usuario.length !=0){
-               var $errorpassword = json.password_usuario;
-               var element3 = document.getElementById("inputPassword");
-               element3.classList.add("is-invalid");
-               var element4 = document.getElementById("inputPasswordText");
-               element4.innerHTML = $errorpassword;   
+               document.getElementById("inputPassword").classList.add("is-invalid");
+               document.getElementById("inputPasswordText").innerHTML = json.password_usuario;   
              }
-           } else if(xhr.status == 401){
-             var json = JSON.parse(xhr.responseText);
-             console.log(json);
+           }, 401: function(xhr){     
+             document.getElementById("inputEmail").classList.remove("is-invalid");  
+             document.getElementById("alert").classList.add("alert-danger")
+             document.getElementById("alert").innerHTML = ""+JSON.parse(xhr.responseText).msg+"";  
            }
       },
     });

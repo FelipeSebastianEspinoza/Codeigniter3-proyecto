@@ -26,15 +26,14 @@ class LoginModel extends CI_Controller {
 	{
  
       $this->load->library('form_validation');  //se ve en la documentacion las validaciones posibles
-	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required',
+	  $this->form_validation->set_rules('correo_usuario', 'Email', 'required|trim',
 	  array(
 			  'required'      => 'Debes escribir un %s.' 
 	  )
       );  
-	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim|min_length[5]',
+	  $this->form_validation->set_rules('password_usuario', 'Password', 'required|trim',
 	  array(
-			  'required'      => 'Debes escribir una constraseña.',
-			  'min_length' => 'Su contraseña debe tener por lo menos 5 caracteres'
+			  'required'      => 'Debes escribir una constraseña.',		 
 	  )
       );  
      $this->form_validation->set_error_delimiters('', '');  
@@ -49,7 +48,6 @@ class LoginModel extends CI_Controller {
 	  }  
 	  else
 	  {
-		  
 		  $correo_usuario = $this->input->post('correo_usuario');
 		  $password_usuario = $this->input->post('password_usuario'); 
 		  if(!$res = $this->autentificarModel->login($correo_usuario, $password_usuario)){ 
