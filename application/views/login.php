@@ -108,7 +108,8 @@ include 'footers/footer1.php';
         success: function(data){
           document.getElementById("inputEmail").classList.remove("is-invalid"); 
           document.getElementById("inputPassword").classList.remove("is-invalid"); 
-          var json = JSON.parse(data);       
+          var json = JSON.parse(data);   
+          window.location = "<?php  echo site_url('dashboard'); ?>";  
           document.getElementById("alert").classList.remove("alert-danger")
           document.getElementById("alert").innerHTML = "";            
       },

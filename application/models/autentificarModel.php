@@ -14,7 +14,7 @@ class autentificarModel extends CI_Model {
 		if(!$data->result()){
 			return false;
 		}
-		    return $data->result();
+		    return $data->row();  
 	}
 
  

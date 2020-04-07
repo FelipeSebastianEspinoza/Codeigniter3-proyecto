@@ -7,6 +7,7 @@ class LoginModel extends CI_Controller {
 		parent:: __construct();
 		$this->load->database('pdo');
 		$this->load->model('autentificarModel');
+		$this->load->library('session'); 
 	} 
  
 	public function insertarUsuario($datos)
@@ -54,38 +55,25 @@ class LoginModel extends CI_Controller {
 		   echo json_encode(array('msg'=>'Verifique sus credenciales'));
 		   $this->output->set_status_header(401);
 		   exit;
-		  }else{
-			echo json_encode(array('msg'=>'funcionó'));
 		  }
-		  
-	 
-
-
-
-
-
-
-
-
-
-
-
-		  /*
-		$data = array(
-			'correo_usuario'=>$correo_usuario,
-			'password_usuario'=>$password_usuario 
-		);
-		echo json_encode($data); // esto es porque esta esperando el data, sino se manda tira error
-		//$this->db->insert('Usuario',$data);
-	//	$this->insertarUsuario($data); 
-	*/
+			$data = array(
+				'correo_usuario' => $res->correo_usuario,
+				'tipo' => $res->tipo_usuario,
+				'is_logged' => TRUE,
+			);
+			$this->session->set_userdata($data);
+			$this->session->set_flashdata('msg','Bienvenido '.$data['correo_usuario']); //flashdata desaparece al recargar
+			echo json_encode(array('url'=>base_url('dashboard')));
 	  }
 	}
-
-
-
  
-	
-	 
+	public function logout(){
+		$vars = array('correo_usuario','tipo','is_logged');
+		$this->session->unset_userdata($vars);
+		session_destroy();
+	    $this->load->view('login');
+		
+	}
+  	 
 }
 ?> 
