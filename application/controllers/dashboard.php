@@ -18,7 +18,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
  
- 
 	public function cargarTemplate($contenido){
 			$data = array(
 				'header1' => $this->load->view('headers/header1'  ),

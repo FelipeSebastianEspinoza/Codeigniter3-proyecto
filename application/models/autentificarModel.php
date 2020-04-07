@@ -10,7 +10,10 @@ class autentificarModel extends CI_Model {
  
 	public function login($correo_usuario, $password_usuario) 
 	{
-		$data = $this->db->get_where('Usuario', array('correo_usuario'=>$correo_usuario,'password_usuario'=>$password_usuario),1);
+		$data = $this->db->get_where('Usuario', array(
+			'correo_usuario'=>$correo_usuario,
+			'password_usuario'=>$password_usuario 
+		),1);
 		if(!$data->result()){
 			return false;
 		}

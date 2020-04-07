@@ -141,7 +141,7 @@
   <!-- Nav Item - User Information -->
   <li class="nav-item dropdown no-arrow">
     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $this->session->correo_usuario ?></span>
+      <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $this->session->nombre_usuario ?></span>
       <img class="img-profile rounded-circle" src="https://vignette.wikia.nocookie.net/lossimpson/images/b/bd/Homer_Simpson.png/revision/latest/top-crop/width/360/height/450?cb=20100522180809&path-prefix=es">
     </a>
     <!-- Dropdown - User Information -->

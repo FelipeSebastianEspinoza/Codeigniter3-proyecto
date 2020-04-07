@@ -58,7 +58,9 @@ class LoginModel extends CI_Controller {
 		  }
 			$data = array(
 				'correo_usuario' => $res->correo_usuario,
-				'tipo' => $res->tipo_usuario,
+				'nombre_usuario' => $res->nombre_usuario,
+				'tipo_usuario' => $res->tipo_usuario, 
+				'imagen_usuario' => $res->imagen_usuario, 
 				'is_logged' => TRUE,
 			);
 			$this->session->set_userdata($data);
