@@ -16,14 +16,20 @@ class Login extends CI_Controller { //modelo de codeigniter
 	}
 	public function logout(){
 		$this->loginModel->logout(); 
-		
 	}
 
 	public function validarajax(){
- 
-     $this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"]);
-       
+        $this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"]);
 	}
+
+	public function validaraUsuarioajax(){
+		$this->loginModel->validarUsuario($_POST["nombre_usuario"],$_POST["apellido_usuario"],$_POST["correo_usuario"],$_POST["password_usuario"]);
+	}
+ 
+	public function registrarUsuario(){
+        $this->load->view('usuario/registro');
+	}
+
 
 	/*
 	public function create($data){

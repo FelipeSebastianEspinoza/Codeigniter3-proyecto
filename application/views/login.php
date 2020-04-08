@@ -29,7 +29,7 @@ include 'headers/header1.php';
                   </div>
                   <?php 
                   $attributes = array('id' => 'form_login');
-                  echo form_open('login/create', $attributes);       
+                  echo form_open('', $attributes);       
                   ?>  <!--
                     <div class="form-group" id="correo_usuario">
                       <input type="email" class="form-control form-control-user" id="InputEmail" name="correo_usuario" aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -75,7 +75,7 @@ include 'headers/header1.php';
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                  <a class="small" href="<?php echo site_url('Usuarios_c/crear'); ?>">Crear Nuevo Usuario</a>
+                  <a class="small" href="<?php echo site_url('Login/registrarUsuario'); ?>">Crear Nuevo Usuario</a>
                   </div> 
                 </div>
               </div>
@@ -122,7 +122,6 @@ include 'footers/footer1.php';
                document.getElementById("inputEmailText").innerHTML = json.correo_usuario;   
              }
              document.getElementById("inputPassword").classList.remove("is-invalid"); 
-             var json = JSON.parse(xhr.responseText);
              if(json.password_usuario.length !=0){
                document.getElementById("inputPassword").classList.add("is-invalid");
                document.getElementById("inputPasswordText").innerHTML = json.password_usuario;   

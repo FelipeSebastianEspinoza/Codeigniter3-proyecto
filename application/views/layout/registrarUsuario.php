@@ -4,7 +4,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Registrar Usuario</h6>
                 </a> 
                 <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample" style="">
+                <div class="collapse show" id="collapseCardExample" >
                   <div class="card-body">
                     This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                   </div>

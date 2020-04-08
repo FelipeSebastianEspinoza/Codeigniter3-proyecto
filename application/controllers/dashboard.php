@@ -17,7 +17,15 @@ class Dashboard extends CI_Controller {
 			show_404();
 		}
 	}
- 
+	public function registrarUsuario(){ 
+		if($this->session->userdata('is_logged')){
+			$contenido = "registrarUsuario";
+			$this->cargarTemplate($contenido);  
+		}else{
+			show_404();
+		}
+	}
+  
 	public function cargarTemplate($contenido){
 			$data = array(
 				'header1' => $this->load->view('headers/header1'  ),
@@ -29,8 +37,8 @@ class Dashboard extends CI_Controller {
 			);
 			$this->load->view('dashboard',$data); 
 	}
-	
-
+	 
+ 
 
 
   
