@@ -72,7 +72,7 @@
                       </div>
                       </div>
                       <div class="col-sm-6" id="passwordConfirm_usuario">
-                      <input type="text" id="inputPasswordConfirm" name="confirm" class="form-control form-control-user"   placeholder="Vuelva es escribir su contraseña...">
+                      <input type="text" id="inputPasswordConfirm" name="passwordConfirm_usuario" class="form-control form-control-user"   placeholder="Vuelva es escribir su contraseña...">
                       <div class="invalid-feedback" id="inputPasswordConfirmText">
                       </div>
                       </div>
@@ -151,8 +151,12 @@
            document.getElementById("inputApellido").classList.remove("is-invalid");  
            document.getElementById("inputCorreo").classList.remove("is-invalid"); 
            document.getElementById("inputPassword").classList.remove("is-invalid"); 
-          var json = JSON.parse(data);   
-          window.location = "<?php  echo site_url('dashboard'); ?>";           
+           document.getElementById("inputPasswordConfirm").classList.remove("is-invalid"); 
+       
+            var json = JSON.parse(data);   
+            window.location = "<?php  echo site_url('dashboard'); ?>"; 
+           
+           
       },
      statusCode: {
            400: function(xhr){
@@ -160,6 +164,7 @@
                document.getElementById("inputApellido").classList.remove("is-invalid"); 
                document.getElementById("inputCorreo").classList.remove("is-invalid"); 
                document.getElementById("inputPassword").classList.remove("is-invalid");  
+               document.getElementById("inputPasswordConfirm").classList.remove("is-invalid");   
              var json = JSON.parse(xhr.responseText);
              if(json.nombre_usuario.length !=0){  
                  document.getElementById("inputNombre").classList.add("is-invalid");
@@ -176,6 +181,10 @@
              if(json.password_usuario.length !=0){
                  document.getElementById("inputPassword").classList.add("is-invalid");
                  document.getElementById("inputPasswordText").innerHTML = json.password_usuario;   
+             }
+             if(json.passwordConfirm_usuario.length !=0){
+                 document.getElementById("inputPasswordConfirm").classList.add("is-invalid");
+                 document.getElementById("inputPasswordConfirmText").innerHTML = json.passwordConfirm_usuario;   
              }
  
            }, 401: function(xhr){     

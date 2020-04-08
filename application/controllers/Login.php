@@ -23,7 +23,7 @@ class Login extends CI_Controller { //modelo de codeigniter
 	}
 
 	public function validaraUsuarioajax(){
-		$this->loginModel->validarUsuario($_POST["nombre_usuario"],$_POST["apellido_usuario"],$_POST["correo_usuario"],$_POST["password_usuario"]);
+		$this->loginModel->validarUsuario($_POST["nombre_usuario"],$_POST["apellido_usuario"],$_POST["correo_usuario"],$_POST["password_usuario"],$_POST["passwordConfirm_usuario"]);
 	}
  
 	public function registrarUsuario(){

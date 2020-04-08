@@ -77,7 +77,7 @@ class LoginModel extends CI_Controller {
 		
 	}
 
-	public function validarUsuario(string $nombre_usuario, string $apellido_usuario, string $correo_usuario, string $password_usuario)
+	public function validarUsuario(string $nombre_usuario, string $apellido_usuario, string $correo_usuario, string $password_usuario, string $passwordConfirm_usuario)
 	{
 	  $this->load->library('form_validation');   
 	  $this->form_validation->set_rules('nombre_usuario', 'nombre', 'required|trim',
@@ -90,16 +90,24 @@ class LoginModel extends CI_Controller {
 			  'required'      => 'Debes escribir un %s.' 
 	  )
       ); 
-	  $this->form_validation->set_rules('correo_usuario', 'correo', 'required|trim',
+	  $this->form_validation->set_rules('correo_usuario', 'correo', 'required|trim|is_unique[usuario.correo_usuario]',
 	  array(
-			  'required'      => 'Debes escribir un %s.'  
+			  'required'      => 'Debes escribir un %s.',
+			  'is_unique'     => 'Este %s ya se ecuentra registrado.' 
+			   
 	  )
       );  
 	  $this->form_validation->set_rules('password_usuario', 'contraseña', 'required|trim',
 	  array(
 			  'required'      => 'Debes escribir una %s.'  
 	  )
-      );  
+	  );
+	  $this->form_validation->set_rules('passwordConfirm_usuario', 'contraseña', 'trim|required|matches[password_usuario]',
+	  array(
+			  'required'      => 'Debes escribir una %s.',
+			  'matches'      => 'Las %ss deben coincidir.'   
+	  )
+	  );
      $this->form_validation->set_error_delimiters('', '');  
 	  if ($this->form_validation->run() == FALSE)
 	  { 
@@ -108,33 +116,31 @@ class LoginModel extends CI_Controller {
 			 'apellido_usuario'=>form_error('apellido_usuario'),
 			 'correo_usuario'=>form_error('correo_usuario'), 
 			 'password_usuario'=>form_error('password_usuario'), 
+			 'passwordConfirm_usuario'=>form_error('passwordConfirm_usuario'), 
 		 );
 	    echo json_encode($errors);
 		$this->output->set_status_header(400);
 	  }  
 	  else
 	  {
-
-
-       
-
+	   	  $nombre_usuario = $this->input->post('nombre_usuario'); 
+		  $apellido_usuario = $this->input->post('apellido_usuario'); 
 		  $correo_usuario = $this->input->post('correo_usuario');
 		  $password_usuario = $this->input->post('password_usuario'); 
-		  if(!$res = $this->autentificarModel->login($correo_usuario, $password_usuario)){ 
-		   echo json_encode(array('msg'=>'hay que registrarlo y mandar los datos pa que se logee'));
-		   $this->output->set_status_header(401);
-		   exit;
-		  }
+ 
+ 
 			$data = array(
-				'correo_usuario' => $res->correo_usuario,
-				'nombre_usuario' => $res->nombre_usuario,
-				'tipo_usuario' => $res->tipo_usuario, 
-				'imagen_usuario' => $res->imagen_usuario, 
-				'is_logged' => TRUE,
+				'nombre_usuario' =>  $nombre_usuario,
+				'apellido_usuario' =>  $apellido_usuario,
+				'correo_usuario' => $correo_usuario, 	
+				'password_usuario' => $password_usuario, 		
 			);
-			$this->session->set_userdata($data);
-			$this->session->set_flashdata('msg','Bienvenido '.$data['correo_usuario']); //flashdata desaparece al recargar
-			echo json_encode(array('url'=>base_url('dashboard')));
+			 $this->db->insert('Usuario',$data); 
+			 
+		 
+			 $this->session->set_userdata($data);
+			 $this->session->set_flashdata('msg','Bienvenido '.$data['correo_usuario']); //flashdata desaparece al recargar
+			 echo json_encode(array('url'=>base_url('dashboard')));
 	  }
 	}
 
