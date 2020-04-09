@@ -13,6 +13,8 @@ class LoginModel extends CI_Controller {
 	public function insertarUsuario($datos)
 	{
 		$datos = array(
+			'nombre_usuario'=>$datos['nombre_usuario'],
+			'apellido_usuario'=>$datos['apellido_usuario'],
 			'correo_usuario'=>$datos['correo_usuario'],
 			'password_usuario'=>$datos['password_usuario']
 		);
@@ -135,12 +137,12 @@ class LoginModel extends CI_Controller {
 				'correo_usuario' => $correo_usuario, 	
 				'password_usuario' => $password_usuario, 		
 			);
-			 $this->db->insert('Usuario',$data); 
-			 
-		 
-			 $this->session->set_userdata($data);
-			 $this->session->set_flashdata('msg','Bienvenido '.$data['correo_usuario']); //flashdata desaparece al recargar
-			 echo json_encode(array('url'=>base_url('dashboard')));
+			 if(!$this->insertarUsuario($data)){
+				echo json_encode('Error');
+			 }else{
+                $this->validar($correo_usuario,$password_usuario);
+			 }   
+ 
 	  }
 	}
 

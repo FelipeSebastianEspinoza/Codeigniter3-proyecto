@@ -60,19 +60,19 @@
                     </div>
 
                     <div class="form-group" id="correo_usuario">
-                      <input type="text" id="inputCorreo" name="correo_usuario" class="form-control form-control-user"   placeholder="Escriba su correo...">
+                      <input type="email" id="inputCorreo" name="correo_usuario" class="form-control form-control-user"   placeholder="Escriba su correo...">
                       <div class="invalid-feedback" id="inputCorreoText">
                       </div>
                     </div>
  
                     <div class="form-group row" id="password_usuario"> 
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="text" id="inputPassword" name="password_usuario" class="form-control form-control-user"   placeholder="Escriba su contraseña...">
+                      <input type="password" id="inputPassword" name="password_usuario" class="form-control form-control-user"   placeholder="Escriba su contraseña...">
                       <div class="invalid-feedback" id="inputPasswordText">
                       </div>
                       </div>
                       <div class="col-sm-6" id="passwordConfirm_usuario">
-                      <input type="text" id="inputPasswordConfirm" name="passwordConfirm_usuario" class="form-control form-control-user"   placeholder="Vuelva es escribir su contraseña...">
+                      <input type="password" id="inputPasswordConfirm" name="passwordConfirm_usuario" class="form-control form-control-user"   placeholder="Vuelva es escribir su contraseña...">
                       <div class="invalid-feedback" id="inputPasswordConfirmText">
                       </div>
                       </div>
@@ -187,11 +187,7 @@
                  document.getElementById("inputPasswordConfirmText").innerHTML = json.passwordConfirm_usuario;   
              }
  
-           }, 401: function(xhr){     
-        //     document.getElementById("inputEmail").classList.remove("is-invalid");  
-         //    document.getElementById("alert").classList.add("alert-danger")
-         //    document.getElementById("alert").innerHTML = ""+JSON.parse(xhr.responseText).msg+"";  
-           }
+           } 
       },
     });
     ev.preventDefault();
