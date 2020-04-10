@@ -29,7 +29,7 @@
 
 
 
-
+ 
 <script src="<?php echo base_url() ?>assets/marker/imageMapResizer.min.js"></script>
 
       
