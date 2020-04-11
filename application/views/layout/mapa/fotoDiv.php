@@ -1,32 +1,28 @@
- <h4 id="titulo">Universidad del Bío-Bío</h4> 
+ 
  
 <div class="cell shrink">
-    <img class="thumbnail" id="edGantes" src="<?php echo base_url() ?>assets/images/mapa.jpg">
+    <img class="thumbnail"  id="myImage" src="<?php echo base_url() ?>assets/images/Edificios/edificioNormal.jpg" 
+    style="display: block; width: 100%; ">
 </div>
-<form method="POST" action="Edificio.php" id="EdificioGantes">
-    <input type="hidden" name="id_edificio" value="1" />
-</form>	
+ 
   
  
-<script>  
- 
-function bigImg() {
-document.getElementById("edGantes").style.display = "block";
-document.getElementById('edGantes').src='https://vignette.wikia.nocookie.net/lossimpson/images/b/bd/Homer_Simpson.png/revision/latest/top-crop/width/360/height/450?cb=20100522180809&amp;path-prefix=es';
-document.getElementById('titulo').innerHTML = "Edificio Gantes"; 
-}
+<script>
 
-function normalImg() {
- document.getElementById("edGantes").style.display = "block";
- document.getElementById('edGantes').src='https://vignette.wikia.nocookie.net/lossimpson/images/b/bd/Homer_Simpson.png/revision/latest/top-crop/width/360/height/450?cb=20100522180809&amp;path-prefix=es>';
- document.getElementById('titulo').innerHTML = "Universidad del Bío-Bío"; 
+
+
+
+function imagenNormal() {
+document.getElementById('myImage').src='<?php echo base_url() ?>assets/images/Edificios/edificioNormal.jpg';
+document.getElementById('fotoTitulo').innerHTML = "Universidad del Bío-Bío"; 
+} 
+function EdificioGantes() {
+document.getElementById('myImage').src='<?php echo base_url() ?>assets/images/Edificios/edificioGantes.jpg';
+document.getElementById('fotoTitulo').innerHTML = "Edificio Gantes"; 
 }
 function GantesOnClick() {
 document.getElementById("EdificioGantes").submit();  
 }
  
- 
- 
- 
-	 </script>
+ </script>
 
