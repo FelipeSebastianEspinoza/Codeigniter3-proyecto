@@ -6,18 +6,4 @@
  
   
  
-<script>
  
-function imagenNormal() {
-document.getElementById('myImage').src='<?php echo base_url() ?>assets/images/Edificios/edificioNormal.jpg';
-document.getElementById('fotoTitulo').innerHTML = "Universidad del Bío-Bío"; 
-} 
-function EdificioGantes() {
-document.getElementById('myImage').src='<?php echo base_url() ?>assets/images/Edificios/edificioGantes.jpg';
-document.getElementById('fotoTitulo').innerHTML = "Edificio Gantes"; 
-}
-function GantesOnClick() {
- document.getElementById('myImage').src='<?php echo base_url() ?>assets/images/Edificios/aulasAD.jpg'; 
-}
- 
- </script>

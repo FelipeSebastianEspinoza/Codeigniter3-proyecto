@@ -16,7 +16,10 @@ class Map extends CI_Controller {
 		$this->load->view('layout/mapa/fotoDiv') ; 
 	 }
 	 function grifoDiv(){
-		$this->load->view('layout/mapa/grifoDiv') ;
+		$this->load->model("grifoModel");
+		$grifos = $this->grifoModel->getGrifo();
+		$grifos= array('grifos' =>$grifos); 
+		$this->load->view('layout/mapa/grifoDiv',$grifos) ;
 	 }
  	function fotoGrifoDiv(){
 		$this->load->view('layout/mapa/fotoGrifoDiv') ; 
