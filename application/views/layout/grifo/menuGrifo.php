@@ -81,30 +81,78 @@
                 </div>
                 <div class="form-group row" id="nombre_usuario">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="text" id="inputNombre" name="nombre_usuario" class="form-control form-control-user"   placeholder="Escriba su nombre...">
-                      <div class="invalid-feedback" id="inputNombreText">
+                      <input type="text" id="inputNombre2" name="nombre_usuario" class="form-control form-control-user"   placeholder="Escriba su nombre...">
+                      <div class="invalid-feedback" id="inputNombreText2">
                       </div>
                     </div>
                     <div class="col-sm-6" id="apellido_usuario">
-                      <input type="text" id="inputApellido" name="apellido_usuario" class="form-control form-control-user"   placeholder="Escriba su apellido...">
-                      <div class="invalid-feedback" id="inputApellidoText">
+                      <input type="text" id="inputApellido2" name="apellido_usuario" class="form-control form-control-user"   placeholder="Escriba su apellido...">
+                      <div class="invalid-feedback" id="inputApellidoText2">
                       </div>
                     </div>
                 </div>
                 <div class="form-group row" id="nombre_usuario">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="file" id="inputNombre" name="nombre_usuario" class="form-control form-control-user"   placeholder="Escriba su nombre...">
-                      <div class="invalid-feedback" id="inputNombreText">
+                      <input type="file" id="inputNombre3" name="nombre_usuario" class="form-control form-control-user"   placeholder="Elija una imagen...">
+                      <div class="invalid-feedback" id="inputNombreText3">
                       </div>
                     </div>
                 </div>
+                <div class="form-group row" id="nombre_usuario">
+                     <div class="col-sm-12 mb-6 mb-sm-0">
+
+                    <form name="pointform" method="post">
+                        <div style="">
+                         
+                        </div>
+                        <div style="clear:both;height:5px;">
+                        </div>
+                        <div id="pointer_div" onclick="point_it(event)" style="background-image: url('<?php echo base_url()?>assets/images/mapa.jpg');
+                               	background-repeat: no-repeat; width: 678px; height: 506px;" >
+                        </div>
+ 
+
+
+
+
+
+                    </div> 
+                  
+                </div>
+                <div class="col-sm-12 mb-6 mb-sm-0">
+                    <div style=""> 
+                            Posición X->
+	                        <input type="text" name="form_x" size="4" />
+	                        Posición Y->
+	                        <input type="text" name="form_y" size="4" />
+                        </div>
+                    </div>
+                    </br>
+                    <div class="col-sm-12 mb-6 mb-sm-0">
+                    <a href="#" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Split Button Success</span>
+                  </a>
+                    </div>
             </div>
         </div>
     </div>
 </div>
 
- 
+   
+
  
 
 
- 
+
+
+<script language="JavaScript" type="text/javascript">
+	function point_it(event) {
+		pos_x = event.offsetX ? (event.offsetX) : event.pageX - document.getElementById("pointer_div").offsetLeft;
+		pos_y = event.offsetY ? (event.offsetY) : event.pageY - document.getElementById("pointer_div").offsetTop;
+		document.pointform.form_x.value = pos_x;
+		document.pointform.form_y.value = pos_y;
+	}
+</script>
