@@ -6,6 +6,8 @@
         <th>Descripción</th>
         <th>Comentario</th>
         <th>Foto</th>
+        <th>Modificar</th>
+        <th>Eliminar</th>
     </tr>
 </thead>
 <tfoot>
@@ -15,6 +17,8 @@
         <th>Descripción</th>
         <th>Comentario</th>
         <th>Foto</th>
+        <th>Modificar</th>
+        <th>Eliminar</th>
     </tr>
 </tfoot>
 <tbody>
@@ -25,6 +29,8 @@
         echo "<td>". $grifo->estado_grifo ."</td>";
         echo "<td>". $grifo->descripcion_grifo ."</td>";
         echo "<td>". $grifo->comentario_grifo ."</td>";
+        echo "<td>". $grifo->imagen_grifo ."</td>";
+        echo "<td>". $grifo->imagen_grifo ."</td>";
         echo "<td>". $grifo->imagen_grifo ."</td>";
         echo "</tr>";
     }

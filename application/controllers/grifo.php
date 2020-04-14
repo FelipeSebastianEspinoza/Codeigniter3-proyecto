@@ -13,8 +13,8 @@ class Grifo extends CI_Controller {
 		 
 		$this->load->model("grifoModel");
 		$grifos = $this->grifoModel->getGrifo();
-     	 $this->load->view('layout/grifo/menuGrifo',array('grifos' =>$grifos)); 
-	  //  $this->menuGrifo($grifos);
+		$grifos= array('grifos' =>$grifos); 
+	    $this->menuGrifo2($grifos);
 	 
 	} 
 	public function menuGrifo2($grifos){
