@@ -11,21 +11,21 @@ class Grifo extends CI_Controller {
 	} 
 
 	public function crearGrifoajax(){ 
-		 
-		  
-		 $this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"]); 
-		 
-	 
-	 
+		
+		$this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"]); 
 	}
-
-	
+ 
 	function menuGrifo(){
-		$this->load->model("grifoModel");
-		$grifos = $this->grifoModel->getGrifo();
-		$grifos= array('grifos' =>$grifos); 
-	    $this->menuGrifo2($grifos);
+		if($this->session->userdata('is_logged')){
+			$this->load->model("grifoModel");
+			$grifos = $this->grifoModel->getGrifo();
+			$grifos= array('grifos' =>$grifos); 
+			$this->menuGrifo2($grifos);
+		}else{ 
+			show_404();
+		}
 	} 
+
 	public function menuGrifo2($grifos){
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
@@ -35,10 +35,8 @@ class Grifo extends CI_Controller {
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable') 
 		);
-		 
 		$this->load->view('dashboard',$data); 
 	} 
-
 
 	public function success(){
 		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo grifo con éxito');

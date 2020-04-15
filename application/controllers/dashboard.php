@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
 			show_404();
 		}
 	}
+
 	public function registrarUsuario(){ 
 		if($this->session->userdata('is_logged')){
 			$contenido = "registrarUsuario";
@@ -40,13 +41,7 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard',$data); 
 	    if($script !=""){ 
 			$this->load->view($script); 
-        }
-			 
+        }	 
 	}
-  
- 
- 
-
-
   
 }

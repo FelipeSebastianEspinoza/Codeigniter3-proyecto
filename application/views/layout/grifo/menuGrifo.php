@@ -73,7 +73,7 @@
  <!--..............................................................................................-->
  <?php 
                   $attributes = array('id' => 'form_register', 'name'=>'pointform'); 
-                  echo form_open('', $attributes);       
+                  echo Form_open_multipart ('', $attributes);       
              ?>  
 </br>
 <div class="col-lg-12">

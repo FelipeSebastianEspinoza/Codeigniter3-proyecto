@@ -15,6 +15,7 @@ class GrifoModel extends CI_Model {
 	}
 	public function insertarGrifo($datos) 
 	{
+        
 		$datos = array(
 			'nombre_grifo'=>$datos['nombre_grifo'],
 			'estado_grifo'=>$datos['estado_grifo']
