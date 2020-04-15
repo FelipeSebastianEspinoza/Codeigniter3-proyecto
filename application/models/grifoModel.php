@@ -60,9 +60,8 @@ class GrifoModel extends CI_Model {
 			 if(!$this->insertarGrifo($data)){
 				echo json_encode('Error');
 			 }else{
-				echo json_encode('Éxito');  
+				 echo json_encode('Éxito'); 
 			 }   
- 
 	  }
 	}
 

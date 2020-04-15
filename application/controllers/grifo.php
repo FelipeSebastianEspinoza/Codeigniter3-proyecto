@@ -7,10 +7,16 @@ class Grifo extends CI_Controller {
 	{
 		parent:: __construct();
 		$this->load->library(array('session')); 
+		$this->load->model('GrifoModel'); 
 	} 
 
 	public function crearGrifoajax(){ 
-		$this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"]);
+		 
+		  
+		 $this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"]); 
+		 
+	 
+	 
 	}
 
 	
@@ -29,7 +35,14 @@ class Grifo extends CI_Controller {
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable') 
 		);
+		 
 		$this->load->view('dashboard',$data); 
 	} 
+
+
+	public function success(){
+		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo grifo con éxito');
+		redirect('grifo/menuGrifo');
+	}
   
 }

@@ -1,3 +1,17 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Grifos</h1>
+            
+          </div>
+
+
+
+<?php if ($this->session->flashdata('category_success')) { ?>
+        <div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
+    <?php } ?>
+
+
+
+
 <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
 <thead>
     <tr>
@@ -57,18 +71,24 @@
 
 
  <!--..............................................................................................-->
-
+ <?php 
+                  $attributes = array('id' => 'form_register', 'name'=>'pointform'); 
+                  echo form_open('', $attributes);       
+             ?>  
 </br>
 <div class="col-lg-12">
     <!-- Collapsable Card Example -->
     <div class="card shadow mb-4">
     <!-- Card Header - Accordion -->
+     
         <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
             <h6 class="m-0 font-weight-bold text-primary">Nuevo Grifo</h6>
         </a>
     <!-- Card Content - Collapse -->
         <div class="collapse" id="collapseCardExample" >
             <div class="card-body">
+            <div>
+ 
                 This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                 </br> </br> 
                 <div class="form-group row" id="nombre_grifo">
@@ -109,10 +129,11 @@
                 </div>
                 </br> 
                 <p>De clic en el mapa para elegir la ubicación del grifo.</p>
+                
                 <div class="form-group row" id="nombre_usuario">
                      <div class="col-sm-12 mb-6 mb-sm-0">
 
-                    <form name="pointform" method="post">
+                    
                         <div>
                          
                         </div>
@@ -121,11 +142,6 @@
                         <div id="pointer_div" onclick="point_it(event)" style="background-image: url('<?php echo base_url()?>assets/images/mapa.jpg');
                                	background-repeat: no-repeat; width: 678px; height: 506px;" >
                         </div>
- 
-
-
-
-
 
                     </div> 
                   
@@ -140,11 +156,12 @@
                     </div>
                     </br>
                     <div class="col-sm-12 mb-6 mb-sm-0">
-                    <a href="#" class="btn btn-success btn-icon-split">
+                    <a   class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
                     </span>
-                    <span class="text">Registrar</span>
+                    <?php echo form_submit(['type'=>'submit','class' =>'text','value'=>'Login']); ?>  
+                    </form>
                   </a>
                     </div>
             </div>
@@ -156,7 +173,7 @@
 
  
 
-
+ 
 
 
 <script language="JavaScript" type="text/javascript">
@@ -167,8 +184,11 @@
 		document.pointform.form_y.value = pos_y;
 	}
 </script>
+
+
 <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 
+ 
 <script>
 (function($){
   $("#form_register").submit(function(ev){ 
@@ -181,23 +201,23 @@
            document.getElementById("inputNombre").classList.remove("is-invalid"); 
            document.getElementById("inputEstado").classList.remove("is-invalid");  
             var json = JSON.parse(data);   
-            window.location = "<?php  echo site_url('dashboard'); ?>";  
+          
+            window.location.href = "<?php echo site_url('grifo/success') ?>" ; 
       },
      statusCode: {
            400: function(xhr){
                document.getElementById("inputNombre").classList.remove("is-invalid"); 
                document.getElementById("inputEstado").classList.remove("is-invalid");  
              var json = JSON.parse(xhr.responseText);
-             if(json.nombre_usuario.length !=0){  
+             if(json.nombre_grifo.length !=0){  
                  document.getElementById("inputNombre").classList.add("is-invalid");
-                 document.getElementById("inputNombreText").innerHTML = json.nombre_usuario;   
+                 document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;   
              }
-             if(json.apellido_usuario.length !=0){
-                 document.getElementById("inputEstado").classList.add("is-invalid");
-                 document.getElementById("inputEstadoText").innerHTML = json.apellido_usuario;   
+             if(json.estado_grifo.length !=0){
+                 document.getElementById("inputEstado").classList.add("is-invalid"); 
+                 document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;   
              }
- 
-           } 
+           }  
       },
     });
     ev.preventDefault();
