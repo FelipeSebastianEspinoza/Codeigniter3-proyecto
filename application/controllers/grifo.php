@@ -9,16 +9,18 @@ class Grifo extends CI_Controller {
 		$this->load->library(array('session')); 
 	} 
 
+	public function crearGrifoajax(){ 
+		$this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"]);
+	}
+
+	
 	function menuGrifo(){
-		 
 		$this->load->model("grifoModel");
 		$grifos = $this->grifoModel->getGrifo();
 		$grifos= array('grifos' =>$grifos); 
 	    $this->menuGrifo2($grifos);
-	 
 	} 
 	public function menuGrifo2($grifos){
-		 
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'), 
@@ -28,9 +30,6 @@ class Grifo extends CI_Controller {
 			'footer1' => $this->load->view('footers/footerDatatable') 
 		);
 		$this->load->view('dashboard',$data); 
-	 
-     
-	 
 	} 
   
 }

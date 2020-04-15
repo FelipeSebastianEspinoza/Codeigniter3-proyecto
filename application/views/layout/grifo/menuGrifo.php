@@ -54,6 +54,10 @@
 </tbody>
 </table>
 
+
+
+ <!--..............................................................................................-->
+
 </br>
 <div class="col-lg-12">
     <!-- Collapsable Card Example -->
@@ -67,42 +71,49 @@
             <div class="card-body">
                 This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                 </br> </br> 
-                <div class="form-group row" id="nombre_usuario">
+                <div class="form-group row" id="nombre_grifo">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user"   placeholder="Escriba su nombre...">
+                      <label for="exampleFormControlTextarea1">Nombre</label>
+                      <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user"   placeholder="Escriba el nombre...">
                       <div class="invalid-feedback" id="inputNombreText">
                       </div>
                     </div>
-                    <div class="col-sm-6" id="apellido_usuario">
-                      <input type="text" id="inputApellido" name="estado_grifo" class="form-control form-control-user"   placeholder="Escriba su apellido...">
-                      <div class="invalid-feedback" id="inputApellidoText">
+                    <div class="col-sm-6" id="estado_grifo">
+                      <label for="exampleFormControlTextarea1">Estado</label>
+                      <input type="text" id="inputEstado" name="estado_grifo" class="form-control form-control-user"   placeholder="Escriba el estado...">
+                      <div class="invalid-feedback" id="inputEstadoText">
                       </div>
                     </div>
                 </div>
                 <div class="form-group row" id="nombre_usuario">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="text" id="inputNombre2" name="nombre_usuario" class="form-control form-control-user"   placeholder="Escriba su nombre...">
-                      <div class="invalid-feedback" id="inputNombreText2">
+                      <label for="exampleFormControlTextarea1">Descripción</label>
+                      <textarea class="form-control" name="descripcion_grifo" id="descripcion_grifo" rows="3"></textarea>
+                      <div class="invalid-feedback" id="inputDescripcionText">
                       </div>
                     </div>
-                    <div class="col-sm-6" id="apellido_usuario">
-                      <input type="text" id="inputApellido2" name="apellido_usuario" class="form-control form-control-user"   placeholder="Escriba su apellido...">
-                      <div class="invalid-feedback" id="inputApellidoText2">
+                    <div class="col-sm-6" id="comentario_grifo">
+                    <label for="exampleFormControlTextarea1">Comentario</label>
+                      <textarea class="form-control" name="comentario_grifo" id="comentario_grifo" rows="3"></textarea>
+                      <div class="invalid-feedback" id="inputComentarioText">
                       </div>
                     </div>
                 </div>
-                <div class="form-group row" id="nombre_usuario">
+                <div class="form-group row" id="nombre_grifo">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input type="file" id="inputNombre3" name="nombre_usuario" class="form-control form-control-user"   placeholder="Elija una imagen...">
-                      <div class="invalid-feedback" id="inputNombreText3">
+                      <label for="exampleFormControlTextarea1">Foto</label>
+                      <input type="file" id="inputImagen" name="imagen_grifo" class="form-control form-control-user"   placeholder="Escriba el nombre...">
+                      <div class="invalid-feedback" id="inputImagenText">
                       </div>
                     </div>
                 </div>
+                </br> 
+                <p>De clic en el mapa para elegir la ubicación del grifo.</p>
                 <div class="form-group row" id="nombre_usuario">
                      <div class="col-sm-12 mb-6 mb-sm-0">
 
                     <form name="pointform" method="post">
-                        <div style="">
+                        <div>
                          
                         </div>
                         <div style="clear:both;height:5px;">
@@ -120,7 +131,7 @@
                   
                 </div>
                 <div class="col-sm-12 mb-6 mb-sm-0">
-                    <div style=""> 
+                    <div> 
                             Posición X->
 	                        <input type="text" name="form_x" size="4" />
 	                        Posición Y->
@@ -133,7 +144,7 @@
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
                     </span>
-                    <span class="text">Split Button Success</span>
+                    <span class="text">Registrar</span>
                   </a>
                     </div>
             </div>
@@ -156,3 +167,43 @@
 		document.pointform.form_y.value = pos_y;
 	}
 </script>
+<script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
+
+<script>
+(function($){
+  $("#form_register").submit(function(ev){ 
+    ev.preventDefault();
+      $.ajax({ 
+        type:'POST',
+        url: "<?php echo site_url().'/grifo/crearGrifoajax' ?>",
+        data: $(this).serialize(),
+        success: function(data){
+           document.getElementById("inputNombre").classList.remove("is-invalid"); 
+           document.getElementById("inputEstado").classList.remove("is-invalid");  
+            var json = JSON.parse(data);   
+            window.location = "<?php  echo site_url('dashboard'); ?>";  
+      },
+     statusCode: {
+           400: function(xhr){
+               document.getElementById("inputNombre").classList.remove("is-invalid"); 
+               document.getElementById("inputEstado").classList.remove("is-invalid");  
+             var json = JSON.parse(xhr.responseText);
+             if(json.nombre_usuario.length !=0){  
+                 document.getElementById("inputNombre").classList.add("is-invalid");
+                 document.getElementById("inputNombreText").innerHTML = json.nombre_usuario;   
+             }
+             if(json.apellido_usuario.length !=0){
+                 document.getElementById("inputEstado").classList.add("is-invalid");
+                 document.getElementById("inputEstadoText").innerHTML = json.apellido_usuario;   
+             }
+ 
+           } 
+      },
+    });
+    ev.preventDefault();
+  });
+})(jQuery)
+</script>
+
+
+ 
