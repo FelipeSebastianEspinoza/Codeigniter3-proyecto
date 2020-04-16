@@ -70,9 +70,32 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <!--..............................................................................................-->
- <?php 
-                  $attributes = array('id' => 'form_register', 'name'=>'pointform'); 
+  
+ 
+<?php 
+                  $attributes = array('id' => 'upload_form', 'name'=>'pointform'); 
                   echo Form_open_multipart ('', $attributes);       
              ?>  
 </br>
@@ -122,7 +145,7 @@
                 <div class="form-group row" id="nombre_grifo">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <label for="exampleFormControlTextarea1">Foto</label>
-                      <input type="file" id="inputImagen" name="imagen_grifo" class="form-control form-control-user"   placeholder="Escriba el nombre...">
+                      <input type="file" name="image_file" id="image_file" REQUIRED />  
                       <div class="invalid-feedback" id="inputImagenText">
                       </div>
                     </div>
@@ -160,7 +183,7 @@
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
                     </span>
-                    <?php echo form_submit(['type'=>'submit','class' =>'text','value'=>'Login']); ?>  
+                    <input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" /> 
                     </form>
                   </a>
                     </div>
@@ -188,8 +211,51 @@
 
 <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 
- 
-<script>
+<script>  
+ $(document).ready(function(){  
+      $('#upload_form').on('submit', function(e){  
+           e.preventDefault();  
+  
+                $.ajax({  
+                     url: "<?php echo site_url().'/grifo/ajax_upload' ?>",
+                     
+                     //base_url() = http://localhost/tutorial/codeigniter  
+                     method:"POST",  
+                     data:new FormData(this),  
+                     contentType: false,  
+                     cache: false,  
+                     processData:false,  
+                     success:function(data)  
+                     {  
+                     document.getElementById("inputNombre").classList.remove("is-invalid"); 
+                     document.getElementById("inputEstado").classList.remove("is-invalid");  
+                    // var json = JSON.parse(data);  
+                      
+                     $('#uploaded_image').html(data);  
+                     window.location.href = "<?php echo site_url('grifo/success') ?>" ; 
+                         
+                    },
+     statusCode: {
+           400: function(xhr){
+               document.getElementById("inputNombre").classList.remove("is-invalid"); 
+               document.getElementById("inputEstado").classList.remove("is-invalid");  
+             var json = JSON.parse(xhr.responseText);
+             if(json.nombre_grifo.length !=0){  
+                 document.getElementById("inputNombre").classList.add("is-invalid");
+                 document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;   
+             }
+             if(json.estado_grifo.length !=0){
+                 document.getElementById("inputEstado").classList.add("is-invalid"); 
+                 document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;   
+             }
+           }  
+      },  
+                });   
+              
+      });  
+ });  
+ </script>  
+ <script>
 (function($){
   $("#form_register").submit(function(ev){ 
     ev.preventDefault();

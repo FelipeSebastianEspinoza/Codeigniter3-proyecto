@@ -42,5 +42,49 @@ class Grifo extends CI_Controller {
 		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo grifo con éxito');
 		redirect('grifo/menuGrifo');
 	}
+
+	function ajax_upload()  
+	{  
+        if(!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"],$_POST["estado_grifo"])){
+        
+		}else{
+			
+			$this->load->database('pdo');
+			if(isset($_FILES["image_file"]["name"]))  
+			{  
+				 $config['upload_path'] = './assets/upload';  
+				 $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+				 $this->load->library('upload', $config);  
+				 if(!$this->upload->do_upload('image_file'))  
+				 {  
+					  echo $this->upload->display_errors();  
+				 }  
+				 else  
+				 {
+					  $data = $this->upload->data();  
+					  $datos = array(
+						  'imagen_grifo'=>$data['file_name'],
+						  'nombre_grifo'=>$_POST['nombre_grifo'], 
+						  'estado_grifo'=>$_POST['estado_grifo'] 
+					 );
+					 $this->db->insert('Grifo',$datos);
+					  
+					 
+
+                      /*
+					  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
+					  style="display: block; width: 300px; ">';
+					  */
+					 }  
+			}
+		}
+
+
+
+   
+	}
+
+
+
   
 }

@@ -51,6 +51,8 @@ class GrifoModel extends CI_Model {
 	  }  
 	  else
 	  {
+		  return true;
+		  /*
 	   	  $nombre_grifo = $this->input->post('nombre_grifo'); 
 		  $estado_grifo = $this->input->post('estado_grifo'); 
 
@@ -63,6 +65,7 @@ class GrifoModel extends CI_Model {
 			 }else{
 				 echo json_encode('Éxito'); 
 			 }   
+			 */
 	  }
 	}
 
