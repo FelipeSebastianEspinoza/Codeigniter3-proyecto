@@ -1,7 +1,7 @@
  
 	<p>
-		<img name="usaMap" src="<?php echo base_url() ?>assets/images/mapa.jpg" usemap="#m_usaMap" width="100%" border="0" draggable="false">
-	</p>
+		<img name="usaMap" src="<?php echo base_url() ?>assets/images/mapa.jpg" usemap="#m_usaMap" width="678px" height= "506px" border="0" draggable="false">
+	</p>                                                                        
 
 	<map name="m_usaMap">
 

@@ -24,4 +24,3 @@ class autentificarModel extends CI_Model {
 	 
 	 
 }
-?> 
