@@ -13,6 +13,11 @@ class GrifoModel extends CI_Model {
        $sql = $this->db->get('grifo');
        return $sql->result();
 	}
+	public function getGrifoEspecifico($id) 
+	{
+	   $sql = $this->db->get_where('grifo', array('id_grifo' => $id));
+       return $sql->result();
+	}
 	public function insertarGrifo($datos) 
 	{
         

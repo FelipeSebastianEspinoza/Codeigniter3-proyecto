@@ -28,34 +28,37 @@
         </tr>
     </tfoot>
     <tbody>
-        <?php
-        foreach ($grifos as $grifo) {
-            echo "<tr>";
-            echo "<td>" . $grifo->nombre_grifo . "</td>";
-            echo "<td>" . $grifo->estado_grifo . "</td>";
-            echo "<td>" . $grifo->descripcion_grifo . "</td>";
-            echo "<td>" . $grifo->comentario_grifo . "</td>";
-
-            echo "<td>" . '<center><a href="#" class="btn btn-success btn-circle">
-        <i class="fas fa-image"></i>
-        </a></center>' . "</td>";
-
-            /*
-        echo "<td>". '<center><a href="#" class="btn btn-warning btn-circle">
-        <i class="fas fa-times"></i>
-        </a></center>' ."</td>";
-*/
-
-
-            echo "<td>" . '<center><a href="#" class="btn btn-info btn-circle">
-                      <i class="fas fa-pen"></i>
-                      </a></center>' . "</td>";
-            echo "<td>" . '<center><a href="#" class="btn btn-danger btn-circle">
-                      <i class="fas fa-trash"></i>
-                      </a></center>' . "</td>";
-            echo "</tr>";
-        }
-        ?>
+        <?php foreach ($grifos as $grifo) { ?>
+            <tr>
+                <td> <?php echo $grifo->nombre_grifo       ?> </td>
+                <td> <?php echo $grifo->estado_grifo       ?> </td>
+                <td> <?php echo $grifo->descripcion_grifo  ?> </td>
+                <td> <?php echo $grifo->comentario_grifo   ?> </td>
+                <?php if ($grifo->imagen_grifo != null) {  ?>
+                    <td>
+                        <center><a href="#" class="btn btn-success btn-circle">
+                                <i class="fas fa-image"></i>
+                            </a></center>
+                    </td>
+                <?php    } else { ?>
+                    <td>
+                        <center><a href="#" class="btn btn-warning btn-circle">
+                                <i class="fas fa-times"></i>
+                            </a></center>
+                    </td>
+                <?php   } ?>
+                <td>
+                    <center><a href="<?php echo site_url('grifo/editar/' . $grifo->id_grifo) ?>" class="btn btn-info btn-circle">
+                            <i class="fas fa-pen"></i>
+                        </a></center>
+                </td>
+                <td>
+                    <center><a href="#" class="btn btn-danger btn-circle">
+                            <i class="fas fa-trash"></i>
+                        </a></center>
+                </td>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>
 
@@ -117,13 +120,13 @@ echo Form_open_multipart('', $attributes);
                     </div>
                     <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="exampleFormControlTextarea1">Descripción</label>
+                            <label for="exampleFormControlTextarea1">Descripción (Opcional)</label>
                             <textarea class="form-control" name="descripcion_grifo" id="descripcion_grifo" rows="3"></textarea>
                             <div class="invalid-feedback" id="inputDescripcionText">
                             </div>
                         </div>
                         <div class="col-sm-6" id="comentario_grifo">
-                            <label for="exampleFormControlTextarea1">Comentario</label>
+                            <label for="exampleFormControlTextarea1">Comentario (Opcional)</label>
                             <textarea class="form-control" name="comentario_grifo" id="comentario_grifo" rows="3"></textarea>
                             <div class="invalid-feedback" id="inputComentarioText">
                             </div>
@@ -131,14 +134,14 @@ echo Form_open_multipart('', $attributes);
                     </div>
                     <div class="form-group row" id="nombre_grifo">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="exampleFormControlTextarea1">Foto</label>
-                            <input type="file" name="image_file" id="image_file" REQUIRED />
+                            <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
+                            <input type="file" name="image_file" id="image_file" />
                             <div class="invalid-feedback" id="inputImagenText">
                             </div>
                         </div>
                     </div>
                     </br>
-                    <p>De clic en el mapa para elegir la ubicación del grifo.</p>
+                    <p>De clic en el mapa para elegir la ubicación del grifo. (Opcional)</p>
 
                     <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-12 mb-6 mb-sm-0">
@@ -174,59 +177,82 @@ echo Form_open_multipart('', $attributes);
             </div>
         </div>
     </div>
- 
+
     <script language="JavaScript" type="text/javascript">
         function point_it(event) {
             pos_x = event.offsetX ? (event.offsetX) : event.pageX - document.getElementById("pointer_div").offsetLeft;
             pos_y = event.offsetY ? (event.offsetY) : event.pageY - document.getElementById("pointer_div").offsetTop;
-            document.pointform.form_x.value = pos_x-12;  
-            document.pointform.form_y.value = pos_y-15;
-            //-15
+            document.pointform.form_x.value = pos_x - 12;
+            document.pointform.form_y.value = pos_y - 15;
         }
     </script>
- 
+
     <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 
     <script>
         $(document).ready(function() {
             $('#upload_form').on('submit', function(e) {
                 e.preventDefault();
-
-                $.ajax({
-                    url: "<?php echo site_url() . '/grifo/ajax_upload' ?>",
-
-                    //base_url() = http://localhost/tutorial/codeigniter  
-                    method: "POST",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function(data) {
-                        document.getElementById("inputNombre").classList.remove("is-invalid");
-                        document.getElementById("inputEstado").classList.remove("is-invalid");
-                        // var json = JSON.parse(data);  
-
-                        $('#uploaded_image').html(data);
-                        window.location.href = "<?php echo site_url('grifo/success') ?>";
-
-                    },
-                    statusCode: {
-                        400: function(xhr) {
+                if ($('#image_file').val() == '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?php echo site_url() . '/grifo/crearGrifoajax' ?>",
+                        data: $(this).serialize(),
+                        success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
                             document.getElementById("inputEstado").classList.remove("is-invalid");
-                            var json = JSON.parse(xhr.responseText);
-                            if (json.nombre_grifo.length != 0) {
-                                document.getElementById("inputNombre").classList.add("is-invalid");
-                                document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
-                            }
-                            if (json.estado_grifo.length != 0) {
-                                document.getElementById("inputEstado").classList.add("is-invalid");
-                                document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
-                            }
-                        }
-                    },
-                });
 
+
+                            window.location.href = "<?php echo site_url('grifo/success') ?>";
+                        },
+                        statusCode: {
+                            400: function(xhr) {
+                                document.getElementById("inputNombre").classList.remove("is-invalid");
+                                document.getElementById("inputEstado").classList.remove("is-invalid");
+                                var json = JSON.parse(xhr.responseText);
+                                if (json.nombre_grifo.length != 0) {
+                                    document.getElementById("inputNombre").classList.add("is-invalid");
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
+                                }
+                                if (json.estado_grifo.length != 0) {
+                                    document.getElementById("inputEstado").classList.add("is-invalid");
+                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
+                                }
+                            }
+                        },
+                    });
+                } else {
+                    $.ajax({
+                        url: "<?php echo site_url() . '/grifo/ajax_upload' ?>",
+                        method: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function(data) {
+                            document.getElementById("inputNombre").classList.remove("is-invalid");
+                            document.getElementById("inputEstado").classList.remove("is-invalid");
+                            // var json = JSON.parse(data);  
+                            $('#uploaded_image').html(data);
+                            window.location.href = "<?php echo site_url('grifo/success') ?>";
+                        },
+                        statusCode: {
+                            400: function(xhr) {
+                                document.getElementById("inputNombre").classList.remove("is-invalid");
+                                document.getElementById("inputEstado").classList.remove("is-invalid");
+                                var json = JSON.parse(xhr.responseText);
+                                if (json.nombre_grifo.length != 0) {
+                                    document.getElementById("inputNombre").classList.add("is-invalid");
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
+                                }
+                                if (json.estado_grifo.length != 0) {
+                                    document.getElementById("inputEstado").classList.add("is-invalid");
+                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
+                                }
+                            }
+                        },
+                    });
+                }
             });
         });
     </script>

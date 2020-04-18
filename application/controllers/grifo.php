@@ -13,7 +13,15 @@ class Grifo extends CI_Controller
 
 	public function crearGrifoajax()
 	{
-		$this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"]);
+		if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+			$datos = array(
+				'nombre_grifo' => $_POST['nombre_grifo'],
+				'estado_grifo' => $_POST['estado_grifo'],
+				'posy_grifo' => $_POST['form_x'],
+				'posx_grifo' => $_POST['form_y']
+			);
+			$this->db->insert('Grifo', $datos);
+		}
 	}
 
 	function menuGrifo()
@@ -49,10 +57,9 @@ class Grifo extends CI_Controller
 
 	function ajax_upload()
 	{
+		$this->load->database('pdo');
 		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
 		} else {
-
-			$this->load->database('pdo');
 			if (isset($_FILES["image_file"]["name"])) {
 				$config['upload_path'] = './assets/upload';
 				$config['allowed_types'] = 'jpg|jpeg|png|gif';
@@ -70,10 +77,87 @@ class Grifo extends CI_Controller
 					);
 					$this->db->insert('Grifo', $datos);
 					/*
-					  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
+                  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
 					  style="display: block; width: 300px; ">';
 					  */
 				}
+			} else {
+				$datos = array(
+					'nombre_grifo' => $_POST['nombre_grifo'],
+					'estado_grifo' => $_POST['estado_grifo'],
+					'posy_grifo' => $_POST['form_x'],
+					'posx_grifo' => $_POST['form_y']
+				);
+				$this->db->insert('Grifo', $datos);
+			}
+		}
+	}
+
+	public function editar($id)
+	{
+		if ($this->session->userdata('is_logged')) {
+			$this->load->model("grifoModel");
+			$grifos = $this->grifoModel->getGrifoEspecifico($id);
+			$grifos = array('grifos' => $grifos);
+			$data = array(
+				'header1' => $this->load->view('headers/headerDatatable'),
+				'sidebar' => $this->load->view('layout/sidebar'),
+				'nav' => $this->load->view('layout/nav'),
+				'contenido' => $this->load->view('layout/grifo/editar', $grifos),
+				'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
+				'footer1' => $this->load->view('footers/footerDatatable')
+			);
+			$this->load->view('dashboard', $data);
+		} else {
+			show_404();
+		}
+	}
+	public function modificarGrifoajax()
+	{
+		if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+			$datos = array(
+				'nombre_grifo' => $_POST['nombre_grifo'],
+				'estado_grifo' => $_POST['estado_grifo'],
+				'posy_grifo' => $_POST['form_x'],
+				'posx_grifo' => $_POST['form_y']
+			);
+			$this->db->insert('Grifo', $datos);
+		}
+	}
+	function modificarajax_upload()
+	{
+		$this->load->database('pdo');
+		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+		} else {
+			if (isset($_FILES["image_file"]["name"])) {
+				$config['upload_path'] = './assets/upload';
+				$config['allowed_types'] = 'jpg|jpeg|png|gif';
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('image_file')) {
+					echo $this->upload->display_errors();
+				} else {
+					$data = $this->upload->data();
+					$datos = array(
+						'imagen_grifo' => $data['file_name'],
+						'nombre_grifo' => $_POST['nombre_grifo'],
+						'estado_grifo' => $_POST['estado_grifo'],
+						'posy_grifo' => $_POST['form_x'],
+						'posx_grifo' => $_POST['form_y']
+					);
+					$this->db->insert('Grifo', $datos);
+					/*
+                  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
+					  style="display: block; width: 300px; ">';
+					  */
+				}
+			} else {
+				$datos = array(
+					'nombre_grifo' => $_POST['nombre_grifo'],
+					'estado_grifo' => $_POST['estado_grifo'],
+					'posy_grifo' => $_POST['form_x'],
+					'posx_grifo' => $_POST['form_y']
+				);
+				$this->db->insert('Grifo', $datos);
 			}
 		}
 	}
