@@ -72,6 +72,8 @@ class Grifo extends CI_Controller
 						'imagen_grifo' => $data['file_name'],
 						'nombre_grifo' => $_POST['nombre_grifo'],
 						'estado_grifo' => $_POST['estado_grifo'],
+						'descripcion_grifo' => $_POST['descripcion_grifo'],
+						'comentario_grifo' => $_POST['comentario_grifo'],
 						'posy_grifo' => $_POST['form_x'],
 						'posx_grifo' => $_POST['form_y']
 					);
@@ -85,6 +87,8 @@ class Grifo extends CI_Controller
 				$datos = array(
 					'nombre_grifo' => $_POST['nombre_grifo'],
 					'estado_grifo' => $_POST['estado_grifo'],
+					'descripcion_grifo' => $_POST['descripcion_grifo'],
+					'comentario_grifo' => $_POST['comentario_grifo'],
 					'posy_grifo' => $_POST['form_x'],
 					'posx_grifo' => $_POST['form_y']
 				);
@@ -118,10 +122,12 @@ class Grifo extends CI_Controller
 			$datos = array(
 				'nombre_grifo' => $_POST['nombre_grifo'],
 				'estado_grifo' => $_POST['estado_grifo'],
+				'descripcion_grifo' => $_POST['descripcion_grifo'],
+				'comentario_grifo' => $_POST['comentario_grifo'],
 				'posy_grifo' => $_POST['form_x'],
-				'posx_grifo' => $_POST['form_y']
+				'posx_grifo' => $_POST['form_y'] 
 			);
-			$this->db->insert('Grifo', $datos);
+			$this->db->update('Grifo', $datos, "id_grifo = 6");
 		}
 	}
 	function modificarajax_upload()
@@ -138,27 +144,31 @@ class Grifo extends CI_Controller
 				} else {
 					$data = $this->upload->data();
 					$datos = array(
+						 
 						'imagen_grifo' => $data['file_name'],
 						'nombre_grifo' => $_POST['nombre_grifo'],
 						'estado_grifo' => $_POST['estado_grifo'],
+						'descripcion_grifo' => $_POST['descripcion_grifo'],
+						'comentario_grifo' => $_POST['comentario_grifo'],
 						'posy_grifo' => $_POST['form_x'],
 						'posx_grifo' => $_POST['form_y']
 					);
-					$this->db->insert('Grifo', $datos);
-					/*
-                  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
-					  style="display: block; width: 300px; ">';
-					  */
+					 
+					$this->db->update('Grifo', $datos, "id_grifo = 6");
 				}
 			} else {
 				$datos = array(
+				 
 					'nombre_grifo' => $_POST['nombre_grifo'],
 					'estado_grifo' => $_POST['estado_grifo'],
+					'descripcion_grifo' => $_POST['descripcion_grifo'],
+					'comentario_grifo' => $_POST['comentario_grifo'],
 					'posy_grifo' => $_POST['form_x'],
 					'posx_grifo' => $_POST['form_y']
 				);
-				$this->db->insert('Grifo', $datos);
+				$this->db->update('Grifo', $datos, "id_grifo = 6");
 			}
 		}
 	}
 }
+   
