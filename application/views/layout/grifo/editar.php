@@ -24,6 +24,7 @@
                         This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                         </br> </br>
                         <div class="form-group row" id="nombre_grifo">
+                        <input type="hidden" id="inputId" name="id_grifo" class="form-control form-control-user" value="<?php echo $grifo->id_grifo ?>">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Nombre</label>
                                 <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user" value="<?php echo $grifo->nombre_grifo ?>">
@@ -169,7 +170,7 @@
                             document.getElementById("inputEstado").classList.remove("is-invalid");
                             // var json = JSON.parse(data);  
                             $('#uploaded_image').html(data);
-                            window.location.href = "<?php echo site_url('grifo/success') ?>";
+                            window.location.href = "<?php echo site_url('grifo/successupdate') ?>";
                         },
                         statusCode: {
                             400: function(xhr) {

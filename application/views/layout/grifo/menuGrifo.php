@@ -52,11 +52,17 @@
                             <i class="fas fa-pen"></i>
                         </a></center>
                 </td>
-                <td>
-                    <center><a href="#" class="btn btn-danger btn-circle">
-                            <i class="fas fa-trash"></i>
-                        </a></center>
-                </td>
+
+                <form id="delete_form">
+                    <input type="hidden" name="id_grifo" value="<?php echo $grifo->id_grifo ?>">
+
+                    <td>
+                        <center><a class="btn btn-danger btn-circle">
+                                <i class="fas fa-trash"></i>
+                            </a></center>
+                        <input type="submit" name="delete" id="delete" value="Delete" class="btn btn-info" />
+                    </td>
+                </form>
             </tr>
         <?php } ?>
     </tbody>
@@ -259,50 +265,70 @@ echo Form_open_multipart('', $attributes);
 
 
 
-<button class="btn btn-default" id="btn-confirm">Confirm</button>
+    <button class="btn btn-default" id="btn-confirm">Confirm</button>
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
-        <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
-      </div>
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+                    <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="alert" role="alert" id="result"></div>
+    <div class="alert" role="alert" id="result"></div>
 
-<script>
-var modalConfirm = function(callback){
-  
-  $("#btn-confirm").on("click", function(){
-    $("#mi-modal").modal('show');
-  });
+    <script>
+        var modalConfirm = function(callback) {
 
-  $("#modal-btn-si").on("click", function(){
-    callback(true);
-    $("#mi-modal").modal('hide');
-  });
-  
-  $("#modal-btn-no").on("click", function(){
-    callback(false);
-    $("#mi-modal").modal('hide');
-  });
-};
+            $("#btn-confirm").on("click", function() {
+                $("#mi-modal").modal('show');
+            });
 
-modalConfirm(function(confirm){
-  if(confirm){
-    //Acciones si el usuario confirma
-    $("#result").html("CONFIRMADO");
-  }else{
-    //Acciones si el usuario no confirma
-    $("#result").html("NO CONFIRMADO");
-  }
-});
-</script>
+            $("#modal-btn-si").on("click", function() {
+                callback(true);
+                $("#mi-modal").modal('hide');
+            });
+
+            $("#modal-btn-no").on("click", function() {
+                callback(false);
+                $("#mi-modal").modal('hide');
+            });
+        };
+
+        modalConfirm(function(confirm) {
+            if (confirm) {
+                //Acciones si el usuario confirma
+                $("#result").html("CONFIRMADO");
+            } else {
+                //Acciones si el usuario no confirma
+                $("#result").html("NO CONFIRMADO");
+            }
+        });
+    </script>
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#delete_form').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "<?php echo site_url() . '/grifo/eliminarGrifo' ?>",
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        window.location.href = "<?php echo site_url('grifo/successdelete') ?>";
+                    },
+                });
+            });
+        });
+    </script>

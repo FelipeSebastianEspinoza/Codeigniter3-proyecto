@@ -54,6 +54,16 @@ class Grifo extends CI_Controller
 		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo grifo con éxito');
 		redirect('grifo/menuGrifo');
 	}
+	public function successupdate()
+	{
+		$this->session->set_flashdata('category_success', 'Se ha actualizado el grifo con éxito');
+		redirect('grifo/menuGrifo');
+	}
+	public function successdelete()
+	{
+		$this->session->set_flashdata('category_success', 'Se ha eliminado el grifo con éxito');
+		redirect('grifo/menuGrifo');
+	}
 
 	function ajax_upload()
 	{
@@ -99,6 +109,7 @@ class Grifo extends CI_Controller
 
 	public function editar($id)
 	{
+		$this->load->database('pdo');
 		if ($this->session->userdata('is_logged')) {
 			$this->load->model("grifoModel");
 			$grifos = $this->grifoModel->getGrifoEspecifico($id);
@@ -116,18 +127,28 @@ class Grifo extends CI_Controller
 			show_404();
 		}
 	}
+	public function eliminarGrifo()
+	{
+		$this->load->database('pdo');
+
+
+		$this->db->where('id_grifo', $_POST['id_grifo']);
+		$this->db->delete('grifo');
+	}
 	public function modificarGrifoajax()
 	{
+		$this->load->database('pdo');
 		if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
 			$datos = array(
+				'id_grifo' => $_POST['id_grifo'],
 				'nombre_grifo' => $_POST['nombre_grifo'],
 				'estado_grifo' => $_POST['estado_grifo'],
 				'descripcion_grifo' => $_POST['descripcion_grifo'],
 				'comentario_grifo' => $_POST['comentario_grifo'],
 				'posy_grifo' => $_POST['form_x'],
-				'posx_grifo' => $_POST['form_y'] 
+				'posx_grifo' => $_POST['form_y']
 			);
-			$this->db->update('Grifo', $datos, "id_grifo = 6");
+			$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
 		}
 	}
 	function modificarajax_upload()
@@ -144,7 +165,7 @@ class Grifo extends CI_Controller
 				} else {
 					$data = $this->upload->data();
 					$datos = array(
-						 
+						'id_grifo' => $_POST['id_grifo'],
 						'imagen_grifo' => $data['file_name'],
 						'nombre_grifo' => $_POST['nombre_grifo'],
 						'estado_grifo' => $_POST['estado_grifo'],
@@ -153,12 +174,12 @@ class Grifo extends CI_Controller
 						'posy_grifo' => $_POST['form_x'],
 						'posx_grifo' => $_POST['form_y']
 					);
-					 
-					$this->db->update('Grifo', $datos, "id_grifo = 6");
+
+					$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
 				}
 			} else {
 				$datos = array(
-				 
+					'id_grifo' => $_POST['id_grifo'],
 					'nombre_grifo' => $_POST['nombre_grifo'],
 					'estado_grifo' => $_POST['estado_grifo'],
 					'descripcion_grifo' => $_POST['descripcion_grifo'],
@@ -166,9 +187,8 @@ class Grifo extends CI_Controller
 					'posy_grifo' => $_POST['form_x'],
 					'posx_grifo' => $_POST['form_y']
 				);
-				$this->db->update('Grifo', $datos, "id_grifo = 6");
+				$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
 			}
 		}
 	}
 }
-   
