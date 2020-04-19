@@ -36,49 +36,73 @@
                 <td> <?php echo $grifo->comentario_grifo   ?> </td>
                 <?php if ($grifo->imagen_grifo != null) {  ?>
                     <td>
-                        <center><a href="#" class="btn btn-success btn-circle">
-                                <i class="fas fa-image"></i>
-                            </a></center>
+                        <center>
+                            <a class="btn btn-success btn-circle" data-toggle="modal" data-target="#logoutModal4" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDelGrifo').src= '<?php echo base_url() . 'assets/upload/' .  $grifo->imagen_grifo ?>'  ">
+                                <i class="fas fa-image" style="color: #fff;"></i>
+                            </a>
+                        </center>
                     </td>
-                <?php    } else { ?>
+                <?php } else { ?>
                     <td>
-                        <center><a href="#" class="btn btn-warning btn-circle">
-                                <i class="fas fa-times"></i>
-                            </a></center>
+                        <center>
+                            <a class="btn btn-warning btn-circle">
+                                <i class="fas fa-times" style="color: #fff;"></i>
+                            </a>
+                        </center>
                     </td>
-                <?php   } ?>
+                <?php } ?>
                 <td>
-                    <center><a href="<?php echo site_url('grifo/editar/' . $grifo->id_grifo) ?>" class="btn btn-info btn-circle">
+                    <center>
+                        <a href="<?php echo site_url('grifo/editar/' . $grifo->id_grifo) ?>" class="btn btn-info btn-circle">
                             <i class="fas fa-pen"></i>
-                        </a></center>
+                        </a>
+                    </center>
                 </td>
-
-                <form id="delete_form">
-                    <input type="hidden" name="id_grifo" value="<?php echo $grifo->id_grifo ?>">
-
-                    <td>
-                        <center><a class="btn btn-danger btn-circle">
-                                <i class="fas fa-trash"></i>
-                            </a></center>
-                        <input type="submit" name="delete" id="delete" value="Delete" class="btn btn-info" />
-                    </td>
-                </form>
+                <td>
+                    <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#logoutModal3" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_id_grifo').value=<?php echo $grifo->id_grifo ?>">
+                        <i class="fas fa-trash" style="color: #fff;"></i>
+                    </a>
+                </td>
             </tr>
         <?php } ?>
     </tbody>
 </table>
 
+<form id="delete_form">
+    <input type="hidden" id="delete_id_grifo" name="id_grifo" value="">
+    <div class="modal fade" id="logoutModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">¿Seguro que quiere eliminar este elemento?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" name="delete" id="delete" value="Eliminar" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
-
-
-
-
-
-
-
-
-
-
+<div class="modal fade" id="logoutModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="text-center">
+                <img id="imagenDelGrifo" class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="" alt="">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -159,7 +183,6 @@ echo Form_open_multipart('', $attributes);
                                	background-repeat: no-repeat; width: 678px; height: 506px;">
                             </div>
                         </div>
-
                     </div>
                     <div class="col-sm-12 mb-6 mb-sm-0">
                         <div>
@@ -184,6 +207,9 @@ echo Form_open_multipart('', $attributes);
         </div>
     </div>
 
+
+<!--..............................................................................................-->
+
     <script language="JavaScript" type="text/javascript">
         function point_it(event) {
             pos_x = event.offsetX ? (event.offsetX) : event.pageX - document.getElementById("pointer_div").offsetLeft;
@@ -192,9 +218,7 @@ echo Form_open_multipart('', $attributes);
             document.pointform.form_y.value = pos_y - 15;
         }
     </script>
-
     <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#upload_form').on('submit', function(e) {
@@ -207,8 +231,6 @@ echo Form_open_multipart('', $attributes);
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
                             document.getElementById("inputEstado").classList.remove("is-invalid");
-
-
                             window.location.href = "<?php echo site_url('grifo/success') ?>";
                         },
                         statusCode: {
@@ -262,61 +284,6 @@ echo Form_open_multipart('', $attributes);
             });
         });
     </script>
-
-
-
-    <button class="btn btn-default" id="btn-confirm">Confirm</button>
-
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="modal-btn-si">Si</button>
-                    <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="alert" role="alert" id="result"></div>
-
-    <script>
-        var modalConfirm = function(callback) {
-
-            $("#btn-confirm").on("click", function() {
-                $("#mi-modal").modal('show');
-            });
-
-            $("#modal-btn-si").on("click", function() {
-                callback(true);
-                $("#mi-modal").modal('hide');
-            });
-
-            $("#modal-btn-no").on("click", function() {
-                callback(false);
-                $("#mi-modal").modal('hide');
-            });
-        };
-
-        modalConfirm(function(confirm) {
-            if (confirm) {
-                //Acciones si el usuario confirma
-                $("#result").html("CONFIRMADO");
-            } else {
-                //Acciones si el usuario no confirma
-                $("#result").html("NO CONFIRMADO");
-            }
-        });
-    </script>
-
-
-
-
-
     <script>
         $(document).ready(function() {
             $('#delete_form').on('submit', function(e) {
