@@ -1,47 +1,50 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {  
-   
+class Dashboard extends CI_Controller
+{
+
 	function __construct()
 	{
-		parent:: __construct();
-		$this->load->library(array('session')); 
-	} 
+		parent::__construct();
+		$this->load->library(array('session'));
+	}
 
-	public function index(){
-		if($this->session->userdata('is_logged')){
+	public function index()
+	{
+		if ($this->session->userdata('is_logged')) {
 			$contenido = "mapa/mapa";
 			$script = "layout/mapa/mapaScript";
-			$this->cargarTemplate($contenido,$script);  
-		}else{
+			$this->cargarTemplate($contenido, $script);
+		} else {
 			show_404();
 		}
 	}
 
-	public function registrarUsuario(){ 
-		if($this->session->userdata('is_logged')){
+	public function registrarUsuario()
+	{
+		if ($this->session->userdata('is_logged')) {
 			$contenido = "registrarUsuario";
 			$script = "";
-			$this->cargarTemplate($contenido,$script);  
-		}else{
+			$this->cargarTemplate($contenido, $script);
+		} else {
 			show_404();
-		} 
-	}  
-  
-	public function cargarTemplate($contenido,$script){
+		}
+	}
+
+	public function cargarTemplate($contenido, $script)
+	{
 		$data = array(
 			'header1' => $this->load->view('headers/header1'),
-			'sidebar' => $this->load->view('layout/sidebar'), 
+			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'contenido' => $this->load->view('layout/'.$contenido), 
+			'contenido' => $this->load->view('layout/' . $contenido),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
-			'footer1' => $this->load->view('footers/footer1') 
+			'footer1' => $this->load->view('footers/footer1')
 		);
-		$this->load->view('dashboard',$data); 
-	    if($script !=""){ 
-			$this->load->view($script); 
-        }	 
+		$this->load->view('dashboard', $data);
+		if ($script != "") {
+			$this->load->view($script);
+		}
 	}
-  
 }

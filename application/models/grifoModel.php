@@ -77,4 +77,3 @@ class GrifoModel extends CI_Model {
 
   
 }
-?> 

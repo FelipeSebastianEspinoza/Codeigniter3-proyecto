@@ -151,4 +151,3 @@ class LoginModel extends CI_Controller {
 
   	 
 }
-?> 

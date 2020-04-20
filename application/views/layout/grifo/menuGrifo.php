@@ -27,7 +27,7 @@
             <th>Eliminar</th>
         </tr>
     </tfoot>
-    <tbody>
+    <tbody> 
         <?php foreach ($grifos as $grifo) { ?>
             <tr>
                 <td> <?php echo $grifo->nombre_grifo       ?> </td>
@@ -37,7 +37,7 @@
                 <?php if ($grifo->imagen_grifo != null) {  ?>
                     <td>
                         <center>
-                            <a class="btn btn-success btn-circle" data-toggle="modal" data-target="#logoutModal4" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDelGrifo').src= '<?php echo base_url() . 'assets/upload/' .  $grifo->imagen_grifo ?>'  ">
+                            <a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModal" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDelGrifo').src= '<?php echo base_url() . 'assets/upload/' .  $grifo->imagen_grifo ?>'  ">
                                 <i class="fas fa-image" style="color: #fff;"></i>
                             </a>
                         </center>
@@ -59,7 +59,7 @@
                     </center>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#logoutModal3" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_id_grifo').value=<?php echo $grifo->id_grifo ?>">
+                    <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_id_grifo').value=<?php echo $grifo->id_grifo ?>">
                         <i class="fas fa-trash" style="color: #fff;"></i>
                     </a>
                 </td>
@@ -70,7 +70,7 @@
 
 <form id="delete_form">
     <input type="hidden" id="delete_id_grifo" name="id_grifo" value="">
-    <div class="modal fade" id="logoutModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -89,7 +89,7 @@
     </div>
 </form>
 
-<div class="modal fade" id="logoutModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="imagenModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -208,7 +208,7 @@ echo Form_open_multipart('', $attributes);
     </div>
 
 
-<!--..............................................................................................-->
+    <!--..............................................................................................-->
 
     <script language="JavaScript" type="text/javascript">
         function point_it(event) {
