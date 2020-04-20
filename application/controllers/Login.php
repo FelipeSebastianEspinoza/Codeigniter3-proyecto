@@ -34,28 +34,5 @@ class Login extends CI_Controller
 	{
 		$this->load->view('usuario/registro');
 	}
-
-
-	/*
-	public function create($data){
- 	if($this->loginModel->validar($_POST["correo_usuario"],$_POST["password_usuario"])==FALSE){
-			$data = array('msg' => validation_errors());
-			$this->load->view('login',$data);
-		}else{  
-			 
-			$data = array(
-				'correo_usuario'=>$_POST["correo_usuario"],
-				'password_usuario'=>$_POST["password_usuario"] 
-			);  
-
-			if(!$this->loginModel->create($data)){
-				$data['msg']='error';
-				$this->load->view('login',$data);
-			}else{ 
-				$data['msg']='exito';
-				$this->load->view('login',$data);
-			}
- 		}  
-	}  
-	*/
+ 
 }

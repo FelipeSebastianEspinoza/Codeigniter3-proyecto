@@ -12,7 +12,10 @@ class Map extends CI_Controller
 
 	function mapaDiv()
 	{
-		$this->load->view('layout/mapa/mapaDiv');
+		$this->load->model("edificioModel");
+		$edificio = $this->edificioModel->getEdificio();
+		$edificio = array('edificio' => $edificio);
+		$this->load->view('layout/mapa/mapaDiv', $edificio);
 	}
 	function fotoDiv()
 	{
@@ -29,4 +32,5 @@ class Map extends CI_Controller
 	{
 		$this->load->view('layout/mapa/fotoGrifoDiv');
 	}
+ 
 }

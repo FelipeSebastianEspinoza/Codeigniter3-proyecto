@@ -19,8 +19,7 @@ class GrifoModel extends CI_Model {
        return $sql->result();
 	}
 	public function insertarGrifo($datos) 
-	{
-        
+	{  
 		$datos = array(
 			'nombre_grifo'=>$datos['nombre_grifo'],
 			'estado_grifo'=>$datos['estado_grifo']
@@ -57,20 +56,6 @@ class GrifoModel extends CI_Model {
 	  else
 	  {
 		  return true;
-		  /*
-	   	  $nombre_grifo = $this->input->post('nombre_grifo'); 
-		  $estado_grifo = $this->input->post('estado_grifo'); 
-
-			$data = array(
-				'nombre_grifo' =>  $nombre_grifo,
-				'estado_grifo' =>  $estado_grifo	
-			);
-			 if(!$this->insertarGrifo($data)){
-				echo json_encode('Error');
-			 }else{
-				 echo json_encode('Éxito'); 
-			 }   
-			 */
 	  }
 	}
 
