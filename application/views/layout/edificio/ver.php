@@ -1,4 +1,7 @@
 <?php foreach ($edificio as $edi) { ?>
+    <?php if ($this->session->flashdata('category_success')) { ?>
+        <div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
+    <?php } ?>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><?php echo $edi->nombre_edificio ?></h1>
@@ -17,23 +20,24 @@
         <div class="col-lg-5 mb-6">
             <div class="card text-black shadow" style="height:100%;">
                 <div class="container">
-                    </br> </br>
+                    </br>
                     <div class="row">
-                        <div class="col">Column: <?php echo $edi->estado_edificio ?></div>
-                        <div class="col">Column: <?php echo $edi->hacinamiento_edificio ?></div>
+                        <div class="col"><b>Estado:</b> <?php echo $edi->estado_edificio ?></div>
+                        <div class="col"><b>Hacinamiento:</b> <?php echo $edi->hacinamiento_edificio ?> %</div>
                         <div class="w-100"></div>
                         </br>
-                        <div class="col">Column: <?php echo $edi->elementos_edificio ?></div>
-                        <div class="col">Column: elemetons </div>
+                        <div class="col"><b>Elementos ya entregados:</b> <?php echo $edi->elementos_edificio ?></div>
+                        <div class="col"><b>Elementos por entregar:</b> <?php echo $edi->elementos_edificio ?> </div>
                     </div>
                     </br>
                     <div class="row">
-                        <div class="col">Column: <?php echo $edi->departamentos_edificio ?></div>
-                        <div class="col">Column: <?php echo $edi->estudiantes_edificio ?></div>
+                        <div class="col"><b>Número de departamentos:</b> <?php echo $edi->departamento_edificio ?></div>
+                        <div class="col"><b>Área total:</b> <?php echo $edi->area_edificio ?>m²</div>
                         <div class="w-100"></div>
                         </br>
-                        <div class="col">Column: <?php echo $edi->funcionarios_edificio ?></div>
-                        <div class="col">Column: <?php echo $edi->area_edificio ?></div>
+                        <div class="col"><b>Cantidad de funcionarios:</b> <?php echo $edi->funcionarios_edificio ?></div>
+                        <div class="col"><b>Cantidad de estudiantes:</b> <?php echo $edi->estudiantes_edificio ?></div>
+                        <div class="col"><b>Cantidad de docentes:</b> <?php echo $edi->docentes_edificio ?></div>
                     </div>
                     </br>
                     <div class="d-flex flex-row-reverse">
