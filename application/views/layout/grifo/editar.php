@@ -55,6 +55,7 @@
                         <div class="form-group row" id="nombre_grifo">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
+                                <label for="exampleFormControlTextarea1">Formatos permitidos-> jpg | jpeg | png | gif.</label>
                                 <input type="file" name="image_file" id="image_file" />
 
                                 <div class="invalid-feedback" id="inputImagenText">

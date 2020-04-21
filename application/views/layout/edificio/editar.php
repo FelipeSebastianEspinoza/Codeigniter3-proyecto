@@ -16,6 +16,8 @@
                 <div class="text-center">
                     <?php echo '<img src="' . base_url() . 'assets/upload/' . $edi->imagen_edificio . '"  style="display: block; width: 100%; ">';  ?>
                 </div>
+                <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
+                <label for="exampleFormControlTextarea1">Formatos permitidos-> jpg | jpeg | png | gif.</label>
                 <input type="file" name="image_file" id="image_file" />
             </div>
         </div>
@@ -134,7 +136,8 @@
                         document.getElementById("inputEstado").classList.remove("is-invalid");
                         // var json = JSON.parse(data);  
                         $('#uploaded_image').html(data);
-                        window.location.href = "<?php echo site_url('edificio/successupdate') ?>";
+                        var $id = document.getElementById("inputId").value;
+                        window.location.href = '<?php echo site_url('edificio/successupdate/') ?>' + $id;
                     },
                     statusCode: {
                         400: function(xhr) {
