@@ -55,7 +55,7 @@
                     </div>
                     </br>
                     <div class="d-flex flex-row">
-                        <input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" />
+                        <input type="submit" name="upload" id="upload" value="Guardar" class="btn btn-info" />
 
                         </a>
                     </div>

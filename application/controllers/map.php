@@ -17,6 +17,13 @@ class Map extends CI_Controller
 		$edificio = array('edificio' => $edificio);
 		$this->load->view('layout/mapa/mapaDiv', $edificio);
 	}
+	function mapaDivEstado()
+	{
+		$this->load->model("edificioModel");
+		$edificio = $this->edificioModel->getEdificio();
+		$edificio = array('edificio' => $edificio);
+		$this->load->view('layout/mapa/mapaDivEstado', $edificio);
+	}
 	function fotoDiv()
 	{
 		$this->load->view('layout/mapa/fotoDiv');

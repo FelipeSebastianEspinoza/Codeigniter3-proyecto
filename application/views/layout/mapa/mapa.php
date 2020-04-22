@@ -16,6 +16,10 @@
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 "></i>
               Edificios
             </a>
+            <a class="dropdown-item" id="edificiosEstado" style="cursor: pointer;">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 "></i>
+              Edificios Estado
+            </a>
             <a class="dropdown-item" id="grifos" style="cursor: pointer;">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 "></i>
               Grifos
