@@ -29,7 +29,7 @@ class GrifoModel extends CI_Model {
 		}
 		return true; 
 	}
-	public function validarGrifo(string $nombre_grifo, string $estado_grifo)
+	public function validarGrifo(string $nombre_grifo)
 	{ 
 	  $this->load->library('form_validation');   
 	  $this->form_validation->set_rules('nombre_grifo', 'nombre', 'required|trim',
@@ -37,18 +37,14 @@ class GrifoModel extends CI_Model {
 			  'required'      => 'Debes escribir un %s.' 
 	  )
       ); 
-	  $this->form_validation->set_rules('estado_grifo', 'estado', 'required|trim',
-	  array(
-			  'required'      => 'Debes escribir un %s.' 
-	  )
-      ); 
+ 
 
      $this->form_validation->set_error_delimiters('', '');  
 	  if ($this->form_validation->run() == FALSE)
 	  { 
 		 $errors = array(
-			 'nombre_grifo'=>form_error('nombre_grifo'),
-			 'estado_grifo'=>form_error('estado_grifo')
+			 'nombre_grifo'=>form_error('nombre_grifo') 
+			 
 		 );
 	    echo json_encode($errors);
 		$this->output->set_status_header(400);

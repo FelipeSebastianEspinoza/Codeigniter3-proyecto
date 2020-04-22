@@ -24,16 +24,28 @@
                         This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                         </br> </br>
                         <div class="form-group row" id="nombre_grifo">
-                        <input type="hidden" id="inputId" name="id_grifo" class="form-control form-control-user" value="<?php echo $grifo->id_grifo ?>">
+                            <input type="hidden" id="inputId" name="id_grifo" class="form-control form-control-user" value="<?php echo $grifo->id_grifo ?>">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Nombre</label>
                                 <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user" value="<?php echo $grifo->nombre_grifo ?>">
                                 <div class="invalid-feedback" id="inputNombreText">
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-sm-6" id="estado_grifo">
-                                <label for="exampleFormControlTextarea1">Estado</label>
-                                <input type="text" id="inputEstado" name="estado_grifo" class="form-control form-control-user" value="<?php echo $grifo->estado_grifo ?>">
+                                <label for="exampleFormControlTextarea1">Seleccione un estado</label>
+                                </br>
+                                <?php if ($grifo->estado_grifo != 'Pendiente') {
+                                ?>
+                                    <input type="radio" id="Funcionando" name="estado_grifo" value="Funcionando" checked>
+                                    <label for="Funcionando">Funcionando</label><br>
+                                    <input type="radio" id="Pendiente" name="estado_grifo" value="Pendiente">
+                                    <label for="Pendiente">Pendiente</label><br>
+                                <?php  } else {   ?>
+                                    <input type="radio" id="Funcionando" name="estado_grifo" value="Funcionando">
+                                    <label for="Funcionando">Funcionando</label><br>
+                                    <input type="radio" id="Pendiente" name="estado_grifo" value="Pendiente" checked>
+                                    <label for="Pendiente">Pendiente</label><br>
+                                <?php   }   ?>
                                 <div class="invalid-feedback" id="inputEstadoText">
                                 </div>
                             </div>
@@ -64,15 +76,15 @@
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <?php if ($grifo->imagen_grifo == null) { ?>
                                     <label for="exampleFormControlTextarea1">Sin imagen</label>
- 
+
                                 <?php  } else {    ?>
                                     <label for="exampleFormControlTextarea1">Imagen actual</label>
-                                <?php echo '<img src="' . base_url() . 'assets/upload/' . $grifo->imagen_grifo . '"
+                                    <?php echo '<img src="' . base_url() . 'assets/upload/' . $grifo->imagen_grifo . '"
 					                         style="display: block; width: 300px; ">';  ?>
-                                <div class="invalid-feedback" id="inputImagenText">
-                                </div>
+                                    <div class="invalid-feedback" id="inputImagenText">
+                                    </div>
                                 <?php   } ?>
- 
+
                             </div>
                         </div>
                         </br>
@@ -93,9 +105,9 @@
                         <div class="col-sm-12 mb-6 mb-sm-0">
                             <div>
                                 Posición X->
-                                <input type="text" name="form_x" size="4" value="<?php echo $grifo->posx_grifo ?>" />
+                                <input type="text" name="form_x" size="4" value="<?php echo $grifo->posy_grifo ?>" />
                                 Posición Y->
-                                <input type="text" name="form_y" size="4" value="<?php echo $grifo->posy_grifo ?>" />
+                                <input type="text" name="form_y" size="4" value="<?php echo $grifo->posx_grifo ?>" />
                             </div>
                         </div>
                         </br>
@@ -137,7 +149,7 @@
                         data: $(this).serialize(),
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
-                            document.getElementById("inputEstado").classList.remove("is-invalid");
+                  
 
 
                             window.location.href = "<?php echo site_url('grifo/success') ?>";
@@ -145,16 +157,13 @@
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-                                document.getElementById("inputEstado").classList.remove("is-invalid");
+                     
                                 var json = JSON.parse(xhr.responseText);
                                 if (json.nombre_grifo.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
                                     document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
                                 }
-                                if (json.estado_grifo.length != 0) {
-                                    document.getElementById("inputEstado").classList.add("is-invalid");
-                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
-                                }
+ 
                             }
                         },
                     });
@@ -168,7 +177,7 @@
                         processData: false,
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
-                            document.getElementById("inputEstado").classList.remove("is-invalid");
+                         
                             // var json = JSON.parse(data);  
                             $('#uploaded_image').html(data);
                             window.location.href = "<?php echo site_url('grifo/successupdate') ?>";
@@ -176,16 +185,13 @@
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-                                document.getElementById("inputEstado").classList.remove("is-invalid");
+                             
                                 var json = JSON.parse(xhr.responseText);
                                 if (json.nombre_grifo.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
                                     document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
                                 }
-                                if (json.estado_grifo.length != 0) {
-                                    document.getElementById("inputEstado").classList.add("is-invalid");
-                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
-                                }
+ 
                             }
                         },
                     });

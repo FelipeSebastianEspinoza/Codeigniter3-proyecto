@@ -38,16 +38,7 @@
 	<script src="<?php echo base_url() ?>assets/vendor/datatables/buttons.html5.min.js"></script>
 	<script src="<?php echo base_url() ?>assets/vendor/datatables/buttons.print.min.js"></script>
  
-<script>
-$(document).ready(function() {
-    $('#dataTable1').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} );
-</script>
+ 
 
 
 

@@ -13,7 +13,7 @@ class Grifo extends CI_Controller
 
 	public function crearGrifoajax()
 	{
-		if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+		if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"])) {
 			$datos = array(
 				'nombre_grifo' => $_POST['nombre_grifo'],
 				'estado_grifo' => $_POST['estado_grifo'],
@@ -68,7 +68,7 @@ class Grifo extends CI_Controller
 	function ajax_upload()
 	{
 		$this->load->database('pdo');
-		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"])) {
 		} else {
 			if (isset($_FILES["image_file"]["name"])) {
 				$config['upload_path'] = './assets/upload';
@@ -154,7 +154,7 @@ class Grifo extends CI_Controller
 	function modificarajax_upload()
 	{
 		$this->load->database('pdo');
-		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"], $_POST["estado_grifo"])) {
+		if (!$this->GrifoModel->validarGrifo($_POST["nombre_grifo"])) {
 		} else {
 			if (isset($_FILES["image_file"]["name"])) {
 				$config['upload_path'] = './assets/upload';

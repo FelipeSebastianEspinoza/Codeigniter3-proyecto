@@ -27,11 +27,18 @@
             <th>Eliminar</th>
         </tr>
     </tfoot>
-    <tbody> 
+    <tbody>
         <?php foreach ($grifos as $grifo) { ?>
             <tr>
-                <td> <?php echo $grifo->nombre_grifo       ?> </td>
-                <td> <?php echo $grifo->estado_grifo       ?> </td>
+                <td> <?php echo $grifo->nombre_grifo ?> </td>
+                <td>
+                    <?php
+                    if ($grifo->estado_grifo == 'Pendiente') { ?>
+                        <p class="text-danger"> <?php echo $grifo->estado_grifo;   ?> </p>
+                    <?php     } else { ?>
+                        <p class="text-success"> <?php echo $grifo->estado_grifo;   ?> </p>
+                    <?php    } ?>
+                </td>
                 <td> <?php echo $grifo->descripcion_grifo  ?> </td>
                 <td> <?php echo $grifo->comentario_grifo   ?> </td>
                 <?php if ($grifo->imagen_grifo != null) {  ?>
@@ -136,27 +143,29 @@ echo Form_open_multipart('', $attributes);
                     </br> </br>
                     <div class="form-group row" id="nombre_grifo">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="exampleFormControlTextarea1">Nombre</label>
+                            <label for="exampleFormControlTextarea1"><b>Nombre</b></label>
                             <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user" placeholder="Escriba el nombre...">
                             <div class="invalid-feedback" id="inputNombreText">
                             </div>
                         </div>
                         <div class="col-sm-6" id="estado_grifo">
-                            <label for="exampleFormControlTextarea1">Estado</label>
-                            <input type="text" id="inputEstado" name="estado_grifo" class="form-control form-control-user" placeholder="Escriba el estado...">
-                            <div class="invalid-feedback" id="inputEstadoText">
-                            </div>
+                            <label for="exampleFormControlTextarea1"><b>Seleccione un estado</b></label>
+                            </br>
+                            <input type="radio" id="Funcionando" name="estado_grifo" value="Funcionando">
+                            <label for="Funcionando">Funcionando</label><br>
+                            <input type="radio" id="Pendiente" name="estado_grifo" value="Pendiente" checked>
+                            <label for="Pendiente">Pendiente</label><br>
                         </div>
                     </div>
                     <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="exampleFormControlTextarea1">Descripción (Opcional)</label>
+                            <label for="exampleFormControlTextarea1"><b>Descripción (Opcional)</b></label>
                             <textarea class="form-control" name="descripcion_grifo" id="descripcion_grifo" rows="3"></textarea>
                             <div class="invalid-feedback" id="inputDescripcionText">
                             </div>
                         </div>
                         <div class="col-sm-6" id="comentario_grifo">
-                            <label for="exampleFormControlTextarea1">Comentario (Opcional)</label>
+                            <label for="exampleFormControlTextarea1"><b>Comentario (Opcional)</b></label>
                             <textarea class="form-control" name="comentario_grifo" id="comentario_grifo" rows="3"></textarea>
                             <div class="invalid-feedback" id="inputComentarioText">
                             </div>
@@ -164,14 +173,14 @@ echo Form_open_multipart('', $attributes);
                     </div>
                     <div class="form-group row" id="nombre_grifo">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
+                            <label for="exampleFormControlTextarea1"><b>Foto (Opcional)</b></label>
                             <input type="file" name="image_file" id="image_file" />
                             <div class="invalid-feedback" id="inputImagenText">
                             </div>
                         </div>
                     </div>
                     </br>
-                    <p>De clic en el mapa para elegir la ubicación del grifo. (Opcional)</p>
+                    <p><b>De clic en el mapa para elegir la ubicación del grifo. (Opcional)</b></p>
 
                     <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-12 mb-6 mb-sm-0">
@@ -230,22 +239,19 @@ echo Form_open_multipart('', $attributes);
                         data: $(this).serialize(),
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
-                            document.getElementById("inputEstado").classList.remove("is-invalid");
+
                             window.location.href = "<?php echo site_url('grifo/success') ?>";
                         },
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-                                document.getElementById("inputEstado").classList.remove("is-invalid");
+
                                 var json = JSON.parse(xhr.responseText);
                                 if (json.nombre_grifo.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
                                     document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
                                 }
-                                if (json.estado_grifo.length != 0) {
-                                    document.getElementById("inputEstado").classList.add("is-invalid");
-                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
-                                }
+
                             }
                         },
                     });
@@ -259,7 +265,7 @@ echo Form_open_multipart('', $attributes);
                         processData: false,
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
-                            document.getElementById("inputEstado").classList.remove("is-invalid");
+
                             // var json = JSON.parse(data);  
                             $('#uploaded_image').html(data);
                             window.location.href = "<?php echo site_url('grifo/success') ?>";
@@ -267,16 +273,13 @@ echo Form_open_multipart('', $attributes);
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-                                document.getElementById("inputEstado").classList.remove("is-invalid");
+
                                 var json = JSON.parse(xhr.responseText);
                                 if (json.nombre_grifo.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
                                     document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
                                 }
-                                if (json.estado_grifo.length != 0) {
-                                    document.getElementById("inputEstado").classList.add("is-invalid");
-                                    document.getElementById("inputEstadoText").innerHTML = json.estado_grifo;
-                                }
+
                             }
                         },
                     });
@@ -296,6 +299,38 @@ echo Form_open_multipart('', $attributes);
                         window.location.href = "<?php echo site_url('grifo/successdelete') ?>";
                     },
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#dataTable1').DataTable({
+                "order": [[ 1, "desc" ]],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3]
+                        }
+                    }
+                ]
             });
         });
     </script>
