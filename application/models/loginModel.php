@@ -59,6 +59,7 @@ class LoginModel extends CI_Controller {
 		   exit;
 		  }
 			$data = array(
+				'id_usuario' => $res->id_usuario,
 				'correo_usuario' => $res->correo_usuario,
 				'nombre_usuario' => $res->nombre_usuario,
 				'tipo_usuario' => $res->tipo_usuario, 
