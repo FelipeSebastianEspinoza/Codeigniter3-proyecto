@@ -35,7 +35,7 @@ class Edificio extends CI_Controller
 	public function editar($id)
 	{
 		$this->load->database('pdo');
-		if ($this->session->userdata('is_logged')) {
+    	 if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    
 			$this->load->model("edificioModel");
 			$edificio = $this->edificioModel->getEdificioEspecifico($id);
 			$edificio = array('edificio' => $edificio);

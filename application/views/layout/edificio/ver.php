@@ -41,9 +41,11 @@
                     </div>
                     </br>
                     <div class="d-flex flex-row-reverse">
-                        <a href="<?php echo site_url('edificio/editar/' . $edi->id_edificio) ?>" class="btn btn-info btn-circle">
-                            <i class="fas fa-pen"></i>
-                        </a>
+                        <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+                            <a href="<?php echo site_url('edificio/editar/' . $edi->id_edificio) ?>" class="btn btn-info btn-circle">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        <?php  } ?>
                     </div>
                 </div>
             </div>

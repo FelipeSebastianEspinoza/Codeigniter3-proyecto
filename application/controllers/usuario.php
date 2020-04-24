@@ -108,11 +108,9 @@ class Usuario extends CI_Controller
 		$this->session->set_flashdata('category_success', 'Se ha actualizado correctamente');
 		$this->verUsuario($id);
 	}
-
-
 	function verUsuarioPrivilegios()
 	{ 
-		if ($this->session->userdata('is_logged')) {
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
 			$id = $this->session->id_usuario;
 			$usuario = $this->usuarioModel->getUsuarioEspecifico($id);
 			$usuario = array('usuario' => $usuario);
@@ -123,7 +121,7 @@ class Usuario extends CI_Controller
 	}
 	public function menuPrivilegios($usuario)
 	{ 
-	 
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
@@ -133,11 +131,15 @@ class Usuario extends CI_Controller
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
 		$this->load->view('dashboard', $data);
+	} else {
+		show_404();
+	}
 	}
 	public function privilegios() 
 	{
+		
 		$this->load->database('pdo');
-		if ($this->session->userdata('is_logged')) {
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
 			$usuario = $this->usuarioModel->getUsuario();
 			$usuario = array('usuario' => $usuario);
 			$data = array(
@@ -153,8 +155,47 @@ class Usuario extends CI_Controller
 			show_404();
 		}
 	}
-
-
-
-
+	public function eliminarUsuario()
+	{
+		$this->load->database('pdo');
+		$this->db->where('id_usuario', $_POST['id_usuario']);
+		$this->db->delete('usuario');
+	}
+	public function subirUsuario()
+	{
+		$this->load->database('pdo');
+		 
+			$datos = array(
+				'tipo_usuario' => '1',
+			);
+			$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
+		 
+	}
+	public function bajarUsuario()
+	{
+		$this->load->database('pdo');
+		 
+			$datos = array(
+				'tipo_usuario' => '0',
+			);
+			$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
+		 
+	}
+	public function successdelete()
+	{
+		$this->session->set_flashdata('category_success', 'Se ha eliminado el usuario con éxito');
+		redirect('usuario/privilegios');
+	}
+	
+	public function successsubir()
+	{
+		$this->session->set_flashdata('category_success', 'El usuario ahora es administrador');
+		redirect('usuario/privilegios');
+	}
+	public function successbajar()
+	{
+		$this->session->set_flashdata('category_success', 'El administrador ahora es usuario');
+		redirect('usuario/privilegios');
+	}
+ 
 }

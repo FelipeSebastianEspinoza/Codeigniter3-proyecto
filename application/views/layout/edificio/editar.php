@@ -55,9 +55,9 @@
                     </div>
                     </br>
                     <div class="d-flex flex-row">
-                        <input type="submit" name="upload" id="upload" value="Guardar" class="btn btn-info" />
-
-                        </a>
+                        <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+                            <input type="submit" name="upload" id="upload" value="Guardar" class="btn btn-info" />
+                        <?php   }      ?>
                     </div>
                 </div>
             </div>
