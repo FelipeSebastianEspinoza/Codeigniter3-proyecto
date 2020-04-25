@@ -21,11 +21,11 @@
                     </br>
                     <div class="row">
                         <div class="col"><b>Nombre usuario:</b> <?php echo $usu->nombre_usuario ?></div>
-                        <div class="col"><b>Apellido usuario:</b> <?php echo $usu->apellido_usuario ?> %</div>
+                        <div class="col"><b>Apellido usuario:</b> <?php echo $usu->apellido_usuario ?></div>
                         <div class="w-100"></div>
                         </br>
                         <div class="col"><b>Correo usuario:</b> <?php echo $usu->correo_usuario ?></div>
-                        <div class="col"><b>Contraseña usuario:</b> <?php echo $usu->password_usuario ?> </div>
+                       
                  
  
                     </div>

@@ -142,8 +142,7 @@
        <li class="nav-item dropdown no-arrow">
          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $this->session->nombre_usuario ?></span>
-
-           <img class="img-profile rounded-circle" src="https://vignette.wikia.nocookie.net/lossimpson/images/b/bd/Homer_Simpson.png/revision/latest/top-crop/width/360/height/450?cb=20100522180809&path-prefix=es">
+           <?php echo '<img class="img-profile rounded-circle" src="' . base_url() . 'assets/upload/' . $this->session->imagen_usuario . '"   >';  ?>
          </a>
          <!-- Dropdown - User Information -->
          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

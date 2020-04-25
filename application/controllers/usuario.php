@@ -55,7 +55,7 @@ class Usuario extends CI_Controller
 	public function modificarUsuarioajax()
 	{
 		$this->load->database('pdo');
-		if ($this->usuarioModel->validarUsuario($_POST["nombre_usuario"])) {
+		if ($this->usuarioModel->validarUsuario($_POST["nombre_usuario"], $_POST["apellido_usuario"], $_POST["correo_usuario"], $_POST["password_usuario"], $_POST["passconf"])) {
 			$datos = array(
 				'nombre_usuario' => $_POST['nombre_usuario'],
 				'apellido_usuario' => $_POST['apellido_usuario'],
@@ -109,7 +109,7 @@ class Usuario extends CI_Controller
 		$this->verUsuario($id);
 	}
 	function verUsuarioPrivilegios()
-	{ 
+	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
 			$id = $this->session->id_usuario;
 			$usuario = $this->usuarioModel->getUsuarioEspecifico($id);
@@ -120,24 +120,24 @@ class Usuario extends CI_Controller
 		}
 	}
 	public function menuPrivilegios($usuario)
-	{ 
-		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
-		$data = array(
-			'header1' => $this->load->view('headers/headerDatatable'),
-			'sidebar' => $this->load->view('layout/sidebar'),
-			'nav' => $this->load->view('layout/nav'),
-			'contenido' => $this->load->view('usuario/ver', $usuario),
-			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
-			'footer1' => $this->load->view('footers/footerDatatable')
-		);
-		$this->load->view('dashboard', $data);
-	} else {
-		show_404();
-	}
-	}
-	public function privilegios() 
 	{
-		
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
+			$data = array(
+				'header1' => $this->load->view('headers/headerDatatable'),
+				'sidebar' => $this->load->view('layout/sidebar'),
+				'nav' => $this->load->view('layout/nav'),
+				'contenido' => $this->load->view('usuario/ver', $usuario),
+				'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
+				'footer1' => $this->load->view('footers/footerDatatable')
+			);
+			$this->load->view('dashboard', $data);
+		} else {
+			show_404();
+		}
+	}
+	public function privilegios()
+	{
+
 		$this->load->database('pdo');
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario == '2') {
 			$usuario = $this->usuarioModel->getUsuario();
@@ -164,29 +164,27 @@ class Usuario extends CI_Controller
 	public function subirUsuario()
 	{
 		$this->load->database('pdo');
-		 
-			$datos = array(
-				'tipo_usuario' => '1',
-			);
-			$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
-		 
+
+		$datos = array(
+			'tipo_usuario' => '1',
+		);
+		$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
 	}
 	public function bajarUsuario()
 	{
 		$this->load->database('pdo');
-		 
-			$datos = array(
-				'tipo_usuario' => '0',
-			);
-			$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
-		 
+
+		$datos = array(
+			'tipo_usuario' => '0',
+		);
+		$this->db->update('Usuario', $datos, array('id_usuario' => $_POST["id_usuario"]));
 	}
 	public function successdelete()
 	{
 		$this->session->set_flashdata('category_success', 'Se ha eliminado el usuario con éxito');
 		redirect('usuario/privilegios');
 	}
-	
+
 	public function successsubir()
 	{
 		$this->session->set_flashdata('category_success', 'El usuario ahora es administrador');
@@ -197,5 +195,4 @@ class Usuario extends CI_Controller
 		$this->session->set_flashdata('category_success', 'El administrador ahora es usuario');
 		redirect('usuario/privilegios');
 	}
- 
 }

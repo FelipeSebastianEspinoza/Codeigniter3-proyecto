@@ -1,9 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
+ 
 class Grifo extends CI_Controller
 {
-
 	function __construct()
 	{
 		parent::__construct();
@@ -125,6 +124,8 @@ class Grifo extends CI_Controller
 			} else {
 				show_404();
 			}
+		} else {
+			show_404();
 		}
 	}
 	public function eliminarGrifo()
