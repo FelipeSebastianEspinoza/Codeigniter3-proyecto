@@ -79,6 +79,7 @@ class Edificio extends CI_Controller
 			if (isset($_FILES["image_file"]["name"])) {
 				$config['upload_path'] = './assets/upload';
 				$config['allowed_types'] = 'jpg|jpeg|png|gif';
+				$config['max_size'] = 1000;
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload('image_file')) {
 					echo $this->upload->display_errors();

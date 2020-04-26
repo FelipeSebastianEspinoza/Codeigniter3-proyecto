@@ -42,6 +42,9 @@
           <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
             <a class="collapse-item" href="<?php echo site_url('grifo/menugrifo'); ?>">Gestionar Grifos</a>
           <?php   }   ?>
+          <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+            <a class="collapse-item" href="<?php echo site_url('redhumeda/ver'); ?>">Gestionar Redes Húmedas</a>
+          <?php   }   ?>
           <a class="collapse-item" href="cards.html">Cards</a>
         </div>
       </div>
