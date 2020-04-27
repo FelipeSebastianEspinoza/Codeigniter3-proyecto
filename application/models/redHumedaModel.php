@@ -13,6 +13,11 @@ class RedHumedaModel extends CI_Model {
        $sql = $this->db->get('redhumeda');
        return $sql->result();
 	}
+	public function getEdificio() 
+	{
+       $sql = $this->db->get('edificio');
+       return $sql->result();
+	}
 	public function getRedHumedaEspecifico($id) 
 	{
 	   $sql = $this->db->get_where('redhumeda', array('id_redhumeda' => $id));

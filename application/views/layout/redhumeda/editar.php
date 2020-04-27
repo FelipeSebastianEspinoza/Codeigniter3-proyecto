@@ -1,8 +1,8 @@
-<h1>Modificar grifo</h1>
+<h1>Modificar Red Húmeda</h1>
 
 
 
-<?php foreach ($grifos as $grifo) { ?>
+<?php foreach ($redhumeda as $red) { ?>
 
     <!--..............................................................................................-->
     <?php
@@ -15,7 +15,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Accordion -->
             <a class="d-block card-header py-3" aria-expanded="true" aria-controls="collapseCardExample">
-                <h6 class="m-0 font-weight-bold text-primary">Modificar Grifo</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Modificar Red Húmeda</h6>
             </a>
             <!-- Card Content - Collapse -->
             <div id="collapseCardExample">
@@ -23,27 +23,27 @@
                     <div>
                         This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                         </br> </br>
-                        <div class="form-group row" id="nombre_grifo">
-                            <input type="hidden" id="inputId" name="id_grifo" class="form-control form-control-user" value="<?php echo $grifo->id_grifo ?>">
+                        <div class="form-group row" id="nombre_redhumeda">
+                            <input type="hidden" id="inputId" name="id_redhumeda" class="form-control form-control-user" value="<?php echo $red->id_redhumeda ?>">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Nombre</label>
-                                <input type="text" id="inputNombre" name="nombre_grifo" class="form-control form-control-user" value="<?php echo $grifo->nombre_grifo ?>">
+                                <input type="text" id="inputNombre" name="nombre_redhumeda" class="form-control form-control-user" value="<?php echo $red->nombre_redhumeda ?>">
                                 <div class="invalid-feedback" id="inputNombreText">
                                 </div>
                             </div> 
-                            <div class="col-sm-6" id="estado_grifo">
+                            <div class="col-sm-6" id="estado_redhumeda">
                                 <label for="exampleFormControlTextarea1">Seleccione un estado</label>
                                 </br>
-                                <?php if ($grifo->estado_grifo != 'Pendiente') {
+                                <?php if ($red->estado_redhumeda != 'Pendiente') {
                                 ?>
-                                    <input type="radio" id="Funcionando" name="estado_grifo" value="Funcionando" checked>
+                                    <input type="radio" id="Funcionando" name="estado_redhumeda" value="Funcionando" checked>
                                     <label for="Funcionando">Funcionando</label><br>
-                                    <input type="radio" id="Pendiente" name="estado_grifo" value="Pendiente">
+                                    <input type="radio" id="Pendiente" name="estado_redhumeda" value="Pendiente">
                                     <label for="Pendiente">Pendiente</label><br>
                                 <?php  } else {   ?>
-                                    <input type="radio" id="Funcionando" name="estado_grifo" value="Funcionando">
+                                    <input type="radio" id="Funcionando" name="estado_redhumeda" value="Funcionando">
                                     <label for="Funcionando">Funcionando</label><br>
-                                    <input type="radio" id="Pendiente" name="estado_grifo" value="Pendiente" checked>
+                                    <input type="radio" id="Pendiente" name="estado_redhumeda" value="Pendiente" checked>
                                     <label for="Pendiente">Pendiente</label><br>
                                 <?php   }   ?>
                                 <div class="invalid-feedback" id="inputEstadoText">
@@ -52,19 +52,13 @@
                         </div>
                         <div class="form-group row" id="nombre_usuario">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="exampleFormControlTextarea1">Descripción (Opcional)</label>
-                                <textarea class="form-control" name="descripcion_grifo" id="descripcion_grifo" rows="3"><?php echo $grifo->descripcion_grifo ?></textarea>
+                                <label for="exampleFormControlTextarea1">Ubicación (Opcional)</label>
+                                <textarea class="form-control" name="ubicacion_redhumeda" id="ubicacion_redhumeda" rows="3"><?php echo $red->ubicacion_redhumeda ?></textarea>
                                 <div class="invalid-feedback" id="inputDescripcionText">
                                 </div>
                             </div>
-                            <div class="col-sm-6" id="comentario_grifo">
-                                <label for="exampleFormControlTextarea1">Comentario (Opcional)</label>
-                                <textarea class="form-control" name="comentario_grifo" id="comentario_grifo" rows="3"><?php echo $grifo->comentario_grifo ?></textarea>
-                                <div class="invalid-feedback" id="inputComentarioText">
-                                </div>
-                            </div>
                         </div>
-                        <div class="form-group row" id="nombre_grifo">
+                        <div class="form-group row" id="nombre_redhumeda">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
                                 <label for="exampleFormControlTextarea1">Formatos permitidos-> jpg | jpeg | png | gif.</label>
@@ -74,12 +68,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <?php if ($grifo->imagen_grifo == null) { ?>
+                                <?php if ($red->imagen_redhumeda == null) { ?>
                                     <label for="exampleFormControlTextarea1">Sin imagen</label>
 
                                 <?php  } else {    ?>
                                     <label for="exampleFormControlTextarea1">Imagen actual</label>
-                                    <?php echo '<img src="' . base_url() . 'assets/upload/' . $grifo->imagen_grifo . '"
+                                    <?php echo '<img src="' . base_url() . 'assets/upload/' . $red->imagen_redhumeda . '"
 					                         style="display: block; width: 300px; ">';  ?>
                                     <div class="invalid-feedback" id="inputImagenText">
                                     </div>
@@ -88,7 +82,7 @@
                             </div>
                         </div>
                         </br>
-                        <p>De clic en el mapa para elegir la ubicación del grifo. (Opcional)</p>
+                        <p>De clic en el mapa para elegir la ubicación de la red húmeda. (Opcional)</p>
 
                         <div class="form-group row" id="nombre_usuario">
                             <div class="col-sm-12 mb-6 mb-sm-0">
@@ -105,9 +99,9 @@
                         <div class="col-sm-12 mb-6 mb-sm-0">
                             <div>
                                 Posición X->
-                                <input type="text" name="form_x" size="4" value="<?php echo $grifo->posy_grifo ?>" />
+                                <input type="text" name="form_x" size="4" value="<?php echo $red->posy_redhumeda ?>" />
                                 Posición Y->
-                                <input type="text" name="form_y" size="4" value="<?php echo $grifo->posx_grifo ?>" />
+                                <input type="text" name="form_y" size="4" value="<?php echo $red->posx_redhumeda ?>" />
                             </div>
                         </div>
                         </br>
@@ -145,23 +139,23 @@
                 if ($('#image_file').val() == '') {
                     $.ajax({
                         type: 'POST',
-                        url: "<?php echo site_url() . '/grifo/modificarGrifoajax' ?>",
+                        url: "<?php echo site_url() . '/redhumeda/modificarRedHumedaajax' ?>",
                         data: $(this).serialize(),
                         success: function(data) {
                             document.getElementById("inputNombre").classList.remove("is-invalid");
                   
 
 
-                            window.location.href = "<?php echo site_url('grifo/success') ?>";
+                            window.location.href = "<?php echo site_url('redhumeda/success') ?>";
                         },
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
                      
                                 var json = JSON.parse(xhr.responseText);
-                                if (json.nombre_grifo.length != 0) {
+                                if (json.nombre_redhumeda.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                    document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre_redhumeda;
                                 }
  
                             }
@@ -169,7 +163,7 @@
                     });
                 } else {
                     $.ajax({
-                        url: "<?php echo site_url() . '/grifo/modificarajax_upload' ?>",
+                        url: "<?php echo site_url() . '/rehumeda/modificarajax_upload' ?>",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -180,16 +174,16 @@
                          
                             // var json = JSON.parse(data);  
                             $('#uploaded_image').html(data);
-                            window.location.href = "<?php echo site_url('grifo/successupdate') ?>";
+                            window.location.href = "<?php echo site_url('redhumeda/successupdate') ?>";
                         },
                         statusCode: {
                             400: function(xhr) {
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-                             
+                              
                                 var json = JSON.parse(xhr.responseText);
-                                if (json.nombre_grifo.length != 0) {
+                                if (json.nombre_redhumeda.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                    document.getElementById("inputNombreText").innerHTML = json.nombre_grifo;
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre_redhumeda;
                                 }
  
                             }

@@ -17,9 +17,8 @@ class RedHumeda extends CI_Controller
 					'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 					'estado_redhumeda' => $_POST['estado_redhumeda'],
 					'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-					'imagen_redhumeda' => $_POST['imagen_redhumeda'],
-					'posy_redhumeda' => $_POST['posy_redhumeda'],
-					'posx_redhumeda' => $_POST['posx_redhumeda']
+					'posy_redhumeda' => $_POST['form_y'],
+					'posx_redhumeda' => $_POST['form_x']
 				);
 				$this->db->insert('RedHumeda', $datos);
 			}
@@ -31,17 +30,19 @@ class RedHumeda extends CI_Controller
 			$this->load->model("RedHumedaModel");
 			$redhumeda = $this->RedHumedaModel->getRedHumeda();
 			$redhumeda = array('redhumeda' => $redhumeda);
-			$this->menuRedHumeda($redhumeda);
+			$edificio = $this->RedHumedaModel->getEdificio();
+			$edificio = array('edificio' => $edificio);
+			$this->menuRedHumeda($redhumeda,$edificio);
 		} else {
 			show_404();
 		}
 	}
-	public function menuRedHumeda($redhumeda)
+	public function menuRedHumeda($redhumeda,$edificio)
 	{
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
-			'nav' => $this->load->view('layout/nav'),
+			'nav' => $this->load->view('layout/nav', $edificio), 
 			'contenido' => $this->load->view('layout/redhumeda/ver', $redhumeda),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
@@ -144,10 +145,10 @@ class RedHumeda extends CI_Controller
 					'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 					'estado_redhumeda' => $_POST['estado_redhumeda'],
 					'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-					'posy_redhumeda' => $_POST['posy_redhumeda'],
-					'posx_redhumeda' => $_POST['posx_redhumeda']
+					'posy_redhumeda' => $_POST['form_y'],
+					'posx_redhumeda' => $_POST['form_x']
 				);
-				$this->db->update('redhumeda', $datos, array('id_redhumeda' => $datos['id_redhumeda']));
+				$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
 			}
 		}
 	}
@@ -169,21 +170,21 @@ class RedHumeda extends CI_Controller
 							'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 							'estado_redhumeda' => $_POST['estado_redhumeda'],
 							'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-							'posy_redhumeda' => $_POST['posy_redhumeda'],
-							'posx_redhumeda' => $_POST['posx_redhumeda']
+							'posy_redhumeda' => $_POST['form_y'],
+							'posx_redhumeda' => $_POST['form_x']
 						);
 
-						$this->db->update('redhumeda', $datos, array('id_redhumeda' => $datos['id_redhumeda']));
+						$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
 					}
 				} else {
 					$datos = array(
 						'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 						'estado_redhumeda' => $_POST['estado_redhumeda'],
 						'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-						'posy_redhumeda' => $_POST['posy_redhumeda'],
-						'posx_redhumeda' => $_POST['posx_redhumeda']
+						'posy_redhumeda' => $_POST['form_y'],
+						'posx_redhumeda' => $_POST['form_x']
 					);
-					$this->db->update('redhumeda', $datos, array('id_redhumeda' => $datos['id_redhumeda']));
+					$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
 				}
 			}
 		}

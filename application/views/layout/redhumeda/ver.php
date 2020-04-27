@@ -158,11 +158,21 @@ echo Form_open_multipart('', $attributes);
                     <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="exampleFormControlTextarea1"><b>Ubicación (Opcional)</b></label>
-                            <textarea class="form-control" name="ubicacion_redhumeda" id="ubicacion_redhumeda" rows="3"></textarea>
+                            <textarea class="form-control" name="ubicacion_redhumeda" id="ubicacion_redhumeda" rows="4"></textarea>
                             <div class="invalid-feedback" id="inputUbicacionText">
                             </div>
                         </div>
+                        <div class="col-sm-6" id="estado_redhumeda">
+                            <label for="exampleFormControlTextarea1"><b>Seleccione el edificio en el cual se encuentra</b></label>
+                            </br>
+                            <select multiple class="form-control" id="exampleFormControlSelect2" name="id_edificio" required>
+                                <?php foreach ($edificio as $edi) { ?>
+                                    <option value="<?php echo $edi->id_edificio ?>"><?php echo $edi->nombre_edificio ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="form-group row" id="nombre_redhumeda">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="exampleFormControlTextarea1"><b>Foto (Opcional)</b></label>
