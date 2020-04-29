@@ -1,49 +1,48 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class RedHumeda extends CI_Controller
+class ZonaDeSeguridad extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->library(array('session'));
-		$this->load->model('RedHumedaModel');
+		$this->load->model('ZonaDeSeguridadModel');
 	}
-	public function crearRedHumedaajax()
+	public function crearZonaDeSeguridadajax()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
-			if ($this->RedHumedaModel->validarRedHumeda($_POST["nombre"])) {
+			if ($this->ZonaDeSeguridadModel->validarZonaDeSeguridad($_POST["nombre"])) {
 				$datos = array(
 					'nombre' => $_POST['nombre'],
-					'estado' => $_POST['estado'],
-					'id_edificio' => $_POST['id_edificio'],
-					'ubicacion' => $_POST['ubicacion'],
+					'id_campus' => '1',
+					'descripcion' => $_POST['descripcion'],
 					'posy' => $_POST['form_y'],
 					'posx' => $_POST['form_x']
 				);
-				$this->db->insert('RedHumeda', $datos);
+				$this->db->insert('zonadeseguridad', $datos);
 			}
 		}
 	}
 	function ver()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
-			$this->load->model("RedHumedaModel");
-			$data['edificio'] = $this->RedHumedaModel->getEdificio();
-			$data['redhumeda'] = $this->RedHumedaModel->getRedHumeda();
-			$this->menuRedHumeda($data);
+			$this->load->model("ZonaDeSeguridadModel");
+			$data['edificio'] = $this->ZonaDeSeguridadModel->getEdificio();
+			$data['zonadeseguridad'] = $this->ZonaDeSeguridadModel->getZonaDeSeguridad();
+			$this->menuZonaDeSeguridad($data);
 		} else {
 			show_404();
 		}
 	}
-	public function menuRedHumeda($data)
+	public function menuZonaDeSeguridad($data)
 	{
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/redhumeda/tabla', $data),
-			'contenido' => $this->load->view('layout/redhumeda/ver'),
+			'tabla' => $this->load->view('layout/zonadeseguridad/tabla', $data),
+			'contenido' => $this->load->view('layout/zonadeseguridad/ver'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -52,23 +51,23 @@ class RedHumeda extends CI_Controller
 	public function success()
 	{
 		$this->session->set_flashdata('category_success', 'Se ha creado una nueva redhúmeda con éxito');
-		redirect('redhumeda/ver');
+		redirect('zonadeseguridad/ver');
 	}
 	public function successupdate()
 	{
-		$this->session->set_flashdata('category_success', 'Se ha actualizado la redhumeda con éxito');
-		redirect('redhumeda/ver');
+		$this->session->set_flashdata('category_success', 'Se ha actualizado la zonadeseguridad con éxito');
+		redirect('zonadeseguridad/ver');
 	}
 	public function successdelete()
 	{
-		$this->session->set_flashdata('category_success', 'Se ha eliminado la redhumeda con éxito');
-		redirect('redhumeda/ver');
+		$this->session->set_flashdata('category_success', 'Se ha eliminado la zonadeseguridad con éxito');
+		redirect('zonadeseguridad/ver');
 	}
 	function ajax_upload()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			if (!$this->RedHumedaModel->validarRedHumeda($_POST["nombre"])) {
+			if (!$this->ZonaDeSeguridadModel->validarZonaDeSeguridad($_POST["nombre"])) {
 			} else {
 				if (isset($_FILES["image_file"]["name"])) {
 					$config['upload_path'] = './assets/upload';
@@ -80,25 +79,23 @@ class RedHumeda extends CI_Controller
 						$data = $this->upload->data();
 						$datos = array(
 							'nombre' => $_POST['nombre'],
-							'estado' => $_POST['estado'],
-							'ubicacion' => $_POST['ubicacion'],
+							'descripcion' => $_POST['descripcion'],
 							'imagen' => $data['file_name'],
 							'id_edificio' => $_POST['id_edificio'],
 							'posy' => $_POST['form_x'],
 							'posx' => $_POST['form_y']
 						);
-						$this->db->insert('redhumeda', $datos);
+						$this->db->insert('zonadeseguridad', $datos);
 					}
 				} else {
 					$datos = array(
 						'nombre' => $_POST['nombre'],
-						'estado' => $_POST['estado'],
-						'ubicacion' => $_POST['ubicacion'],
+						'descripcion' => $_POST['descripcion'],
 						'id_edificio' => $_POST['id_edificio'],
 						'posy' => $_POST['form_x'],
 						'posx' => $_POST['form_y']
 					);
-					$this->db->insert('redhumeda', $datos);
+					$this->db->insert('zonadeseguridad', $datos);
 				}
 			}
 		}
@@ -108,16 +105,16 @@ class RedHumeda extends CI_Controller
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			if ($this->session->userdata('is_logged')) {
-				$this->load->model("redhumedaModel");
-				$redhumeda = $this->redhumedaModel->getRedHumedaEspecifico($id);
-				$redhumeda = array('redhumeda' => $redhumeda);
-				$edificio = $this->RedHumedaModel->getEdificio();
+				$this->load->model("zonadeseguridadModel");
+				$zonadeseguridad = $this->ZonaDeSeguridadModel->getZonaDeSeguridadEspecifico($id);
+				$zonadeseguridad = array('zonadeseguridad' => $zonadeseguridad);
+				$edificio = $this->ZonaDeSeguridadModel->getEdificio();
 				$edificio = array('edificio' => $edificio);
 				$data = array(
 					'header1' => $this->load->view('headers/headerDatatable'),
 					'sidebar' => $this->load->view('layout/sidebar'),
 					'nav' => $this->load->view('layout/nav', $edificio),
-					'contenido' => $this->load->view('layout/redhumeda/editar', $redhumeda),
+					'contenido' => $this->load->view('layout/zonadeseguridad/editar', $zonadeseguridad),
 					'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 					'footer1' => $this->load->view('footers/footerDatatable')
 				);
@@ -129,28 +126,27 @@ class RedHumeda extends CI_Controller
 			show_404();
 		}
 	}
-	public function eliminarRedHumeda()
+	public function eliminarZonaDeSeguridad()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			$this->db->where('id_redhumeda', $_POST['id_redhumeda']);
-			$this->db->delete('redhumeda');
+			$this->db->where('id_zonadeseguridad', $_POST['id_zonadeseguridad']);
+			$this->db->delete('zonadeseguridad');
 		}
 	}
-	public function modificarRedHumedaajax()
+	public function modificarZonaDeSeguridadajax()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			if ($this->RedHumedaModel->validarRedHumeda($_POST["nombre"] )) {
+			if ($this->ZonaDeSeguridadModel->validarZonaDeSeguridad($_POST["nombre"])) {
 				$datos = array(
 					'nombre' => $_POST['nombre'],
-					'estado' => $_POST['estado'],
-					'ubicacion' => $_POST['ubicacion'],
-					'id_edificio' => $_POST['id_edificio'],
+					'descripcion' => $_POST['descripcion'],
+					'id_campus' => '1',
 					'posy' => $_POST['form_y'],
 					'posx' => $_POST['form_x']
 				);
-				$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
+				$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 			}
 		}
 	}
@@ -158,7 +154,7 @@ class RedHumeda extends CI_Controller
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			if (!$this->RedHumedaModel->validarRedHumeda($_POST["nombre"])) {
+			if (!$this->ZonaDeSeguridadModel->validarZonaDeSeguridad($_POST["nombre"])) {
 			} else {
 				if (isset($_FILES["image_file"]["name"])) {
 					$config['upload_path'] = './assets/upload';
@@ -170,25 +166,23 @@ class RedHumeda extends CI_Controller
 						$data = $this->upload->data();
 						$datos = array(
 							'nombre' => $_POST['nombre'],
-							'estado' => $_POST['estado'],
-							'ubicacion' => $_POST['ubicacion'],
+							'descripcion' => $_POST['descripcion'],
 							'imagen' => $data['file_name'],
-							'id_edificio' => $_POST['id_edificio'],
+							'id_campus' => '1',
 							'posy' => $_POST['form_y'],
 							'posx' => $_POST['form_x']
 						);
-						$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
+						$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 					}
 				} else {
 					$datos = array(
 						'nombre' => $_POST['nombre'],
-						'estado' => $_POST['estado'],
-						'ubicacion' => $_POST['ubicacion'],
-						'id_edificio' => $_POST['id_edificio'],
+						'descripcion' => $_POST['descripcion'],
+						'id_campus' => '1',
 						'posy' => $_POST['form_y'],
 						'posx' => $_POST['form_x']
 					);
-					$this->db->update('redhumeda', $datos, array('id_redhumeda' => $_POST["id_redhumeda"]));
+					$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 				}
 			}
 		}

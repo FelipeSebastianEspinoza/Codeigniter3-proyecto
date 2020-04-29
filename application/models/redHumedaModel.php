@@ -47,8 +47,7 @@ class RedHumedaModel extends CI_Model {
 	  if ($this->form_validation->run() == FALSE)
 	  { 
 		 $errors = array(
-			 'nombre'=>form_error('nombre') 
-			 
+			 'nombre'=>form_error('nombre') 	 
 		 );
 	    echo json_encode($errors);
 		$this->output->set_status_header(400);
