@@ -48,4 +48,9 @@ class EdificioModel extends CI_Model
 		  return true;
 	  }
 	}
+	public function getRedHumeda($id)
+	{
+		$sql = $this->db->get_where('redhumeda', array('id_edificio' => $id));
+		return $sql->result();
+	}
 }

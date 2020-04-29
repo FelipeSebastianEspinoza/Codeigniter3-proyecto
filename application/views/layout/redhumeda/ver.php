@@ -167,7 +167,11 @@ echo Form_open_multipart('', $attributes);
                             </br>
                             <select multiple class="form-control" id="exampleFormControlSelect2" name="id_edificio" required>
                                 <?php foreach ($edificio as $edi) { ?>
-                                    <option value="<?php echo $edi->id_edificio ?>"><?php echo $edi->nombre_edificio ?></option>
+                                    <?php if ($edi->id_edificio == '1') { ?>
+                                        <option value="<?php echo $edi->id_edificio ?>" selected><?php echo $edi->nombre_edificio ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?php echo $edi->id_edificio ?>"  ><?php echo $edi->nombre_edificio ?></option>
+                                    <?php } ?>
                                 <?php } ?>
                             </select>
                         </div>

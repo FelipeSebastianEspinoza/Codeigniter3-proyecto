@@ -15,18 +15,22 @@ class Edificio extends CI_Controller
 			$this->load->model("edificioModel");
 			$edificio = $this->edificioModel->getEdificioEspecifico($id);
 			$edificio = array('edificio' => $edificio);
-			$this->menuEdificio($edificio);
+
+			$data['result1']=$this->edificioModel->getEdificioEspecifico($id);
+			$data['result2']=$this->edificioModel->getRedHumeda($id);
+
+			$this->menuEdificio($data);
 		} else {
 			show_404();
 		}
 	}
-	public function menuEdificio($edificio) 
+	public function menuEdificio($data) 
 	{
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'contenido' => $this->load->view('layout/edificio/ver', $edificio),
+			'contenido' => $this->load->view('layout/edificio/ver', $data),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);

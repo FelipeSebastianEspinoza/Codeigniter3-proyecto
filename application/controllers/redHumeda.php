@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
- 
+
 class RedHumeda extends CI_Controller
 {
 	function __construct()
@@ -16,6 +16,7 @@ class RedHumeda extends CI_Controller
 				$datos = array(
 					'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 					'estado_redhumeda' => $_POST['estado_redhumeda'],
+					'id_edificio' => $_POST['id_edificio'],
 					'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
 					'posy_redhumeda' => $_POST['form_y'],
 					'posx_redhumeda' => $_POST['form_x']
@@ -32,17 +33,17 @@ class RedHumeda extends CI_Controller
 			$redhumeda = array('redhumeda' => $redhumeda);
 			$edificio = $this->RedHumedaModel->getEdificio();
 			$edificio = array('edificio' => $edificio);
-			$this->menuRedHumeda($redhumeda,$edificio);
+			$this->menuRedHumeda($redhumeda, $edificio);
 		} else {
 			show_404();
 		}
 	}
-	public function menuRedHumeda($redhumeda,$edificio)
+	public function menuRedHumeda($redhumeda, $edificio)
 	{
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
-			'nav' => $this->load->view('layout/nav', $edificio), 
+			'nav' => $this->load->view('layout/nav', $edificio),
 			'contenido' => $this->load->view('layout/redhumeda/ver', $redhumeda),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
@@ -66,41 +67,42 @@ class RedHumeda extends CI_Controller
 	}
 	function ajax_upload()
 	{
-		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {     
-		$this->load->database('pdo');
-		if (!$this->RedHumedaModel->validarRedHumeda($_POST["nombre_redhumeda"])) {
-		} else {
-			if (isset($_FILES["image_file"]["name"])) {
-				$config['upload_path'] = './assets/upload';
-				$config['allowed_types'] = 'jpg|jpeg|png|gif';
-				$this->load->library('upload', $config);
-				if (!$this->upload->do_upload('image_file')) {
-					echo $this->upload->display_errors();
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->database('pdo');
+			if (!$this->RedHumedaModel->validarRedHumeda($_POST["nombre_redhumeda"])) {
+			} else {
+				if (isset($_FILES["image_file"]["name"])) {
+					$config['upload_path'] = './assets/upload';
+					$config['allowed_types'] = 'jpg|jpeg|png|gif';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('image_file')) {
+						echo $this->upload->display_errors();
+					} else {
+						$data = $this->upload->data();
+						$datos = array(
+							'nombre_redhumeda' => $_POST['nombre_redhumeda'],
+							'estado_redhumeda' => $_POST['estado_redhumeda'],
+							'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
+							'imagen_redhumeda' => $data['file_name'],
+							'id_edificio' => $_POST['id_edificio'],
+							'posy_redhumeda' => $_POST['form_x'],
+							'posx_redhumeda' => $_POST['form_y']
+						);
+						$this->db->insert('redhumeda', $datos);
+					}
 				} else {
-					$data = $this->upload->data();
 					$datos = array(
 						'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 						'estado_redhumeda' => $_POST['estado_redhumeda'],
 						'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-						'imagen_redhumeda' => $data['file_name'],
+						'id_edificio' => $_POST['id_edificio'],
 						'posy_redhumeda' => $_POST['form_x'],
 						'posx_redhumeda' => $_POST['form_y']
 					);
 					$this->db->insert('redhumeda', $datos);
-
 				}
-			} else {
-				$datos = array(
-					'nombre_redhumeda' => $_POST['nombre_redhumeda'],
-					'estado_redhumeda' => $_POST['estado_redhumeda'],
-					'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
-					'posy_redhumeda' => $_POST['form_x'],
-					'posx_redhumeda' => $_POST['form_y']
-				);
-				$this->db->insert('redhumeda', $datos);
 			}
 		}
-	}
 	}
 	public function editar($id)
 	{
@@ -110,10 +112,12 @@ class RedHumeda extends CI_Controller
 				$this->load->model("redhumedaModel");
 				$redhumeda = $this->redhumedaModel->getRedHumedaEspecifico($id);
 				$redhumeda = array('redhumeda' => $redhumeda);
+				$edificio = $this->RedHumedaModel->getEdificio();
+				$edificio = array('edificio' => $edificio);
 				$data = array(
 					'header1' => $this->load->view('headers/headerDatatable'),
 					'sidebar' => $this->load->view('layout/sidebar'),
-					'nav' => $this->load->view('layout/nav'),
+					'nav' => $this->load->view('layout/nav',$edificio),
 					'contenido' => $this->load->view('layout/redhumeda/editar', $redhumeda),
 					'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 					'footer1' => $this->load->view('footers/footerDatatable')
@@ -145,6 +149,7 @@ class RedHumeda extends CI_Controller
 					'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 					'estado_redhumeda' => $_POST['estado_redhumeda'],
 					'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
+					'id_edificio' => $_POST['id_edificio'],
 					'posy_redhumeda' => $_POST['form_y'],
 					'posx_redhumeda' => $_POST['form_x']
 				);
@@ -170,6 +175,7 @@ class RedHumeda extends CI_Controller
 							'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 							'estado_redhumeda' => $_POST['estado_redhumeda'],
 							'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
+							'id_edificio' => $_POST['id_edificio'],
 							'posy_redhumeda' => $_POST['form_y'],
 							'posx_redhumeda' => $_POST['form_x']
 						);
@@ -181,6 +187,7 @@ class RedHumeda extends CI_Controller
 						'nombre_redhumeda' => $_POST['nombre_redhumeda'],
 						'estado_redhumeda' => $_POST['estado_redhumeda'],
 						'ubicacion_redhumeda' => $_POST['ubicacion_redhumeda'],
+						'id_edificio' => $_POST['id_edificio'],
 						'posy_redhumeda' => $_POST['form_y'],
 						'posx_redhumeda' => $_POST['form_x']
 					);
