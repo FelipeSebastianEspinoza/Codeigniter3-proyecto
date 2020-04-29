@@ -23,27 +23,27 @@
                     <div>
                         This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
                         </br> </br>
-                        <div class="form-group row" id="nombre_redhumeda">
+                        <div class="form-group row" id="nombre">
                             <input type="hidden" id="inputId" name="id_redhumeda" class="form-control form-control-user" value="<?php echo $red->id_redhumeda ?>">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Nombre</label>
-                                <input type="text" id="inputNombre" name="nombre_redhumeda" class="form-control form-control-user" value="<?php echo $red->nombre_redhumeda ?>">
+                                <input type="text" id="inputNombre" name="nombre" class="form-control form-control-user" value="<?php echo $red->nombre ?>">
                                 <div class="invalid-feedback" id="inputNombreText">
                                 </div>
                             </div> 
-                            <div class="col-sm-6" id="estado_redhumeda">
+                            <div class="col-sm-6" id="estado">
                                 <label for="exampleFormControlTextarea1">Seleccione un estado</label>
                                 </br>
-                                <?php if ($red->estado_redhumeda != 'Pendiente') {
+                                <?php if ($red->estado != 'Pendiente') {
                                 ?>
-                                    <input type="radio" id="Funcionando" name="estado_redhumeda" value="Funcionando" checked>
+                                    <input type="radio" id="Funcionando" name="estado" value="Funcionando" checked>
                                     <label for="Funcionando">Funcionando</label><br>
-                                    <input type="radio" id="Pendiente" name="estado_redhumeda" value="Pendiente">
+                                    <input type="radio" id="Pendiente" name="estado" value="Pendiente">
                                     <label for="Pendiente">Pendiente</label><br>
                                 <?php  } else {   ?>
-                                    <input type="radio" id="Funcionando" name="estado_redhumeda" value="Funcionando">
+                                    <input type="radio" id="Funcionando" name="estado" value="Funcionando">
                                     <label for="Funcionando">Funcionando</label><br>
-                                    <input type="radio" id="Pendiente" name="estado_redhumeda" value="Pendiente" checked>
+                                    <input type="radio" id="Pendiente" name="estado" value="Pendiente" checked>
                                     <label for="Pendiente">Pendiente</label><br>
                                 <?php   }   ?>
                                 <div class="invalid-feedback" id="inputEstadoText">
@@ -53,11 +53,11 @@
                         <div class="form-group row" id="nombre_usuario">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="exampleFormControlTextarea1"><b>Ubicación (Opcional)</b></label>
-                            <textarea class="form-control" name="ubicacion_redhumeda" id="ubicacion_redhumeda" rows="4"></textarea>
+                            <textarea class="form-control" name="ubicacion" id="ubicacion" rows="4"></textarea>
                             <div class="invalid-feedback" id="inputUbicacionText">
                             </div>
                         </div>
-                        <div class="col-sm-6" id="estado_redhumeda">
+                        <div class="col-sm-6" id="estado">
                             <label for="exampleFormControlTextarea1"><b>Seleccione el edificio en el cual se encuentra</b></label>
                             </br>
                             <select multiple class="form-control" id="exampleFormControlSelect2" name="id_edificio" required>
@@ -71,7 +71,7 @@
                             </select>
                         </div>
                     </div>
-                        <div class="form-group row" id="nombre_redhumeda">
+                        <div class="form-group row" id="nombre">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <label for="exampleFormControlTextarea1">Foto (Opcional)</label>
                                 <label for="exampleFormControlTextarea1">Formatos permitidos-> jpg | jpeg | png | gif.</label>
@@ -81,12 +81,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <?php if ($red->imagen_redhumeda == null) { ?>
+                                <?php if ($red->imagen == null) { ?>
                                     <label for="exampleFormControlTextarea1">Sin imagen</label>
 
                                 <?php  } else {    ?>
                                     <label for="exampleFormControlTextarea1">Imagen actual</label>
-                                    <?php echo '<img src="' . base_url() . 'assets/upload/' . $red->imagen_redhumeda . '"
+                                    <?php echo '<img src="' . base_url() . 'assets/upload/' . $red->imagen . '"
 					                         style="display: block; width: 300px; ">';  ?>
                                     <div class="invalid-feedback" id="inputImagenText">
                                     </div>
@@ -112,9 +112,9 @@
                         <div class="col-sm-12 mb-6 mb-sm-0">
                             <div>
                                 Posición X->
-                                <input type="text" name="form_x" size="4" value="<?php echo $red->posy_redhumeda ?>" />
+                                <input type="text" name="form_x" size="4" value="<?php echo $red->posy ?>" />
                                 Posición Y->
-                                <input type="text" name="form_y" size="4" value="<?php echo $red->posx_redhumeda ?>" />
+                                <input type="text" name="form_y" size="4" value="<?php echo $red->posx ?>" />
                             </div>
                         </div>
                         </br>
@@ -166,9 +166,9 @@
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
                      
                                 var json = JSON.parse(xhr.responseText);
-                                if (json.nombre_redhumeda.length != 0) {
+                                if (json.nombre.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                    document.getElementById("inputNombreText").innerHTML = json.nombre_redhumeda;
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre;
                                 }
  
                             }
@@ -176,7 +176,7 @@
                     });
                 } else {
                     $.ajax({
-                        url: "<?php echo site_url() . '/rehumeda/modificarajax_upload' ?>",
+                        url: "<?php echo site_url() . '/redhumeda/modificarajax_upload' ?>",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -194,9 +194,9 @@
                                 document.getElementById("inputNombre").classList.remove("is-invalid");
                               
                                 var json = JSON.parse(xhr.responseText);
-                                if (json.nombre_redhumeda.length != 0) {
+                                if (json.nombre.length != 0) {
                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                    document.getElementById("inputNombreText").innerHTML = json.nombre_redhumeda;
+                                    document.getElementById("inputNombreText").innerHTML = json.nombre;
                                 }
  
                             }

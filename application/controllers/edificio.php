@@ -13,12 +13,8 @@ class Edificio extends CI_Controller
 	{
 		if ($this->session->userdata('is_logged')) {
 			$this->load->model("edificioModel");
-			$edificio = $this->edificioModel->getEdificioEspecifico($id);
-			$edificio = array('edificio' => $edificio);
-
-			$data['result1']=$this->edificioModel->getEdificioEspecifico($id);
-			$data['result2']=$this->edificioModel->getRedHumeda($id);
-
+			$data['edificio']=$this->edificioModel->getEdificioEspecifico($id);
+			$data['redhumeda']=$this->edificioModel->getRedHumeda($id);
 			$this->menuEdificio($data);
 		} else {
 			show_404();

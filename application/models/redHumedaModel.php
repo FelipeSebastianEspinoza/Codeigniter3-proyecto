@@ -26,18 +26,18 @@ class RedHumedaModel extends CI_Model {
 	public function insertarRedHumeda($datos) 
 	{  
 		$datos = array(
-			'nombre_redhumeda'=>$datos['nombre_redhumeda'],
-			'estado_redhumeda'=>$datos['estado_redhumeda']
+			'nombre'=>$datos['nombre'],
+			'estado'=>$datos['estado']
 		);
 		if(!$this->db->insert('redhumeda',$datos)){
 			return false;
 		}
 		return true; 
 	}
-	public function validarRedHumeda(string $nombre_redhumeda)
+	public function validarRedHumeda(string $nombre)
 	{ 
 	  $this->load->library('form_validation');   
-	  $this->form_validation->set_rules('nombre_redhumeda', 'nombre', 'required|trim',
+	  $this->form_validation->set_rules('nombre', 'nombre', 'required|trim',
 	  array(
 			  'required'      => 'Debes escribir un %s.' 
 	  )
@@ -47,7 +47,7 @@ class RedHumedaModel extends CI_Model {
 	  if ($this->form_validation->run() == FALSE)
 	  { 
 		 $errors = array(
-			 'nombre_redhumeda'=>form_error('nombre_redhumeda') 
+			 'nombre'=>form_error('nombre') 
 			 
 		 );
 	    echo json_encode($errors);
