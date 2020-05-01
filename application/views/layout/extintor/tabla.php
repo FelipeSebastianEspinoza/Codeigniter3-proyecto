@@ -36,6 +36,22 @@
         <?php foreach ($extintor as $red) { ?>
             <tr>
                 <td> <?php echo $red->nombre ?> </td>
+                <?php $date = date_create($red->fechacarga); ?>
+                <td> <?php echo date_format($date, "d/m/Y"); ?> </td>
+                <?php $date = date_create($red->fechavenc); ?>
+                <?php $date2 =  date("Y/m/d"); ?>
+                <?php  $date2 = date_create_from_format('Y/m/d', $date2); ?>
+                <?php if ($date2 > $date) {  ?>
+                    <td>
+                        <p class="text-danger"> <?php echo date_format($date, "d/m/Y"); ?> </p>
+                    </td>
+                <?php } else { ?>
+                    <td> <?php echo date_format($date, "d/m/Y"); ?> </td>
+                <?php } ?>
+
+
+                <td> <?php echo $red->ubicacion ?> </td>
+                <td> <?php echo $red->comentario ?> </td>
                 <td>
                     <?php
                     if ($red->estado == 'Pendiente') { ?>
@@ -44,7 +60,7 @@
                         <p class="text-success"> <?php echo $red->estado;   ?> </p>
                     <?php    } ?>
                 </td>
-                <td> <?php echo $red->ubicacion  ?> </td>
+
 
                 <?php if ($red->imagen != null) {  ?>
                     <td>
