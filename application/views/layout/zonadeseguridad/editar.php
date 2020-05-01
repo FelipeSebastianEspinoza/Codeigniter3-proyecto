@@ -1,4 +1,4 @@
-<h1>Modificar Zona de seguridad</h1>
+<h1>Modificar Zona de Seguridad</h1>
 
 
 
@@ -35,8 +35,8 @@
                         </div>
                         <div class="form-group row" id="nombre_usuario">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="exampleFormControlTextarea1"><b>Ubicación (Opcional)</b></label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" rows="4"></textarea>
+                                <label for="exampleFormControlTextarea1"><b>Descripción (Opcional)</b></label>
+                                <textarea class="form-control" name="descripcion" id="descripcion" rows="4"><?php echo $red->descripcion ?></textarea>
                                 <div class="invalid-feedback" id="inputdescripcionText">
                                 </div>
                             </div>

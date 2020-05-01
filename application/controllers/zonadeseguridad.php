@@ -80,8 +80,8 @@ class ZonaDeSeguridad extends CI_Controller
 						$datos = array(
 							'nombre' => $_POST['nombre'],
 							'descripcion' => $_POST['descripcion'],
+							'id_campus' => '1',
 							'imagen' => $data['file_name'],
-							'id_edificio' => $_POST['id_edificio'],
 							'posy' => $_POST['form_x'],
 							'posx' => $_POST['form_y']
 						);
@@ -91,7 +91,7 @@ class ZonaDeSeguridad extends CI_Controller
 					$datos = array(
 						'nombre' => $_POST['nombre'],
 						'descripcion' => $_POST['descripcion'],
-						'id_edificio' => $_POST['id_edificio'],
+						'id_campus' => '1',
 						'posy' => $_POST['form_x'],
 						'posx' => $_POST['form_y']
 					);
