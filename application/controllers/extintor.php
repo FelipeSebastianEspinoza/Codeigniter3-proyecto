@@ -183,4 +183,4 @@ class Extintor extends CI_Controller
 			}
 		}
 	}
-}
+} 

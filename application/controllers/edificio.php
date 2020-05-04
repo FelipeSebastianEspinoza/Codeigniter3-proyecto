@@ -7,7 +7,7 @@ class Edificio extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library(array('session'));
-		$this->load->model('EdificioModel'); 
+		$this->load->model('edificioModel'); 
 	}
 	function verEdificio($id)
 	{
@@ -34,9 +34,8 @@ class Edificio extends CI_Controller
 	}
 	public function editar($id)
 	{
-		$this->load->database('pdo');
     	 if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    
-			$this->load->model("edificioModel");
+			$this->load->database('pdo');
 			$edificio = $this->edificioModel->getEdificioEspecifico($id);
 			$edificio = array('edificio' => $edificio);
 			$data = array(

@@ -32,6 +32,8 @@
         <?php foreach ($reporte as $obj) { ?>
             <tr>
                 <td> <?php echo $obj->persona ?> </td>
+				 <td> <?php echo $obj->persona ?> </td>
+				 <td> <?php echo $obj->persona ?> </td>
                 <?php $date = date_create($obj->fecha); ?>
                 <td> <?php echo date_format($date, "d/m/Y"); ?> </td>
                 <?php $date = date_create($obj->fechatermino); ?>
