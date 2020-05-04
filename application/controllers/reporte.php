@@ -69,6 +69,24 @@ class Reporte extends CI_Controller
 			}
 		}
 	}
+	function ajax_upload_sinfecha()
+	{
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->database('pdo');
+			if (!$this->ReporteModel->validarReporte($_POST["persona"])) {
+			} else {
+					$datos = array(
+						'persona' => $_POST['persona'],
+						'fecha' => $_POST['fecha'],
+					 
+						'persona' => $_POST['persona'],
+						'id_edificio' => $_POST['id_edificio'],
+						'id_enfermedad' => $_POST['id_enfermedad'],
+					);
+					$this->db->insert('enfermedades_reportadas', $datos);
+			}
+		}
+	}
 	public function editar($id)
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {

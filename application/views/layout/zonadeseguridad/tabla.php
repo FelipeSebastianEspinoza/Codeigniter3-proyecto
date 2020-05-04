@@ -5,23 +5,23 @@
 <?php if ($this->session->flashdata('category_success')) { ?>
     <div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
 <?php } ?>
-<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+<table class="table table-striped table-bordered table-sm" id="dataTable1" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Foto</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+            <th width="50">Foto</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Foto</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+            <th width="50">Foto</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </tfoot>
     <tbody>

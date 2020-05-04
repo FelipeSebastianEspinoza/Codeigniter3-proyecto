@@ -102,7 +102,7 @@
  				if (dateTwo == 'Invalid Date' || dateTwo ==  '0000-00-00' ) {
  					$.ajax({
  						type: 'POST',
- 						url: "<?php echo site_url() . '/reporte/ajax_upload' ?>",
+ 						url: "<?php echo site_url() . '/reporte/ajax_upload_sinfecha' ?>",
  						data: $(this).serialize(),
  						success: function(data) {
  							document.getElementById("inputPersona").classList.remove("is-invalid");

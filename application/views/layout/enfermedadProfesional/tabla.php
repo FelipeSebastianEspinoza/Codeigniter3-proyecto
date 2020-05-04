@@ -10,16 +10,16 @@
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </tfoot>
     <tbody>

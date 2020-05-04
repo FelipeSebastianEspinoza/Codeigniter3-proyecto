@@ -15,9 +15,9 @@
 			<th>Edificio</th>
 			<th>Comentario</th>
 			<th>Estado</th>
-			<th>Foto</th>
-			<th>Modificar</th>
-			<th>Eliminar</th>
+			<th width="50">Foto</th>
+			<th width="50">Modificar</th>
+			<th width="50">Eliminar</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -29,9 +29,9 @@
 			<th>Edificio</th>
 			<th>Comentario</th>
 			<th>Estado</th>
-			<th>Foto</th>
-			<th>Modificar</th>
-			<th>Eliminar</th>
+			<th width="50">Foto</th>
+			<th width="50">Modificar</th>
+			<th width="50">Eliminar</th>
 		</tr>
 	</tfoot>
 	<tbody>

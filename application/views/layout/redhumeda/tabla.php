@@ -5,25 +5,27 @@
 <?php if ($this->session->flashdata('category_success')) { ?>
     <div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
 <?php } ?>
-<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+<table class="table table-striped table-bordered table-sm" id="dataTable1" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Estado</th>
-            <th>Ubicación</th>
-            <th>Foto</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+			<th>Ubicación</th>
+			<th>Edificio</th>
+            <th width="50">Foto</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th>Nombre</th>
             <th>Estado</th>
-            <th>Ubicación</th>
-            <th>Foto</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+			<th>Ubicación</th>
+			<th>Edificio</th>
+            <th width="50">Foto</th>
+            <th width="50">Modificar</th>
+            <th width="50">Eliminar</th>
         </tr>
     </tfoot>
     <tbody>
@@ -39,7 +41,13 @@
                     <?php    } ?>
                 </td>
                 <td> <?php echo $red->ubicacion  ?> </td>
-
+				<td>
+					<?php foreach ($edificio as $edi) { ?>
+						<?php if ($edi->id_edificio == $red->id_edificio) { ?>
+							<?php echo $edi->nombre_edificio ?>
+						<?php } ?>
+					<?php } ?>
+				</td>
                 <?php if ($red->imagen != null) {  ?>
                     <td>
                         <center>
@@ -64,10 +72,11 @@
                         </a>
                     </center>
                 </td>
-                <td>
+                <td><center>
                     <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_redhumeda').value=<?php echo $red->id_redhumeda ?>">
                         <i class="fas fa-trash" style="color: #fff;"></i>
-                    </a>
+					</a>
+					<center>
                 </td>
             </tr>
         <?php } ?>
