@@ -13,7 +13,7 @@
 			<th>Fecha Termino</th>
 			<th>Edificio</th>
 			<th>Enfermedad</th>
-			<th width="50">U.Análisis</th>
+			<th width="50">Historial</th>
 			<th width="50">Modificar</th>
 			<th width="50">Eliminar</th>
 		</tr>
@@ -25,7 +25,7 @@
 			<th>Fecha Termino</th>
 			<th>Edificio</th>
 			<th>Enfermedad</th>
-			<th width="50">U.Análisis</th> 
+			<th width="50">Historial</th>
 			<th width="50">Modificar</th>
 			<th width="50">Eliminar</th>
 		</tr>
@@ -79,7 +79,7 @@
 					</center>
 				</td>
 				<td>
-					<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_extintor').value=<?php echo $obj->id_enfermedadreportada ?>">
+					<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_reporte').value=<?php echo $obj->id_enfermedadreportada ?>">
 						<i class="fas fa-trash" style="color: #fff;"></i>
 					</a>
 				</td>
@@ -89,8 +89,8 @@
 </table>
 
 <form id="delete_formreporte">
-	<input type="hidden" id="delete_extintor" name="id_extintor" value="">
-	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<input type="hidden" id="delete_reporte" name="id_enfermedadreportada" value="">
+	<div class="modal fade" id="deleteReporteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -109,30 +109,17 @@
 	</div>
 </form>
 
-<div class="modal fade" id="imagenModalExtintor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="text-center">
-				<img id="imagenDeExtintor" class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="" alt="">
-			</div>
-		</div>
-	</div>
-</div>
+ 
 <script>
 	$(document).ready(function() {
 		$('#delete_formreporte').on('submit', function(e) {
 			e.preventDefault();
 			$.ajax({
 				type: 'POST',
-				url: "<?php echo site_url() . '/extintor/eliminarExtintor' ?>",
+				url: "<?php echo site_url() . '/reporte/eliminarReporte' ?>",
 				data: $(this).serialize(),
 				success: function(data) {
-					window.location.href = "<?php echo site_url('extintor/successdelete') ?>";
+					window.location.href = "<?php echo site_url('reporte/successdelete') ?>";
 				},
 			});
 		});

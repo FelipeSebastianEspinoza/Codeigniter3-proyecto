@@ -1,11 +1,11 @@
 <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Extintores</h1>
+    <h1 class="h3 mb-0 text-gray-800">Enfermedades profesionales</h1>
 </div>
 <?php if ($this->session->flashdata('category_success')) { ?>
     <div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
 <?php } ?>
-<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+<table class="table table-striped table-bordered table-sm" id="dataTable1" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Nombre</th>

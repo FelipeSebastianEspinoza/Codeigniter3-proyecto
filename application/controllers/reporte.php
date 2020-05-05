@@ -134,7 +134,7 @@ class Reporte extends CI_Controller
 					'id_edificio' => $_POST['id_edificio'],
 					'id_enfermedad' => $_POST['id_enfermedad'],
 				);
-				$this->db->update('enfermedades_reportadas', $datos, array('id_enfermedadadreportada' => $_POST["id_enfermedadreportada"]));
+				$this->db->update('enfermedades_reportadas', $datos, array('id_enfermedadreportada' => $_POST["id_enfermedadreportada"]));
 			}
 		}
 	}

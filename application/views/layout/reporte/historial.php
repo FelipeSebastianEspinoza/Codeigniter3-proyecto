@@ -1,3 +1,36 @@
+ 
+ 
+   <!--
+	   
+foreach 
+
+
+tarjeta 
+
+. al final abajo añadir tarjeta 
+
+quizas poener un menu para ir viendo unas 5 como los datatables
+
+tiene que tener modificar y eliminar
+
+   -->
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ 
  <!--..............................................................................................-->
  <?php
 	$attributes = array('id' => 'upload_form', 'name' => 'pointform');
@@ -159,35 +192,4 @@
  	</script>
 
 
- 	<script>
- 		$(document).ready(function() {
- 			$('#dataTable1').DataTable({
- 				"order": [
- 					[1, "desc"]
- 				],
- 				dom: 'Bfrtip',
- 				buttons: [{
- 						extend: 'csv',
- 						footer: true,
- 						exportOptions: {
- 							columns: [0, 1, 2]
- 						}
- 					},
- 					{
- 						extend: 'pdf',
- 						footer: true,
- 						exportOptions: {
- 							columns: [0, 1, 2]
- 						}
- 					},
- 					{
- 						extend: 'excel',
- 						footer: true,
- 						exportOptions: {
- 							columns: [0, 1, 2]
- 						}
- 					}
- 				]
- 			});
- 		});
- 	</script>
+ 	 
