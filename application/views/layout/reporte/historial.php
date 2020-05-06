@@ -9,16 +9,15 @@
 
 	 <?php foreach ($historial as $obj) { ?>
 		<input type="hidden" id="inputIdEnfermedadReportada" name="id_enfermedadreportada" class="form-control form-control-user" value="<?php echo $obj->id_enfermedadreportada ?>">
-				  
-				  <input type="hidden" id="id_historialyarchivos" name="id_historialyarchivos" class="form-control form-control-user" value="<?php echo $obj->id_historialyarchivos ?>">
+      
  		<div class="col-xl-6 col-md-6 mb-4">
  			<div class="card shadow mb-4">
  				<div class="card-header py-3">
  					<h6 class="m-0 font-weight-bold text-primary"><?php echo $obj->titulo; ?></h6>
  					<div class="d-flex flex-row-reverse">
- 						<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_reporte').value=<?php echo $obj->id_historialyarchivos ?>"> 
- 							<i class="fas fa-trash" style="color: #fff;"></i>
- 						</a>
+					 <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('delete_reporte').value=<?php echo $obj->id_historialyarchivos ?>">
+						<i class="fas fa-trash" style="color: #fff;"></i>
+					</a>
  						<a href="<?php echo site_url('reporte/editarHistorial/' . $obj->id_historialyarchivos) ?>" class="btn btn-info btn-circle" style="width:30px; height:30px;">
  							<i class="fas fa-pen"></i>
  						</a>
@@ -52,7 +51,7 @@
 
 
  <form id="delete_formreporte">
- 	<input type="hidden" id="delete_reporte" name="id_enfermedadreportada" value="">
+ 	<input type="hidden" id="delete_reporte" name="id_historialyarchivos" value="">
  	<div class="modal fade" id="deleteReporteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
  		<div class="modal-dialog" role="document">
  			<div class="modal-content">
@@ -83,7 +82,7 @@
  				data: $(this).serialize(),
  				success: function(data) {
 					var $idH = document.getElementById("inputIdEnfermedadReportada").value;
- 					window.location.href = "<?php echo site_url('reporte/successdeletehistorial') ?> "+ $idH;
+ 						window.location.href = '<?php echo site_url('reporte/successdeletehistorial/') ?>' + $idH;
  				},
  			});
  		});
