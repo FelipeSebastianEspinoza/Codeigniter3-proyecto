@@ -66,7 +66,7 @@
 				</td>
 				<td>
 					<center>
-						<a href="<?php echo site_url('reporte/editar/' . $obj->id_enfermedadreportada) ?>" class="btn btn-success btn-circle">
+						<a href="<?php echo site_url('reporte/verHistorial/' . $obj->id_enfermedadreportada) ?>" class="btn btn-success btn-circle">
 							<i class="fas fa-book"></i>
 						</a>
 					</center>

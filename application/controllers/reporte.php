@@ -10,7 +10,7 @@ class Reporte extends CI_Controller
 		$this->load->model('ReporteModel');
 		$this->load->model('EnfermedadProfesionalModel');
 	}
-  
+
 	function ver()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
@@ -25,7 +25,7 @@ class Reporte extends CI_Controller
 	}
 	public function menuReporte($data)
 	{
-		$data = array( 
+		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
@@ -57,15 +57,15 @@ class Reporte extends CI_Controller
 			$this->load->database('pdo');
 			if (!$this->ReporteModel->validarReporte($_POST["persona"])) {
 			} else {
-					$datos = array(
-						'persona' => $_POST['persona'],
-						'fecha' => $_POST['fecha'],
-						'fechatermino' => $_POST['fechatermino'],
-						'persona' => $_POST['persona'],
-						'id_edificio' => $_POST['id_edificio'],
-						'id_enfermedad' => $_POST['id_enfermedad'],
-					);
-					$this->db->insert('enfermedades_reportadas', $datos);
+				$datos = array(
+					'persona' => $_POST['persona'],
+					'fecha' => $_POST['fecha'],
+					'fechatermino' => $_POST['fechatermino'],
+					'persona' => $_POST['persona'],
+					'id_edificio' => $_POST['id_edificio'],
+					'id_enfermedad' => $_POST['id_enfermedad'] 
+				);
+				$this->db->insert('enfermedades_reportadas', $datos);
 			}
 		}
 	}
@@ -75,15 +75,15 @@ class Reporte extends CI_Controller
 			$this->load->database('pdo');
 			if (!$this->ReporteModel->validarReporte($_POST["persona"])) {
 			} else {
-					$datos = array(
-						'persona' => $_POST['persona'],
-						'fecha' => $_POST['fecha'],
-					 
-						'persona' => $_POST['persona'],
-						'id_edificio' => $_POST['id_edificio'],
-						'id_enfermedad' => $_POST['id_enfermedad'],
-					);
-					$this->db->insert('enfermedades_reportadas', $datos);
+				$datos = array(
+					'persona' => $_POST['persona'],
+					'fecha' => $_POST['fecha'],
+
+					'persona' => $_POST['persona'],
+					'id_edificio' => $_POST['id_edificio'],
+					'id_enfermedad' => $_POST['id_enfermedad'],
+				);
+				$this->db->insert('enfermedades_reportadas', $datos);
 			}
 		}
 	}
@@ -92,7 +92,7 @@ class Reporte extends CI_Controller
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			if ($this->session->userdata('is_logged')) {
- 
+
 				$data['reporte'] = $this->ReporteModel->getReporteEspecifico($id);
 				$data['edificio'] = $this->ReporteModel->getEdificio();
 				$data['enfermedad'] = $this->EnfermedadProfesionalModel->getEnfermedadProfesional();
@@ -114,7 +114,7 @@ class Reporte extends CI_Controller
 		}
 	}
 	public function eliminarReporte()
-	{ 
+	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			$this->db->where('id_enfermedadreportada', $_POST['id_enfermedadreportada']);
@@ -125,7 +125,7 @@ class Reporte extends CI_Controller
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			if ($this->ReporteModel->validarReporte($_POST["persona"] )) {
+			if ($this->ReporteModel->validarReporte($_POST["persona"])) {
 				$datos = array(
 					'persona' => $_POST['persona'],
 					'fecha' => $_POST['fecha'],
@@ -152,9 +152,59 @@ class Reporte extends CI_Controller
 					'id_edificio' => $_POST['id_edificio'],
 					'id_enfermedad' => $_POST['id_enfermedad'],
 				);
-	        	 $this->db->update('enfermedades_reportadas', $datos, array('id_enfermedadadreportad' => $_POST["id_enfermedadadreportad"]));
-  
+				$this->db->update('enfermedades_reportadas', $datos, array('id_enfermedadadreportad' => $_POST["id_enfermedadadreportad"]));
 			}
 		}
+	}
+
+
+
+
+	function verHistorial($id)
+	{
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->model("ReporteModel");
+			$data['historial'] = $this->ReporteModel->getHistorialReporte($id);
+			$data['archivoshistorial'] = $this->ReporteModel->getArchivosHistorialReporte();
+			$data['id_enfermedadreportada'] = $id;
+			$this->menuHistorial($data);
+		} else {
+			show_404();
+		}
+	}
+	public function menuHistorial($data)
+	{
+		$data = array(
+			'header1' => $this->load->view('headers/headerDatatable'),
+			'sidebar' => $this->load->view('layout/sidebar'),
+			'nav' => $this->load->view('layout/nav'),
+			'historial' => $this->load->view('layout/reporte/historial', $data),
+
+			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
+			'footer1' => $this->load->view('footers/footerDatatable')
+		);
+		$this->load->view('dashboard', $data);
+	}
+ 
+	function historialajax_upload()
+	{
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->database('pdo');
+			if (!$this->ReporteModel->validarTitulo($_POST["titulo"])) {
+			} else {
+				$datos = array(
+					'titulo' => $_POST['titulo'],
+					'fecha' => $_POST['fecha'],
+					'descripcion' => $_POST['descripcion'],
+					'id_enfermedadreportada' => $_POST['id_enfermedadreportada'] 
+				);
+				$this->db->insert('historialyarchivos', $datos);
+			}
+		}
+	}
+	public function successhistorial($id)
+	{
+		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo historial con éxito');
+		$this->verHistorial($id); 
 	}
 }

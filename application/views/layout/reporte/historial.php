@@ -1,6 +1,9 @@
- 
- 
-   <!--
+ <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
+
+ <?php if ($this->session->flashdata('category_success')) { ?>
+ 	<div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
+ <?php } ?>
+ <!--
 	   
 foreach 
 
@@ -14,23 +17,77 @@ quizas poener un menu para ir viendo unas 5 como los datatables
 tiene que tener modificar y eliminar
 
    -->
- 
- 
- 
-
-
- 
- 
- 
- 
- 
 
 
 
- 
- 
- 
- 
+ <div class="row">
+
+ 	<?php foreach ($historial as $obj) { ?>
+
+ 		<div class="col-xl-6 col-md-6 mb-4">
+ 			<div class="card shadow mb-4">
+ 				<div class="card-header py-3">
+ 					<h6 class="m-0 font-weight-bold text-primary"><?php echo $obj->titulo; ?></h6>
+ 					<div class="d-flex flex-row-reverse">
+
+ 						<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor:pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('delete_enfermedadProfesional').value=<?php    ?>">
+ 							<i class="fas fa-trash" style="color: #fff;"></i>
+ 						</a>
+ 						<a href="<?php echo site_url('enfermedadProfesional/editar/') ?>" class="btn btn-info btn-circle" style="width:30px; height:30px;">
+ 							<i class="fas fa-pen"></i>
+ 						</a>
+
+
+ 						<div class="p-2"><?php echo $obj->fecha; ?></div>
+ 					</div>
+ 				</div>
+ 				<div class="card-body">
+ 					<p><?php echo $obj->descripcion; ?></p>
+ 					<ul class="list-group list-group-flush">
+ 						<li class="list-group-item">
+ 							<?php foreach ($archivoshistorial as $arc) { ?>
+ 								<?php if ($obj->id_historialyarchivos == $arc->id_historialyarchivos) { ?>
+ 									<a href="<?php echo site_url('enfermedadProfesional/editar/') ?>" class="btn btn-warning btn-circle" style="width:30px; height:30px;">
+ 										<i class="fas fa-archive"  ></i>
+ 									</a>
+ 								<?php } ?>
+ 							<?php } ?>
+ 						</li>
+ 					</ul>
+
+ 				</div>
+ 			</div>
+ 		</div>
+
+ 	<?php } ?>
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  <!--..............................................................................................-->
  <?php
 	$attributes = array('id' => 'upload_form', 'name' => 'pointform');
@@ -42,7 +99,7 @@ tiene que tener modificar y eliminar
  	<div class="card shadow mb-4">
  		<!-- Card Header - Accordion -->
  		<a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
- 			<h6 class="m-0 font-weight-bold text-primary">Nuevo Reporte E.P.</h6>
+ 			<h6 class="m-0 font-weight-bold text-primary">Nuevo Historial</h6>
  		</a>
  		<!-- Card Content - Collapse -->
  		<div class="collapse" id="collapseCardExample">
@@ -50,61 +107,32 @@ tiene que tener modificar y eliminar
  				<div>
  					This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
  					</br> </br>
- 					<div class="form-group row" id="persona">
+ 					<div class="form-group row" id="titulo">
+
+ 						<input type="hidden" id="inputIdHistorial" name="id_enfermedadreportada" class="form-control form-control-user" value="<?php echo $id_enfermedadreportada ?>">
+
  						<div class="col-sm-6 mb-3 mb-sm-0">
- 							<label for="exampleFormControlTextarea1"><b>Persona</b></label>
- 							<input type="text" id="inputPersona" name="persona" class="form-control form-control-user" placeholder="Escriba el nombre de la persona...">
- 							<div class="invalid-feedback" id="inputPersonaText">
+ 							<label for="exampleFormControlTextarea1"><b>Titulo</b></label>
+ 							<input type="text" id="inputTitulo" name="titulo" class="form-control form-control-user" placeholder="Escriba el titulo...">
+ 							<div class="invalid-feedback" id="inputTituloText">
  							</div>
  						</div>
  						<div class="col-sm-3 mb-3 mb-sm-0">
- 							<label for="exampleFormControlTextarea1"><b>Fecha de reporte</b></label>
+ 							<label for="exampleFormControlTextarea1"><b>Fecha historial</b></label>
  							<input type="date" id="inputFecha" name="fecha" class="form-control form-control-user" required>
  							<div class="invalid-feedback" id="inputFechaText">
  							</div>
  						</div>
- 						<div class="col-sm-3 mb-3 mb-sm-0">
- 							<label for="exampleFormControlTextarea1"><b>Fecha de termino (Opcional)</b></label>
- 							<input type="date" id="inputFechaTerm" name="fechatermino" class="form-control form-control-user">
- 							<div class="invalid-feedback" id="inputFechaTermText">
+ 					</div>
+ 					<div class="form-group row" id="descripcion">
+ 						<div class="col-sm-6 mb-3 mb-sm-0">
+ 							<label for="exampleFormControlTextarea1"><b>Descripción (Opcional)</b></label>
+ 							<textarea class="form-control" name="descripcion" id="descripcion" rows="4"></textarea>
+ 							<div class="invalid-feedback" id="inputDescripcionText">
  							</div>
  						</div>
  					</div>
-
- 					<div class="form-group row" id="nombre_usuario">
- 						<div class="col-sm-6" id="estado">
- 							<label for="exampleFormControlTextarea1"><b>Seleccione la enfermedad en el cual se encuentra</b></label>
- 							</br>
- 							<select multiple class="form-control" id="exampleFormControlSelect2" name="id_enfermedad" required>
- 								<?php foreach ($enfermedad as $enf) { ?>
- 									<?php if ($enf->id_enfermedad == '1') { ?>
- 										<option value="<?php echo $enf->id_enfermedad ?>" selected><?php echo $enf->nombre ?></option>
- 									<?php } else { ?>
- 										<option value="<?php echo $enf->id_enfermedad ?>"><?php echo $enf->nombre ?></option>
- 									<?php } ?>
- 								<?php } ?>
- 							</select> 
- 						</div>
- 						<div class="col-sm-6" id="estado">
- 							<label for="exampleFormControlTextarea2"><b>Seleccione el edificio en el cual se encuentra</b></label>
- 							</br>
- 							<select multiple class="form-control" id="exampleFormControlSelect3" name="id_edificio" required>
- 								<?php foreach ($edificio as $edi) { ?>
- 									<?php if ($edi->id_edificio == '1') { ?>
- 										<option value="<?php echo $edi->id_edificio ?>" selected><?php echo $edi->nombre_edificio ?></option>
- 									<?php } else { ?>
- 										<option value="<?php echo $edi->id_edificio ?>"><?php echo $edi->nombre_edificio ?></option>
- 									<?php } ?>
- 								<?php } ?>
- 							</select>
- 						</div>
- 					</div>
-
-
-
-
  					</br>
-
  					<div class="col-sm-12 mb-6 mb-sm-0">
  						<a class="btn btn-success btn-icon-split">
  							<span class="icon text-white-50">
@@ -119,77 +147,33 @@ tiene que tener modificar y eliminar
  		</div>
  	</div>
 
-
  	<!--..............................................................................................-->
-
-
 
  	<script>
  		$(document).ready(function() {
  			$('#upload_form').on('submit', function(e) {
  				e.preventDefault();
 
- 				var dateOne = new Date(document.getElementById("inputFecha").value);
- 				var dateTwo = new Date(document.getElementById("inputFechaTerm").value);
-			 
- 				if (dateTwo == 'Invalid Date' || dateTwo ==  '0000-00-00' ) {
- 					$.ajax({
- 						type: 'POST',
- 						url: "<?php echo site_url() . '/reporte/ajax_upload_sinfecha' ?>",
- 						data: $(this).serialize(),
- 						success: function(data) {
- 							document.getElementById("inputPersona").classList.remove("is-invalid");
-
- 							window.location.href = "<?php echo site_url('reporte/success') ?>";
- 						},
- 						statusCode: {
- 							400: function(xhr) {
- 								document.getElementById("inputPersona").classList.remove("is-invalid");
-
- 								var json = JSON.parse(xhr.responseText); 
- 								if (json.persona.length != 0) {
- 									document.getElementById("inputPersona").classList.add("is-invalid");
- 									document.getElementById("inputPersonaText").innerHTML = json.persona;
- 								}
-
+ 				$.ajax({
+ 					type: 'POST',
+ 					url: "<?php echo site_url() . '/reporte/historialajax_upload' ?>",
+ 					data: $(this).serialize(),
+ 					success: function(data) {
+ 						document.getElementById("inputTitulo").classList.remove("is-invalid");
+ 						var $idH = document.getElementById("inputIdHistorial").value;
+ 						window.location.href = '<?php echo site_url('reporte/successhistorial/') ?>' + $idH;
+ 					},
+ 					statusCode: {
+ 						400: function(xhr) {
+ 							document.getElementById("inputTitulo").classList.remove("is-invalid");
+ 							var json = JSON.parse(xhr.responseText);
+ 							if (json.titulo.length != 0) {
+ 								document.getElementById("inputTitulo").classList.add("is-invalid");
+ 								document.getElementById("inputTituloText").innerHTML = json.titulo;
  							}
- 						},
- 					});
- 				} else if (dateOne < dateTwo) {
- 					$.ajax({
- 						type: 'POST',
- 						url: "<?php echo site_url() . '/reporte/ajax_upload' ?>",
- 						data: $(this).serialize(),
- 						success: function(data) {
- 							document.getElementById("inputPersona").classList.remove("is-invalid");
-
- 							window.location.href = "<?php echo site_url('reporte/success') ?>";
- 						},
- 						statusCode: {
- 							400: function(xhr) {
- 								document.getElementById("inputPersona").classList.remove("is-invalid");
-
- 								var json = JSON.parse(xhr.responseText);
- 								if (json.persona.length != 0) { 
- 									document.getElementById("inputPersona").classList.add("is-invalid");
- 									document.getElementById("inputPersonaText").innerHTML = json.persona;
- 								}
-
- 							}
- 						},
- 					});
-
-
- 				} else {
- 					document.getElementById("inputFechaTerm").classList.remove("is-invalid");
- 					document.getElementById("inputFechaTerm").classList.add("is-invalid");
- 					document.getElementById("inputFechaTermText").innerHTML = 'La fecha de termino es anterior al reporte';
- 				}
-
-
+ 						}
+ 					},
+ 				});
  			});
  		});
  	</script>
-
-
- 	 
