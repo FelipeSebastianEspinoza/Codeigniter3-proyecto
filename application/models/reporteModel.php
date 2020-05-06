@@ -34,6 +34,11 @@ class ReporteModel extends CI_Model
 		$sql = $this->db->get('archivoshistorial');
 		return $sql->result();
 	}
+	public function getHistorialEspecifico($id)
+	{
+		$sql = $this->db->get_where('historialyarchivos', array('id_historialyarchivos' => $id));
+		return $sql->result();
+	}
 	public function validarReporte(string $persona)
 	{
 		$this->load->library('form_validation');
@@ -57,7 +62,6 @@ class ReporteModel extends CI_Model
 			return true;
 		}
 	}
-
 	public function validarTitulo(string $titulo)
 	{ 
 		$this->load->library('form_validation');
@@ -81,4 +85,14 @@ class ReporteModel extends CI_Model
 			return true;
 		}
 	}
+
+
+
+
+
+
+
+
+
+
 }
