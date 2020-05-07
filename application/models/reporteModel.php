@@ -39,6 +39,7 @@ class ReporteModel extends CI_Model
 		$sql = $this->db->get_where('historialyarchivos', array('id_historialyarchivos' => $id));
 		return $sql->result();
 	}
+	
 	public function validarReporte(string $persona)
 	{
 		$this->load->library('form_validation');
@@ -85,9 +86,35 @@ class ReporteModel extends CI_Model
 			return true;
 		}
 	}
+	public function validarNArchivo(string $narchivo)
+	{ 
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules(
+			'narchivo',
+			'nombre del archivo',
+			'required|trim',
+			array(
+				'required'      => 'Debes escribir un %s.'
+			)
+		);
 
+		$this->form_validation->set_error_delimiters('', '');
+		if ($this->form_validation->run() == FALSE) {
+			$errors = array(
+				'narchivo' => form_error('narchivo')
+			);
+			echo json_encode($errors);
+			$this->output->set_status_header(400);
+		} else {
+			return true;
+		}
+	}
 
-
+	public function getArchivosHistorialEspecifico($id)
+	{   
+		$sql = $this->db->get_where('archivoshistorial', array('id_historialyarchivos' => $id));
+		return $sql->result();
+	}
 
 
 

@@ -63,7 +63,7 @@ class Reporte extends CI_Controller
 					'fechatermino' => $_POST['fechatermino'],
 					'persona' => $_POST['persona'],
 					'id_edificio' => $_POST['id_edificio'],
-					'id_enfermedad' => $_POST['id_enfermedad'] 
+					'id_enfermedad' => $_POST['id_enfermedad']
 				);
 				$this->db->insert('enfermedades_reportadas', $datos);
 			}
@@ -185,7 +185,7 @@ class Reporte extends CI_Controller
 		);
 		$this->load->view('dashboard', $data);
 	}
- 
+
 	function historialajax_upload()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
@@ -196,7 +196,7 @@ class Reporte extends CI_Controller
 					'titulo' => $_POST['titulo'],
 					'fecha' => $_POST['fecha'],
 					'descripcion' => $_POST['descripcion'],
-					'id_enfermedadreportada' => $_POST['id_enfermedadreportada'] 
+					'id_enfermedadreportada' => $_POST['id_enfermedadreportada']
 				);
 				$this->db->insert('historialyarchivos', $datos);
 			}
@@ -205,26 +205,26 @@ class Reporte extends CI_Controller
 	public function successhistorial($id)
 	{
 		$this->session->set_flashdata('category_success', 'Se ha creado un nuevo historial con éxito');
-		$this->verHistorial($id); 
+		$this->verHistorial($id);
 	}
- 
+
 
 	public function editarHistorial($id)
-	{  
+	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
- 
-				$data['historial'] = $this->ReporteModel->getHistorialEspecifico($id);
-  
-				$data = array(
-					'header1' => $this->load->view('headers/headerDatatable'),
-					'sidebar' => $this->load->view('layout/sidebar'),
-					'nav' => $this->load->view('layout/nav'),
-					'contenido' => $this->load->view('layout/reporte/editarHistorial', $data),
-					'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
-					'footer1' => $this->load->view('footers/footerDatatable')
-				);
-				$this->load->view('dashboard', $data);
+
+			$data['historial'] = $this->ReporteModel->getHistorialEspecifico($id);
+			$data['archivos'] = $this->ReporteModel->getArchivosHistorialEspecifico($id);
+			$data = array(
+				'header1' => $this->load->view('headers/headerDatatable'),
+				'sidebar' => $this->load->view('layout/sidebar'),
+				'nav' => $this->load->view('layout/nav'),
+				'contenido' => $this->load->view('layout/reporte/editarHistorial', $data),
+				'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
+				'footer1' => $this->load->view('footers/footerDatatable')
+			);
+			$this->load->view('dashboard', $data);
 		} else {
 			show_404();
 		}
@@ -235,13 +235,13 @@ class Reporte extends CI_Controller
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			if (!$this->ReporteModel->validarTitulo($_POST["titulo"])) {
-			} else { 
-				$datos = array( 
+			} else {
+				$datos = array(
 					'titulo' => $_POST['titulo'],
 					'fecha' => $_POST['fecha'],
 					'descripcion' => $_POST['descripcion'],
 					'id_historialyarchivos' => $_POST['id_historialyarchivos'],
-					'id_enfermedadreportada' => $_POST['id_enfermedadreportada'] 
+					'id_enfermedadreportada' => $_POST['id_enfermedadreportada']
 				);
 				$this->db->update('historialyarchivos', $datos, array('id_historialyarchivos' => $_POST["id_historialyarchivos"]));
 			}
@@ -250,10 +250,10 @@ class Reporte extends CI_Controller
 	public function successhistorialmodificar($id)
 	{
 		$this->session->set_flashdata('category_success', 'Se ha modificado el historial con éxito');
-		$this->verHistorial($id); 
+		$this->verHistorial($id);
 	}
 	public function eliminarHistorial()
-	{ 
+	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			$this->db->where('id_historialyarchivos', $_POST['id_historialyarchivos']);
@@ -263,7 +263,49 @@ class Reporte extends CI_Controller
 	public function successdeletehistorial($id)
 	{
 		$this->session->set_flashdata('category_success', 'Se ha eliminado el historial con éxito');
-		$this->verHistorial($id); 
+		$this->verHistorial($id);
 	}
+
+
+ 
+	function uploadfilehistorial()
+	{
+		$this->load->database('pdo');
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			if ($this->ReporteModel->validarNArchivo($_POST["narchivo"])) {
+				if (isset($_FILES["image_file"]["name"])) {
+					$config['upload_path'] = './assets/upload';
+					$config['allowed_types'] = 'jpg|jpeg|png|gif';
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload('image_file')) {
+						echo $this->upload->display_errors();
+					} else {
+						$data = $this->upload->data();
+						$datos = array(
+							'nombre' => $_POST['narchivo'],
+							'archivo' => $data['file_name'],
+							'id_historialyarchivos' => $_POST['id_historialyarchivos']
+						);
+						$this->db->insert('archivoshistorial', $datos);
+					}
+				}
+			}
+		}
+	}
+
+
+	public function eliminarArchivo()
+	{ 
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->database('pdo');
+			$this->db->where('id_archivohistorial', $_POST['id_archivohistorial']);
+			$this->db->delete('archivoshistorial');
+		}
+	}
+
+
+
+
+
 
 }

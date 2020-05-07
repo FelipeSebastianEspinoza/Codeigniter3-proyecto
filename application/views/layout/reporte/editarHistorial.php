@@ -61,17 +61,74 @@
  					</div>
 
  					</br>
+ 					<?php foreach ($archivos as $arch) { ?>
+
+ 						<div class="col-sm-2 mb-1 mb-sm-0">
+ 							<label for="exampleFormControlTextarea1"><b>Titulo</b></label>
+ 							<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>'  ">
+ 								<i class="fas fa-image" style="color: #fff;"></i>
+ 							</a>
+ 							<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('delete_reportearchivo').value=<?php echo $arch->id_archivohistorial ?>">
+ 								<i class="fas fa-trash" style="color: #fff;"></i>
+ 							</a>
+
+
+
+ 						</div>
+
+ 					<?php } ?>
+
+ 					<form id="delete_formreportearchivo">
+ 						<input type="hidden" id="delete_reportearchivo" name="id_archivohistorial" value="">
+ 						<div class="modal fade" id="deleteReporteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 							<div class="modal-dialog" role="document">
+ 								<div class="modal-content">
+ 									<div class="modal-header">
+ 										<h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+ 										<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+ 											<span aria-hidden="true">×</span>
+ 										</button>
+ 									</div>
+ 									<div class="modal-body">¿Seguro que quiere eliminar este elemento?</div>
+ 									<div class="modal-footer">
+ 										<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+ 										<input type="submit" name="delete" id="delete" value="Eliminar" class="btn btn-info" />
+ 									</div>
+ 								</div>
+ 							</div>
+ 						</div>
+					 </form>
+					 
+					 
+ 					<div class="modal fade" id="imagenModalExtintor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 						<div class="modal-dialog" role="document">
+ 							<div class="modal-content">
+ 								<div class="modal-header">
+ 									<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+ 										<span aria-hidden="true">×</span>
+ 									</button>
+ 								</div>
+ 								<div class="text-center">
+ 									<img id="imagenDeExtintor" class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="" alt="">
+ 								</div>
+ 							</div>
+ 						</div>
+ 					</div>
+
+
+ 					</br>
  					</br>
  					This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
  					</br></br>
 
 
  					<?php
-						$attributes = array('id' => 'uploadfile_form', 'name' => 'pointform');
+						$attributes = array('id' => 'uploadfile_form', 'name' => 'pointform2');
 						echo Form_open_multipart('', $attributes);
 						?>
  					<div class="form-group row" id="nombre">
 
+ 						<input type="hidden" id="inputIdHistorial" name="id_historialyarchivos" class="form-control form-control-user" value="<?php echo $obj->id_historialyarchivos ?>">
  						<div class="col-sm-4 mb-1 mb-sm-0">
  							<label for="exampleFormControlTextarea1"><b>Nombre Archivo</b></label>
  							<input type="text" id="inputNArchivo" name="narchivo" class="form-control form-control-user">
@@ -80,64 +137,95 @@
  						</div>
 
  						<div class="col-sm-6 mb-3 mb-sm-0">
- 							 </br>
- 							<label for="exampleFormControlTextarea1"><b>Archivo</b></label>
- 							<input type="file" name="file" id="file" />
+ 							<label for="exampleFormControlTextarea1"><b>Archivo</b></label></br>
+ 							<input type="file" name="image_file" id="image_file" required />
  							<div class="invalid-feedback" id="inputImagenText">
  							</div>
  						</div>
-					 </div>
-					 <div class="col-sm-12 mb-6 mb-sm-0">
- 							<a class="btn btn-success btn-icon-split">
- 								<span class="icon text-white-50">
- 									<i class="fas fa-check"></i>
- 								</span>
- 								<input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" />
- 								</form>
- 							</a>
- 						</div>
- 					</form>
+ 					</div>
+ 					<div class="col-sm-12 mb-6 mb-sm-0">
+ 						<a class="btn btn-success btn-icon-split">
+ 							<span class="icon text-white-50">
+ 								<i class="fas fa-check"></i>
+ 							</span>
+ 							<input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" />
+ 							</form>
+ 						</a>
+ 					</div>
+
 
  				</div>
  			</div>
  		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  	<?php } ?>
  	<!--..............................................................................................-->
-
-
+	 <script>
+ 	$(document).ready(function() { 
+ 		$('#delete_formreportearchivo').on('submit', function(e) {
+ 			e.preventDefault();
+ 			$.ajax({
+ 				type: 'POST', 
+ 				url: "<?php echo site_url() . '/reporte/eliminarArchivo' ?>",
+ 				data: $(this).serialize(),
+ 				success: function(data) {
+ 					var $idH = document.getElementById("inputIdEnfermedadReportada").value;
+ 					window.location.href = '<?php echo site_url('reporte/successdeletehistorial/') ?>' + $idH;
+ 				},
+ 			});
+ 		});
+ 	});
+ </script>
 
  	<script>
  		$(document).ready(function() {
  			$('#uploadfile_form').on('submit', function(e) {
  				e.preventDefault();
- 				if ($('#file').val() == '') {
- 					$.ajax({
- 						type: 'POST',
- 						url: "<?php echo site_url() . '/redhumeda/crearRedHumedaajax' ?>",
- 						data: $(this).serialize(),
- 						success: function(data) {
- 							document.getElementById("inputNombre").classList.remove("is-invalid");
 
- 							window.location.href = "<?php echo site_url('redhumeda/success') ?>";
- 						},
- 						statusCode: {
- 							400: function(xhr) {
- 								document.getElementById("inputNombre").classList.remove("is-invalid");
+ 				$.ajax({
+ 					url: "<?php echo site_url() . '/reporte/uploadfilehistorial' ?>",
+ 					method: "POST",
+ 					data: new FormData(this),
+ 					contentType: false,
+ 					cache: false,
+ 					processData: false,
+ 					success: function(data) {
+ 						document.getElementById("inputNArchivo").classList.remove("is-invalid");
 
- 								var json = JSON.parse(xhr.responseText);
- 								if (json.nombre.length != 0) {
- 									document.getElementById("inputNombre").classList.add("is-invalid");
- 									document.getElementById("inputNombreText").innerHTML = json.nombre;
- 								}
 
+ 						$('#uploaded_image').html(data);
+
+ 						var $idH = document.getElementById("inputIdEnfermedadReportada").value;
+ 						window.location.href = '<?php echo site_url('reporte/successhistorialmodificar/') ?>' + $idH;
+ 					},
+ 					statusCode: {
+ 						400: function(xhr) {
+ 							document.getElementById("inputNArchivo").classList.remove("is-invalid");
+ 							var json = JSON.parse(xhr.responseText);
+ 							if (json.narchivo.length != 0) {
+ 								document.getElementById("inputNArchivo").classList.add("is-invalid");
+ 								document.getElementById("inputNArchivoText").innerHTML = json.narchivo;
  							}
- 						},
- 					});
- 				}
+ 						}
+ 					},
+ 				});
  			});
  		});
  	</script>
-
 
 
 
