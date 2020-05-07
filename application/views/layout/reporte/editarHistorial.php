@@ -64,14 +64,13 @@
  					<?php foreach ($archivos as $arch) { ?>
 
  						<div class="col-sm-2 mb-1 mb-sm-0">
- 							<label for="exampleFormControlTextarea1"><b>Titulo</b></label>
- 							<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>'  ">
+ 							<label for="exampleFormControlTextarea1"><b><?php echo $arch->nombre; ?></b></label>
+ 							<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>'  ">
  								<i class="fas fa-image" style="color: #fff;"></i>
  							</a>
- 							<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('delete_reportearchivo').value=<?php echo $arch->id_archivohistorial ?>">
+ 							<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;margin-right: 15px; margin-left: 5px;" onclick="javascript:document.getElementById('delete_reportearchivo').value=<?php echo $arch->id_archivohistorial ?>">
  								<i class="fas fa-trash" style="color: #fff;"></i>
  							</a>
-
 
 
  						</div>
@@ -97,9 +96,9 @@
  								</div>
  							</div>
  						</div>
-					 </form>
-					 
-					 
+ 					</form>
+
+
  					<div class="modal fade" id="imagenModalExtintor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
  						<div class="modal-dialog" role="document">
  							<div class="modal-content">
@@ -174,22 +173,22 @@
 
  	<?php } ?>
  	<!--..............................................................................................-->
-	 <script>
- 	$(document).ready(function() { 
- 		$('#delete_formreportearchivo').on('submit', function(e) {
- 			e.preventDefault();
- 			$.ajax({
- 				type: 'POST', 
- 				url: "<?php echo site_url() . '/reporte/eliminarArchivo' ?>",
- 				data: $(this).serialize(),
- 				success: function(data) {
- 					var $idH = document.getElementById("inputIdEnfermedadReportada").value;
- 					window.location.href = '<?php echo site_url('reporte/successdeletehistorial/') ?>' + $idH;
- 				},
+ 	<script>
+ 		$(document).ready(function() {
+ 			$('#delete_formreportearchivo').on('submit', function(e) {
+ 				e.preventDefault();
+ 				$.ajax({
+ 					type: 'POST',
+ 					url: "<?php echo site_url() . '/reporte/eliminarArchivo' ?>",
+ 					data: $(this).serialize(),
+ 					success: function(data) {
+ 						var $idH = document.getElementById("inputIdEnfermedadReportada").value;
+ 						window.location.href = '<?php echo site_url('reporte/successdeletehistorial/') ?>' + $idH;
+ 					},
+ 				});
  			});
  		});
- 	});
- </script>
+ 	</script>
 
  	<script>
  		$(document).ready(function() {

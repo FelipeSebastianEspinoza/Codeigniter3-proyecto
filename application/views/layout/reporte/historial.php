@@ -25,15 +25,38 @@
  					</div>
  				</div>
  				<div class="card-body">
-
  					<p><?php echo $obj->descripcion; ?></p>
  					<ul class="list-group list-group-flush">
  						<li class="list-group-item">
  							<?php foreach ($archivoshistorial as $arc) { ?>
  								<?php if ($obj->id_historialyarchivos == $arc->id_historialyarchivos) { ?>
- 									<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arc->archivo ?>'  ">
- 										<i class="fas fa-image" style="color: #fff;"></i>
- 									</a>
+
+
+
+ 									<?php $ext = pathinfo($arc->archivo);  ?>
+
+
+ 									<?php if ($ext['extension'] == 'pdf') {     ?>
+
+
+ 										<?php echo $arc->nombre; ?><a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $arc->archivo ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+ 											<i class="fas fa-file" style="color: #fff;"></i>
+ 										</a>
+
+ 									<?php } else { ?>
+ 										<?php echo $arc->nombre; ?><a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arc->archivo ?>'  ">
+ 											<i class="fas fa-image" style="color: #fff;"></i>
+ 										</a>
+
+ 									<?php } ?>
+
+
+
+
+
+
+
+
  								<?php } ?>
  							<?php } ?>
  						</li>
@@ -72,6 +95,7 @@
  				</button>
  			</div>
  			<div class="text-center">
+
  				<img id="imagenDeExtintor" class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="" alt="">
  			</div>
  		</div>
