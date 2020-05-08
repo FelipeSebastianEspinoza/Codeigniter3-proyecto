@@ -70,6 +70,9 @@
           <?php   }   ?>
           <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
             <a class="collapse-item" href="<?php echo site_url('reporte/ver'); ?>">E.Reportes</a> 
+					<?php   }   ?>
+					<?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+            <a class="collapse-item" href="<?php echo site_url('accidente/ver'); ?>">Accidentes</a> 
           <?php   }   ?>
         </div>
       </div>
