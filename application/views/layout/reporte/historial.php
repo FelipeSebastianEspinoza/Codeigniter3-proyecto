@@ -31,12 +31,8 @@
  							<?php foreach ($archivoshistorial as $arc) { ?>
  								<?php if ($obj->id_historialyarchivos == $arc->id_historialyarchivos) { ?>
 
-
-
  									<?php $ext = pathinfo($arc->archivo);  ?>
-
-
- 									<?php if ($ext['extension'] == 'pdf') {     ?>
+ 									<?php if ($ext['extension'] == 'pdf') { ?>
 
 
  										<?php echo $arc->nombre; ?><a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $arc->archivo ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
@@ -49,13 +45,7 @@
  										</a>
 
  									<?php } ?>
-
-
-
-
-
-
-
+ 
 
  								<?php } ?>
  							<?php } ?>

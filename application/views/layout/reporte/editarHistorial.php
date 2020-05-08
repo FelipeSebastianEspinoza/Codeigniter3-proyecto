@@ -61,21 +61,51 @@
  					</div>
 
  					</br>
- 					<?php foreach ($archivos as $arch) { ?>
 
- 						<div class="col-sm-2 mb-1 mb-sm-0">
- 							<label for="exampleFormControlTextarea1"><b><?php echo $arch->nombre; ?></b></label>
- 							<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;width:30px; height:30px;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>'  ">
- 								<i class="fas fa-image" style="color: #fff;"></i>
- 							</a>
- 							<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;margin-right: 15px; margin-left: 5px;" onclick="javascript:document.getElementById('delete_reportearchivo').value=<?php echo $arch->id_archivohistorial ?>">
- 								<i class="fas fa-trash" style="color: #fff;"></i>
- 							</a>
+ 					<div class="col-sm-12 mb-6 mb-sm-0">
+ 						<table class=".table-sm table-striped">
+ 							<thead>
+ 							</thead>
+ 							<tbody>
+ 								<?php foreach ($archivos as $arch) { ?>
+ 									<tr>
+ 										<td>
+ 											<label for="exampleFormControlTextarea1"><b><?php echo $arch->nombre; ?></b></label>
+ 										</td>
+ 										<td>
+
+ 											<?php $ext = pathinfo($arch->archivo);  ?>
+ 											<?php if ($ext['extension'] == 'pdf') { ?>
 
 
- 						</div>
+ 												<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+ 													<i class="fas fa-file" style="color: #fff;"></i>
+ 												</a>
 
- 					<?php } ?>
+ 											<?php } else { ?>
+ 												<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalExtintor" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="javascript:document.getElementById('imagenDeExtintor').src= '<?php echo base_url() . 'assets/upload/' .  $arch->archivo ?>'  ">
+ 													<i class="fas fa-image" style="color: #fff;"></i>
+ 												</a>
+
+ 											<?php } ?>
+
+
+
+
+
+
+ 										</td>
+ 										<td>
+ 											<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px;margin-right: 15px; margin-left: 5px;" onclick="javascript:document.getElementById('delete_reportearchivo').value=<?php echo $arch->id_archivohistorial ?>">
+ 												<i class="fas fa-trash" style="color: #fff;"></i>
+ 											</a>
+ 										</td>
+ 									</tr>
+ 								<?php } ?>
+ 							</tbody>
+ 						</table>
+ 					</div>
+
 
  					<form id="delete_formreportearchivo">
  						<input type="hidden" id="delete_reportearchivo" name="id_archivohistorial" value="">
