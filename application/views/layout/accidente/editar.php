@@ -23,7 +23,7 @@
 						</br> </br>
 						<div class="form-group row" id="persona">
 							<div class="col-sm-6 mb-3 mb-sm-0">
-							<input type="hidden" id="inputId" name="id_accidente" class="form-control form-control-user" value="<?php echo $obj->id_accidente ?>">
+								<input type="hidden" id="inputId" name="id_accidente" class="form-control form-control-user" value="<?php echo $obj->id_accidente ?>">
 								<label for="exampleFormControlTextarea1"><b>Persona</b></label>
 								<input type="text" id="inputPersona" name="persona" class="form-control form-control-user" value="<?php echo $obj->persona ?>">
 								<div class="invalid-feedback" id="inputPersonaText">
@@ -86,6 +86,10 @@
 
 						</div>
 						</br>
+
+
+
+
 						<div class="col-sm-12 mb-6 mb-sm-0">
 							<a class="btn btn-success btn-icon-split">
 								<span class="icon text-white-50">
@@ -98,7 +102,101 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-sm-12 mb-6 mb-sm-0">
+
+
+				<table class="table table-sm">
+					<thead>
+						<tr>
+							<th scope="col">Archivos</th>
+							<th scope="col">Ver</th>
+							<th scope="col">Modificar/Subir</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Diat</th>
+							<td>
+								<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $obj->archivo1 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+									<i class="fas fa-file" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-pen" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-trash" style="color: #fff;"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th>Investigación</th>
+							<td>
+								<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $obj->archivo1 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+									<i class="fas fa-file" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-pen" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-trash" style="color: #fff;"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th>InvestigaciónP</th>
+							<td>
+								<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $obj->archivo1 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+									<i class="fas fa-file" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-pen" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-trash" style="color: #fff;"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<th>InvestigaciónC</th>
+							<td>
+								<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' .  $obj->archivo1 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;">
+									<i class="fas fa-file" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-pen" style="color: #fff;"></i>
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteReporteModal" style="cursor: pointer;width:30px; height:30px; margin-right: 15px; margin-left: 5px;" onclick="">
+									<i class="fas fa-trash" style="color: #fff;"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
 		</div>
+
+
+
+
+
 	<?php } ?>
 
 	<script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
