@@ -55,10 +55,58 @@
 						<?php } ?>
 					<?php } ?>
 				</td>
-				<td> <?php echo "X" ?> </td>
-				<td> <?php echo "X" ?> </td>
-				<td> <?php echo "X" ?> </td>
-				<td> <?php echo "X" ?> </td>
+				<td>
+					<center>
+						<?php if ($obj->archivo1 != '') { ?>
+							<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' . $obj->archivo4 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px;  ">
+								<i class="fas fa-file" style="color: #fff;"></i>
+							</a>
+						<?php } else { ?>
+							<a class="btn btn-danger btn-circle" style="cursor: pointer;width:30px; height:30px;  ">
+								<i class="fas fa-times" style="color: #fff;"></i>
+							</a>
+						<?php } ?>
+					</center>
+				</td>
+				<td>
+					<center>
+						<?php if ($obj->archivo2 != '') { ?>
+							<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' . $obj->archivo4 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px;  ">
+								<i class="fas fa-file" style="color: #fff;"></i>
+							</a>
+						<?php } else { ?>
+							<a class="btn btn-danger btn-circle" style="cursor: pointer;width:30px; height:30px; ">
+								<i class="fas fa-times" style="color: #fff;"></i>
+							</a>
+						<?php } ?>
+					</center>
+				</td>
+				<td>
+					<center>
+						<?php if ($obj->archivo3 != '') { ?>
+							<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' . $obj->archivo4 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px;  ">
+								<i class="fas fa-file" style="color: #fff;"></i>
+							</a>
+						<?php } else { ?>
+							<a class="btn btn-danger btn-circle" style="cursor: pointer;width:30px; height:30px; ">
+								<i class="fas fa-times" style="color: #fff;"></i>
+							</a>
+						<?php } ?>
+					</center>
+				</td>
+				<td>
+					<center>
+						<?php if ($obj->archivo4 != '') { ?>
+							<a class="btn btn-warning btn-circle" href="<?php echo base_url() . 'assets/upload/' . $obj->archivo4 ?>" target="_blank" style="cursor: pointer;width:30px; height:30px;  ">
+								<i class="fas fa-file" style="color: #fff;"></i>
+							</a>
+						<?php } else { ?>
+							<a class="btn btn-danger btn-circle" style="cursor: pointer;width:30px; height:30px; ">
+								<i class="fas fa-times" style="color: #fff;"></i>
+							</a>
+						<?php } ?>
+					</center>
+				</td>
 
 				<td>
 					<center>
