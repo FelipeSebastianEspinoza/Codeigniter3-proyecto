@@ -29,7 +29,21 @@
     <div class="sidebar-heading">
       Interface
     </div>
-
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Pages</span>
+      </a>
+      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Herramientas</h6>
+          <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+            <a class="collapse-item" href="<?php echo site_url('riesgo/ver'); ?>">Riesgos</a>
+          <?php } ?>
+        </div>
+      </div>
+    </li>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -49,9 +63,9 @@
             <a class="collapse-item" href="<?php echo site_url('zonadeseguridad/ver'); ?>">Zonas de Seguridad</a>
           <?php   }   ?>
           <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
-            <a class="collapse-item" href="<?php echo site_url('extintor/ver'); ?>">Extintores</a> 
+            <a class="collapse-item" href="<?php echo site_url('extintor/ver'); ?>">Extintores</a>
           <?php   }   ?>
-         
+
         </div>
       </div>
     </li>
@@ -69,10 +83,10 @@
             <a class="collapse-item" href="<?php echo site_url('enfermedadprofesional/ver'); ?>">E.Profesionales</a>
           <?php   }   ?>
           <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
-            <a class="collapse-item" href="<?php echo site_url('reporte/ver'); ?>">E.Reportes</a> 
-					<?php   }   ?>
-					<?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
-            <a class="collapse-item" href="<?php echo site_url('accidente/ver'); ?>">Accidentes</a> 
+            <a class="collapse-item" href="<?php echo site_url('reporte/ver'); ?>">E.Reportes</a>
+          <?php   }   ?>
+          <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+            <a class="collapse-item" href="<?php echo site_url('accidente/ver'); ?>">Accidentes</a>
           <?php   }   ?>
         </div>
       </div>
@@ -86,25 +100,7 @@
       Addons
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Pages</span>
-      </a>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
-          <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-          <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404.html">404 Page</a>
-          <a class="collapse-item" href="blank.html">Blank Page</a>
-        </div>
-      </div>
-    </li>
+
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
