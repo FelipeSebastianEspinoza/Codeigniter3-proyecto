@@ -41,7 +41,10 @@
           <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
             <a class="collapse-item" href="<?php echo site_url('riesgo/ver'); ?>">Riesgos</a>
           <?php } ?>
-        </div>
+          <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+            <a class="collapse-item" href="<?php echo site_url('protocolo/ver'); ?>">Protocolos</a>
+          <?php } ?>
+        </div> 
       </div>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
