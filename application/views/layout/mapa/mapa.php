@@ -22,7 +22,11 @@
             </a>
             <a class="dropdown-item" id="grifos" style="cursor: pointer;">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 "></i>
-              Grifos
+              Grifos y Redes
+            </a>
+            <a class="dropdown-item" id="zonas" style="cursor: pointer;">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 "></i>
+              Zonas de Seguridad
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>

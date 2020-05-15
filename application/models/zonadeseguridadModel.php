@@ -27,8 +27,8 @@ class ZonaDeSeguridadModel extends CI_Model
 	public function insertarZonaDeSeguridad($datos)
 	{
 		$datos = array(
-			'nombre' => $datos['nombre'] 
-			 
+			'nombre' => $datos['nombre']
+
 		);
 		if (!$this->db->insert('zonadeseguridad', $datos)) {
 			return false;

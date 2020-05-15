@@ -31,13 +31,19 @@ class Map extends CI_Controller
 	function grifoDiv()
 	{
 		$this->load->model("grifoModel");
-		$grifos = $this->grifoModel->getGrifo();
-		$grifos = array('grifos' => $grifos);
-		$this->load->view('layout/mapa/grifoDiv', $grifos);
+		$this->load->model("RedHumedaModel");
+		$data['grifos'] = $this->grifoModel->getGrifo();
+		$data['redhumeda'] = $this->RedHumedaModel->getRedHumeda();
+		$this->load->view('layout/mapa/grifoDiv', $data);
+	}
+	function zonaDiv()
+	{
+		$this->load->model("ZonaDeSeguridadModel");
+		$data['zona'] = $this->ZonaDeSeguridadModel->getZonaDeSeguridad();
+		$this->load->view('layout/mapa/zonaDiv', $data);
 	}
 	function fotoGrifoDiv()
 	{
 		$this->load->view('layout/mapa/fotoGrifoDiv');
 	}
- 
 }
