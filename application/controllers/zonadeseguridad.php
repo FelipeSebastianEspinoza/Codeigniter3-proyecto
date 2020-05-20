@@ -143,8 +143,8 @@ class ZonaDeSeguridad extends CI_Controller
 					'nombre' => $_POST['nombre'],
 					'descripcion' => $_POST['descripcion'],
 					'id_campus' => '1',
-					'posy' => $_POST['form_y'],
-					'posx' => $_POST['form_x']
+					'posy' => $_POST['form_x'],
+					'posx' => $_POST['form_y']
 				);
 				$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 			}
@@ -169,8 +169,8 @@ class ZonaDeSeguridad extends CI_Controller
 							'descripcion' => $_POST['descripcion'],
 							'imagen' => $data['file_name'],
 							'id_campus' => '1',
-							'posy' => $_POST['form_y'],
-							'posx' => $_POST['form_x']
+							'posy' => $_POST['form_x'],
+							'posx' => $_POST['form_y']
 						);
 						$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 					}
@@ -179,8 +179,8 @@ class ZonaDeSeguridad extends CI_Controller
 						'nombre' => $_POST['nombre'],
 						'descripcion' => $_POST['descripcion'],
 						'id_campus' => '1',
-						'posy' => $_POST['form_y'],
-						'posx' => $_POST['form_x']
+						'posy' => $_POST['form_x'],
+						'posx' => $_POST['form_y']
 					);
 					$this->db->update('zonadeseguridad', $datos, array('id_zonadeseguridad' => $_POST["id_zonadeseguridad"]));
 				}

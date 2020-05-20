@@ -1,155 +1,85 @@
- <!--..............................................................................................-->
- <?php
-    $attributes = array('id' => 'upload_form', 'name' => 'pointform');
-    echo Form_open_multipart('', $attributes);
-    ?>
+ <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+ 	<h1 class="h3 mb-0 text-gray-800">
+ 		Riesgos
+ 	</h1>
+
+ 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+ 		Nuevo riesgo
+ 	</button>
+
+ </div>
+
+ <?php if ($this->session->flashdata('category_success')) { ?>
+ 	<div class="alert alert-success"> <?= $this->session->flashdata('category_success') ?> </div>
+ <?php } ?>
+
+ <table class="table table-striped table-bordered table-sm" id="dataTable1" width="100%" cellspacing="0">
+ 	<thead>
+ 		<tr>
+ 			<th width="50">Icono</th>
+ 			<th>Nombre</th>
+ 			<th>Descripcion</th>
+ 			<th width="50">Modificar</th>
+ 			<th width="50">Eliminar</th>
+ 		</tr>
+ 	</thead>
+ 	<tfoot>
+ 		<tr>
+ 			<th width="50">Icono</th>
+ 			<th>Nombre</th>
+ 			<th>Descripcion</th>
+ 			<th width="50">Modificar</th>
+ 			<th width="50">Eliminar</th>
+ 		</tr>
+ 	</tfoot>
+ 	<tbody>
+ 		<?php foreach ($riesgo as $obj) { ?>
+ 			<tr>
+ 				<?php if ($obj->imagen != null) {  ?>
+ 					<td>
+ 						<center>
+ 							<a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalriesgo" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDeriesgo').src= '<?php echo base_url() . 'assets/upload/' .  $obj->imagen ?>'  ">
+ 								<i class="fas fa-image" style="color: #fff;"></i>
+ 							</a>
+ 						</center>
+ 					</td>
+ 				<?php } else { ?>
+ 					<td>
+ 						<center>
+ 							<a class="btn btn-warning btn-circle">
+ 								<i class="fas fa-times" style="color: #fff;"></i>
+ 							</a>
+ 						</center>
+ 					</td>
+ 				<?php } ?>
+ 				<td> <?php echo $obj->nombre ?> </td>
+ 				<td> <?php echo $obj->descripcion ?> </td>
+ 				<td>
+ 					<center>
+ 						<a href="<?php echo site_url('riesgo/editar/' . $obj->id_riesgo) ?>" class="btn btn-info btn-circle">
+ 							<i class="fas fa-pen"></i>
+ 						</a>
+ 					</center>
+ 				</td>
+ 				<td>
+ 					<a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_riesgo').value=<?php echo $obj->id_riesgo ?>">
+ 						<i class="fas fa-trash" style="color: #fff;"></i>
+ 					</a>
+ 				</td>
+ 			</tr>
+ 		<?php } ?>
+ 	</tbody>
+ </table>
+
+
+
+
  </br>
- <div class="col-lg-12">
-     <!-- Collapsable Card Example -->
-     <div class="card shadow mb-4">
-         <!-- Card Header - Accordion -->
-         <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-             <h6 class="m-0 font-weight-bold text-primary">Nuevo Riesgo</h6>
-         </a>
-         <!-- Card Content - Collapse -->
-         <div class="collapse" id="collapseCardExample">
-             <div class="card-body">
-                 <div>
-                     This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
-                     </br> </br>
-                     <div class="form-group row" id="nombre">
-                         <div class="col-sm-6 mb-3 mb-sm-0">
-                             <label for="exampleFormControlTextarea1"><b>Nombre</b></label>
-                             <input type="text" id="inputNombre" name="nombre" class="form-control form-control-user" placeholder="Escriba el nombre...">
-                             <div class="invalid-feedback" id="inputNombreText">
-                             </div>
-                         </div>
-                         <div class="col-sm-6 mb-3 mb-sm-0">
-                             </br>
-                             <label for="exampleFormControlTextarea1"><b>Foto (Opcional)</b></label>
-                             <input type="file" name="image_file" id="image_file" />
-                             <div class="invalid-feedback" id="inputImagenText">
-                             </div>
-                         </div>
-                     </div>
-                     <div class="form-group row" id="descripcion">
-                         <div class="col-sm-6 mb-3 mb-sm-0">
-                             <label for="exampleFormControlTextarea1"><b>Descripción (Opcional)</b></label>
-                             <textarea class="form-control" name="descripcion" id="descripcion" rows="4"></textarea>
-                             <div class="invalid-feedback" id="inputDescripcionText">
-                             </div>
-                         </div>
-                     </div>
-                     </br>
-                     <div class="col-sm-12 mb-6 mb-sm-0">
-                         <a class="btn btn-success btn-icon-split">
-                             <span class="icon text-white-50">
-                                 <i class="fas fa-check"></i>
-                             </span>
-                             <input type="submit" name="upload" id="upload" value="Upload" class="btn btn-info" />
-                             </form>
-                         </a>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
 
+ </div>
+ </div>
+ </div>
+ </body>
 
-     <!--..............................................................................................-->
-
-
-
-     <script>
-         $(document).ready(function() {
-             $('#upload_form').on('submit', function(e) {
-                 e.preventDefault();
-                 if ($('#image_file').val() == '') {
-                     $.ajax({
-                         type: 'POST',
-                         url: "<?php echo site_url() . '/riesgo/ajax_upload' ?>",
-                         data: $(this).serialize(),
-                         success: function(data) {
-                             document.getElementById("inputNombre").classList.remove("is-invalid");
-
-                             window.location.href = "<?php echo site_url('riesgo/success') ?>";
-                         },
-                         statusCode: {
-                             400: function(xhr) {
-                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-
-                                 var json = JSON.parse(xhr.responseText);
-                                 if (json.nombre.length != 0) {
-                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                     document.getElementById("inputNombreText").innerHTML = json.nombre;
-                                 }
-
-                             }
-                         },
-                     });
-                 } else {
-                     $.ajax({
-                        url: "<?php echo site_url() . '/riesgo/ajax_upload' ?>",
-                         method: "POST",
-                         data: new FormData(this),
-                         contentType: false,
-                         cache: false,
-                         processData: false,
-                         success: function(data) {
-                             document.getElementById("inputNombre").classList.remove("is-invalid");
-
-                             // var json = JSON.parse(data);  
-                             $('#uploaded_image').html(data);
-                             window.location.href = "<?php echo site_url('riesgo/success') ?>";
-                         },
-                         statusCode: {
-                             400: function(xhr) {
-                                 document.getElementById("inputNombre").classList.remove("is-invalid");
-
-                                 var json = JSON.parse(xhr.responseText);
-                                 if (json.nombre.length != 0) {
-                                     document.getElementById("inputNombre").classList.add("is-invalid");
-                                     document.getElementById("inputNombreText").innerHTML = json.nombre;
-                                 }
-
-                             }
-                         },
-                     });
-                 }
-             });
-         });
-     </script>
-
-
-     <script>
-         $(document).ready(function() {
-             $('#dataTable1').DataTable({
-                 "order": [
-                     [1, "desc"]
-                 ],
-                 dom: 'Bfrtip',
-                 buttons: [{
-                         extend: 'csv',
-                         footer: true,
-                         exportOptions: {
-                             columns: [0, 1, 2]
-                         }
-                     },
-                     {
-                         extend: 'pdf',
-                         footer: true,
-                         exportOptions: {
-                             columns: [0, 1, 2]
-                         }
-                     },
-                     {
-                         extend: 'excel',
-                         footer: true,
-                         exportOptions: {
-                             columns: [0, 1, 2]
-                         }
-                     }
-                 ]
-             });
-         });
-     </script>
+ </html>

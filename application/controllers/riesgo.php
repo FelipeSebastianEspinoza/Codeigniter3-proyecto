@@ -20,35 +20,22 @@ class Riesgo extends CI_Controller
 			show_404();
 		}
 	}
+
 	public function menuRiesgo($data)
 	{
 		$data = array(
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/riesgo/tabla', $data),
-			'contenido' => $this->load->view('layout/riesgo/ver'),
+			'contenido' => $this->load->view('layout/riesgo/ver', $data),
+			'modal' => $this->load->view('layout/riesgo/modal'),
+			'script' => $this->load->view('layout/riesgo/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
-			'footer1' => $this->load->view('footers/footerDatatable')
 		);
 		$this->load->view('dashboard', $data);
 	}
-	public function success()
-	{
-		$this->session->set_flashdata('category_success', 'Se ha creado una nuevo riesgo con éxito');
-		redirect('riesgo/ver');
-	}
-	public function successupdate()
-	{
-		$this->session->set_flashdata('category_success', 'Se ha actualizado el riesgo con éxito');
-		redirect('riesgo/ver');
-	}
-	public function successdelete()
-	{
-		$this->session->set_flashdata('category_success', 'Se ha eliminado el riesgo con éxito');
-		redirect('riesgo/ver');
-	}
-	function ajax_upload()
+
+	function registrar()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
@@ -65,7 +52,7 @@ class Riesgo extends CI_Controller
 						$datos = array(
 							'nombre' => $_POST['nombre'],
 							'descripcion' => $_POST['descripcion'],
-							'imagen' => $data['file_name'] 
+							'imagen' => $data['file_name']
 						);
 						$this->db->insert('riesgo', $datos);
 					}
@@ -73,7 +60,7 @@ class Riesgo extends CI_Controller
 					$datos = array(
 						'nombre' => $_POST['nombre'],
 						'descripcion' => $_POST['descripcion'],
-						'imagen' => $data['file_name'] 
+						'imagen' => $data['file_name']
 					);
 					$this->db->insert('riesgo', $datos);
 				}
@@ -81,7 +68,7 @@ class Riesgo extends CI_Controller
 		}
 	}
 
-	public function eliminarRiesgo()
+	public function eliminar()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
@@ -89,12 +76,13 @@ class Riesgo extends CI_Controller
 			$this->db->delete('riesgo');
 		}
 	}
+
 	public function editar($id)
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			if ($this->session->userdata('is_logged')) {
-			 
+
 				$data['riesgo'] = $this->RiesgoModel->getRiesgoEspecifico($id);
 				$data = array(
 					'header1' => $this->load->view('headers/headerDatatable'),
@@ -112,6 +100,7 @@ class Riesgo extends CI_Controller
 			show_404();
 		}
 	}
+
 	function modificarUpload()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
@@ -125,7 +114,7 @@ class Riesgo extends CI_Controller
 					if (!$this->upload->do_upload('image_file')) {
 						echo $this->upload->display_errors();
 					} else {
-						$data = $this->upload->data(); 
+						$data = $this->upload->data();
 						$datos = array(
 							'nombre' => $_POST['nombre'],
 							'descripcion' => $_POST['descripcion'],
@@ -142,5 +131,21 @@ class Riesgo extends CI_Controller
 				}
 			}
 		}
+	}
+
+	public function success()
+	{
+		$this->session->set_flashdata('category_success', 'Se ha creado una nuevo riesgo con éxito');
+		redirect('riesgo/ver');
+	}
+	public function successupdate()
+	{
+		$this->session->set_flashdata('category_success', 'El riesgo ha sido actualizado con éxito');
+		redirect('riesgo/ver');
+	}
+	public function successdelete()
+	{
+		$this->session->set_flashdata('category_success', 'El riesgo ha sido eliminado con éxito');
+		redirect('riesgo/ver');
 	}
 }
