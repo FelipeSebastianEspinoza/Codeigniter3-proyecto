@@ -74,7 +74,7 @@
             if ($('#image_file').val() == '') {
                 $.ajax({
                     type: 'POST',
-                    url: "<?php echo site_url() . '/riesgo/modificarUpload' ?>",
+                    url: "<?php echo site_url() . '/riesgo/modificar' ?>",
                     data: $(this).serialize(),
                     success: function(data) {
                         document.getElementById("inputNombre").classList.remove("is-invalid");
@@ -94,7 +94,7 @@
                 });
             } else {
                 $.ajax({
-                    url: "<?php echo site_url() . '/riesgo/modificarUpload' ?>",
+                    url: "<?php echo site_url() . '/riesgo/modificar' ?>",
                     method: "POST",
                     data: new FormData(this),
                     contentType: false,

@@ -9,20 +9,7 @@ class Grifo extends CI_Controller
 		$this->load->library(array('session'));
 		$this->load->model('GrifoModel');
 	}
-	public function crearGrifoajax()
-	{
-		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
-			if ($this->GrifoModel->validarGrifo($_POST["nombre_grifo"])) {
-				$datos = array(
-					'nombre_grifo' => $_POST['nombre_grifo'],
-					'estado_grifo' => $_POST['estado_grifo'],
-					'posy_grifo' => $_POST['form_x'],
-					'posx_grifo' => $_POST['form_y']
-				);
-				$this->db->insert('Grifo', $datos);
-			}
-		}
-	}
+ 
 	function menuGrifo()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
@@ -40,7 +27,9 @@ class Grifo extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'contenido' => $this->load->view('layout/grifo/menuGrifo', $grifos),
+			'content' => $this->load->view('layout/grifo/ver', $grifos),
+			'modal' => $this->load->view('layout/grifo/modal'),
+			'script' => $this->load->view('layout/grifo/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -61,7 +50,7 @@ class Grifo extends CI_Controller
 		$this->session->set_flashdata('category_success', 'Se ha eliminado el grifo con éxito');
 		redirect('grifo/menuGrifo');
 	}
-	function ajax_upload()
+	function crear()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {     
 		$this->load->database('pdo');
@@ -82,13 +71,12 @@ class Grifo extends CI_Controller
 						'descripcion_grifo' => $_POST['descripcion_grifo'],
 						'comentario_grifo' => $_POST['comentario_grifo'],
 						'posy_grifo' => $_POST['form_x'],
-						'posx_grifo' => $_POST['form_y']
+						'posx_grifo' => $_POST['form_y'],
+						'id_campus' => '1'
+						
 					);
 					$this->db->insert('Grifo', $datos);
-					/*
-                  echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'"
-					  style="display: block; width: 300px; ">';
-					  */
+ 
 				}
 			} else {
 				$datos = array(
@@ -97,7 +85,8 @@ class Grifo extends CI_Controller
 					'descripcion_grifo' => $_POST['descripcion_grifo'],
 					'comentario_grifo' => $_POST['comentario_grifo'],
 					'posy_grifo' => $_POST['form_x'],
-					'posx_grifo' => $_POST['form_y']
+					'posx_grifo' => $_POST['form_y'],
+					'id_campus' => '1'
 				);
 				$this->db->insert('Grifo', $datos);
 			}
@@ -150,7 +139,8 @@ class Grifo extends CI_Controller
 					'descripcion_grifo' => $_POST['descripcion_grifo'],
 					'comentario_grifo' => $_POST['comentario_grifo'],
 					'posy_grifo' => $_POST['form_x'],
-					'posx_grifo' => $_POST['form_y']
+					'posx_grifo' => $_POST['form_y'],
+					'id_campus' => '1'
 				);
 				$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
 			}
@@ -178,7 +168,8 @@ class Grifo extends CI_Controller
 							'descripcion_grifo' => $_POST['descripcion_grifo'],
 							'comentario_grifo' => $_POST['comentario_grifo'],
 							'posy_grifo' => $_POST['form_x'],
-							'posx_grifo' => $_POST['form_y']
+							'posx_grifo' => $_POST['form_y'],
+							'id_campus' => '1'
 						);
 
 						$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
@@ -191,7 +182,8 @@ class Grifo extends CI_Controller
 						'descripcion_grifo' => $_POST['descripcion_grifo'],
 						'comentario_grifo' => $_POST['comentario_grifo'],
 						'posy_grifo' => $_POST['form_x'],
-						'posx_grifo' => $_POST['form_y']
+						'posx_grifo' => $_POST['form_y'],
+						'id_campus' => '1'
 					);
 					$this->db->update('Grifo', $datos, array('id_grifo' => $datos['id_grifo']));
 				}

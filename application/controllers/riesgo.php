@@ -101,7 +101,7 @@ class Riesgo extends CI_Controller
 		}
 	}
 
-	function modificarUpload()
+	function modificar() 
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');

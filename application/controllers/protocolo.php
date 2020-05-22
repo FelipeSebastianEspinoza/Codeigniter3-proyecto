@@ -25,8 +25,9 @@ class Protocolo extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/protocolo/tabla', $data),
-			'contenido' => $this->load->view('layout/protocolo/ver'),
+			'content' => $this->load->view('layout/protocolo/ver', $data),
+			'script' => $this->load->view('layout/protocolo/script'),
+			'modal' => $this->load->view('layout/protocolo/modal'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -47,7 +48,7 @@ class Protocolo extends CI_Controller
 		$this->session->set_flashdata('category_success', 'Se ha eliminado el protocolo con éxito');
 		redirect('protocolo/ver');
 	}
-	function ajax_upload()
+	function crear()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
@@ -85,7 +86,7 @@ class Protocolo extends CI_Controller
 			show_404();
 		}
 	}
-	public function eliminarProtocolo()
+	public function eliminar()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
@@ -93,7 +94,7 @@ class Protocolo extends CI_Controller
 			$this->db->delete('protocolo');
 		}
 	}
-	public function modificarProtocoloajax()
+	public function modificar()
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');

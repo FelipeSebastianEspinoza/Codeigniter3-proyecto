@@ -61,7 +61,7 @@
 				e.preventDefault();
 				$.ajax({ 
 					type: 'POST',
-					url: "<?php echo site_url() . '/protocolo/modificarProtocoloajax' ?>",
+					url: "<?php echo site_url() . '/protocolo/modificar' ?>",
 					data: $(this).serialize(),
 					success: function(data) {
 						document.getElementById("inputNombre").classList.remove("is-invalid");

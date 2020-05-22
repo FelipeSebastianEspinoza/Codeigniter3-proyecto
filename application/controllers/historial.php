@@ -38,6 +38,8 @@ class Historial extends CI_Controller
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
 			'historial' => $this->load->view('layout/historial/ver', $data),
+			'modal' => $this->load->view('layout/historial/modal'),
+			'script' => $this->load->view('layout/historial/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);

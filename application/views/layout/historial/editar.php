@@ -57,14 +57,14 @@
  									<label for="Pendiente">Pendiente</label><br>
  									<input type="radio" id="Revisado" name="estado" value="Revisado">
  									<label for="Revisado">Revisado</label><br>
- 								<?php  } else if ($historial->estado != 'Pendiente') {   ?>
+ 								<?php  } else if ($obj->estado != 'Pendiente') {   ?>
  									<input type="radio" id="Terminado" name="estado" value="Terminado">
  									<label for="Terminado">Terminado</label><br>
  									<input type="radio" id="Pendiente" name="estado" value="Pendiente" checked>
  									<label for="Pendiente">Pendiente</label><br>
  									<input type="radio" id="Revisado" name="estado" value="Revisado">
  									<label for="Revisado">Revisado</label><br>
- 								<?php  } else if ($historial->estado != 'Revisado') {   ?>
+ 								<?php  } else if ($obj->estado != 'Revisado') {   ?>
  									<input type="radio" id="Terminado" name="estado" value="Terminado">
  									<label for="Terminado">Terminado</label><br>
  									<input type="radio" id="Pendiente" name="estado" value="Pendiente">
