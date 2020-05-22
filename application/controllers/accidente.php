@@ -23,6 +23,7 @@ class Accidente extends CI_Controller
     public function menuAccidente($data)
     {
         $data = array(
+            'loader' => $this->load->view('layout/loader'),
             'header1' => $this->load->view('headers/headerDatatable'),
             'sidebar' => $this->load->view('layout/sidebar'),
             'nav' => $this->load->view('layout/nav'),
@@ -30,6 +31,7 @@ class Accidente extends CI_Controller
             'contenido' => $this->load->view('layout/accidente/ver'),
             'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
             'footer1' => $this->load->view('footers/footerDatatable'),
+        
         );
         $this->load->view('dashboard', $data);
     }

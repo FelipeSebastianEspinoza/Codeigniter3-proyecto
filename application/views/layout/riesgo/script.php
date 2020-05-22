@@ -120,3 +120,6 @@
  <script src="<?php echo base_url() ?>assets/vendor/datatables/vfs_fonts.js"></script>
  <script src="<?php echo base_url() ?>assets/vendor/datatables/buttons.html5.min.js"></script>
  <script src="<?php echo base_url() ?>assets/vendor/datatables/buttons.print.min.js"></script>
+
+
+ 

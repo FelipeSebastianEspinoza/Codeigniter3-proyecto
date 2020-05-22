@@ -22,6 +22,7 @@ class EnfermedadProfesional extends CI_Controller
 	public function menuEnfermedadProfesional($data)
 	{
 		$data = array(
+			'loader' => $this->load->view('layout/loader'),
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),

@@ -38,6 +38,7 @@ class ZonaDeSeguridad extends CI_Controller
 	public function menuZonaDeSeguridad($data)
 	{
 		$data = array(
+			'loader' => $this->load->view('layout/loader'),
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
@@ -111,6 +112,7 @@ class ZonaDeSeguridad extends CI_Controller
 				$edificio = $this->ZonaDeSeguridadModel->getEdificio();
 				$edificio = array('edificio' => $edificio);
 				$data = array(
+					'loader' => $this->load->view('layout/loader'),
 					'header1' => $this->load->view('headers/headerDatatable'),
 					'sidebar' => $this->load->view('layout/sidebar'),
 					'nav' => $this->load->view('layout/nav', $edificio),
