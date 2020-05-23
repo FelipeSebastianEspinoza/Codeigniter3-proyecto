@@ -28,8 +28,9 @@ class Extintor extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/extintor/tabla', $data),
-			'contenido' => $this->load->view('layout/extintor/ver'),
+			'content' => $this->load->view('layout/extintor/ver', $data),
+			'modal' => $this->load->view('layout/extintor/modal'),
+			'script' => $this->load->view('layout/extintor/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);

@@ -43,8 +43,9 @@ class RedHumeda extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/redhumeda/tabla', $data),
-			'contenido' => $this->load->view('layout/redhumeda/ver'),
+			'content' => $this->load->view('layout/redhumeda/ver', $data),
+			'modal' => $this->load->view('layout/redhumeda/modal'),
+			'script' => $this->load->view('layout/redhumeda/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -142,7 +143,7 @@ class RedHumeda extends CI_Controller
 	{
 		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
-			if ($this->RedHumedaModel->validarRedHumeda($_POST["nombre"] )) {
+			if ($this->RedHumedaModel->validarRedHumeda($_POST["nombre"])) {
 				$datos = array(
 					'nombre' => $_POST['nombre'],
 					'estado' => $_POST['estado'],

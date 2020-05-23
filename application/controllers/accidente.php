@@ -27,8 +27,9 @@ class Accidente extends CI_Controller
             'header1' => $this->load->view('headers/headerDatatable'),
             'sidebar' => $this->load->view('layout/sidebar'),
             'nav' => $this->load->view('layout/nav'),
-            'tabla' => $this->load->view('layout/accidente/tabla', $data),
-            'contenido' => $this->load->view('layout/accidente/ver'),
+            'content' => $this->load->view('layout/accidente/ver', $data),
+            'modal' => $this->load->view('layout/accidente/modal'),
+            'script' => $this->load->view('layout/accidente/script'),
             'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
             'footer1' => $this->load->view('footers/footerDatatable'),
         

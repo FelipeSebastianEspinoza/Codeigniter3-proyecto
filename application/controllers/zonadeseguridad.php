@@ -42,8 +42,9 @@ class ZonaDeSeguridad extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/zonadeseguridad/tabla', $data),
-			'contenido' => $this->load->view('layout/zonadeseguridad/ver'),
+			'content' => $this->load->view('layout/zonadeseguridad/ver', $data),
+			'modal' => $this->load->view('layout/zonadeseguridad/modal'),
+			'script' => $this->load->view('layout/zonadeseguridad/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -51,17 +52,17 @@ class ZonaDeSeguridad extends CI_Controller
 	}
 	public function success()
 	{
-		$this->session->set_flashdata('category_success', 'Se ha creado una nueva redhúmeda con éxito');
+		$this->session->set_flashdata('category_success', 'Se ha creado una nueva zona con éxito');
 		redirect('zonadeseguridad/ver');
 	}
 	public function successupdate()
 	{
-		$this->session->set_flashdata('category_success', 'Se ha actualizado la zonadeseguridad con éxito');
+		$this->session->set_flashdata('category_success', 'Se ha actualizado la zona de seguridad con éxito');
 		redirect('zonadeseguridad/ver');
 	}
 	public function successdelete()
 	{
-		$this->session->set_flashdata('category_success', 'Se ha eliminado la zonadeseguridad con éxito');
+		$this->session->set_flashdata('category_success', 'Se ha eliminado la zona de seguridad con éxito');
 		redirect('zonadeseguridad/ver');
 	}
 	function ajax_upload()

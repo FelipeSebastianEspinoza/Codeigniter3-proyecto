@@ -30,8 +30,9 @@ class Reporte extends CI_Controller
 			'header1' => $this->load->view('headers/headerDatatable'),
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
-			'tabla' => $this->load->view('layout/reporte/tabla', $data),
-			'contenido' => $this->load->view('layout/reporte/ver'),
+			'content' => $this->load->view('layout/reporte/ver', $data),
+			'modal' => $this->load->view('layout/reporte/modal'),
+			'script' => $this->load->view('layout/reporte/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
