@@ -53,4 +53,14 @@ class EdificioModel extends CI_Model
 		$sql = $this->db->get_where('redhumeda', array('id_edificio' => $id));
 		return $sql->result();
 	}
+	public function getExtintor($id)
+	{
+		$sql = $this->db->get_where('extintor', array('id_edificio' => $id));
+		return $sql->result();
+	}
+	public function getAccidente($id)
+	{
+		$sql = $this->db->get_where('accidente', array('id_edificio' => $id));
+		return $sql->result();
+	}
 }

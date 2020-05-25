@@ -41,8 +41,7 @@
             <tr>
                 <td> <?php echo $grifo->nombre_grifo ?> </td>
                 <td>
-                    <?php
-                    if ($grifo->estado_grifo == 'Pendiente') { ?>
+                    <?php if ($grifo->estado_grifo == 'Pendiente') { ?>
                         <p class="text-danger"> <?php echo $grifo->estado_grifo;   ?> </p>
                     <?php     } else { ?>
                         <p class="text-success"> <?php echo $grifo->estado_grifo;   ?> </p>
@@ -83,8 +82,3 @@
         <?php } ?>
     </tbody>
 </table>
-
- 
-
- 
- 

@@ -15,6 +15,8 @@ class Edificio extends CI_Controller
 			$this->load->model("edificioModel");
 			$data['edificio']=$this->edificioModel->getEdificioEspecifico($id);
 			$data['redhumeda']=$this->edificioModel->getRedHumeda($id);
+			$data['extintor']=$this->edificioModel->getExtintor($id);
+			$data['accidente']=$this->edificioModel->getAccidente($id);
 			$this->menuEdificio($data);
 		} else {
 			show_404();
@@ -28,6 +30,7 @@ class Edificio extends CI_Controller
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
 			'contenido' => $this->load->view('layout/edificio/ver', $data),
+			'modal' => $this->load->view('layout/edificio/modal' ),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
