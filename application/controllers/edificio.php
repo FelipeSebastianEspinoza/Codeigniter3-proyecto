@@ -7,22 +7,25 @@ class Edificio extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library(array('session'));
-		$this->load->model('edificioModel'); 
+		$this->load->model('edificioModel');
 	}
 	function verEdificio($id)
 	{
 		if ($this->session->userdata('is_logged')) {
 			$this->load->model("edificioModel");
-			$data['edificio']=$this->edificioModel->getEdificioEspecifico($id);
-			$data['redhumeda']=$this->edificioModel->getRedHumeda($id);
-			$data['extintor']=$this->edificioModel->getExtintor($id);
-			$data['accidente']=$this->edificioModel->getAccidente($id);
-			$this->menuEdificio($data);
+			$data['edificio'] = $this->edificioModel->getEdificioEspecifico($id);
+			$data['redhumeda'] = $this->edificioModel->getRedHumeda($id);
+			$data['extintor'] = $this->edificioModel->getExtintor($id);
+			$data['accidente'] = $this->edificioModel->getAccidente($id);
+			$data2['riesgos'] = $this->edificioModel->getRiesgos();
+			$data2['id_edificio'] = $id;
+			$data['riesgo'] = $this->edificioModel->getRiesgo($id);
+			$this->menuEdificio($data, $data2);
 		} else {
 			show_404();
 		}
 	}
-	public function menuEdificio($data) 
+	public function menuEdificio($data, $data2)
 	{
 		$data = array(
 			'loader' => $this->load->view('layout/loader'),
@@ -30,7 +33,8 @@ class Edificio extends CI_Controller
 			'sidebar' => $this->load->view('layout/sidebar'),
 			'nav' => $this->load->view('layout/nav'),
 			'contenido' => $this->load->view('layout/edificio/ver', $data),
-			'modal' => $this->load->view('layout/edificio/modal' ),
+			'modal' => $this->load->view('layout/edificio/modal', $data2),
+			'script' => $this->load->view('layout/edificio/script'),
 			'logoutMensaje' => $this->load->view('layout/logoutMensaje'),
 			'footer1' => $this->load->view('footers/footerDatatable')
 		);
@@ -38,7 +42,7 @@ class Edificio extends CI_Controller
 	}
 	public function editar($id)
 	{
-    	 if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
 			$this->load->database('pdo');
 			$edificio = $this->edificioModel->getEdificioEspecifico($id);
 			$edificio = array('edificio' => $edificio);
@@ -60,7 +64,7 @@ class Edificio extends CI_Controller
 		$this->load->database('pdo');
 		if ($this->EdificioModel->validarEdificio($_POST["nombre_edificio"], $_POST["estado_edificio"])) {
 			$datos = array(
-				 
+
 				'nombre_edificio' => $_POST['nombre_edificio'],
 				'departamento_edificio' => $_POST['departamento_edificio'],
 				'estudiantes_edificio' => $_POST['estudiantes_edificio'],
@@ -96,7 +100,7 @@ class Edificio extends CI_Controller
 						'funcionarios_edificio' => $_POST['funcionarios_edificio'],
 						'hacinamiento_edificio' => $_POST['hacinamiento_edificio'],
 						'area_edificio' => $_POST['area_edificio'],
-						'imagen_edificio' =>$data['file_name'],
+						'imagen_edificio' => $data['file_name'],
 						'elementos_edificio' => $_POST['elementos_edificio'],
 						'estado_edificio' => $_POST['estado_edificio']
 					);
@@ -122,13 +126,31 @@ class Edificio extends CI_Controller
 	public function success($id)
 	{
 		$this->session->set_flashdata('category_success', 'Se ha actualizado correctamente');
-		$this->verEdificio($id); 
+		$this->verEdificio($id);
 	}
 	public function successupdate($id)
 	{
 		$this->session->set_flashdata('category_success', 'Se ha actualizado correctamente');
-		$this->verEdificio($id); 
+		$this->verEdificio($id);
+	}
+	public function successriesgo($id)
+	{
+		$this->session->set_flashdata('category_success', 'Se ha actualizado correctamente');
+		$this->verEdificio($id);
 	}
 
+	function asignarRiesgo()
+	{
+		if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {
+			$this->load->database('pdo');
 
+
+			$datos = array(
+				'id_edificio' => $_POST['id_edificio'],
+				'id_riesgo' => $_POST['id_riesgo'] 
+				 
+			);
+			$this->db->insert('edificio_riesgo', $datos);
+		}
+	}
 }

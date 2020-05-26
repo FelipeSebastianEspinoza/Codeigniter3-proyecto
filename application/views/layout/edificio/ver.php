@@ -76,6 +76,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="accidentes-tab" data-toggle="tab" href="#accidentes" role="tab" aria-controls="accidentes" aria-selected="false">Accidentes</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="riesgos-tab" data-toggle="tab" href="#riesgos" role="tab" aria-controls="riesgos" aria-selected="false">Riesgos</a>
+                </li>
             </ul>
 
 
@@ -91,8 +94,11 @@
                                 <th>Ubicación</th>
                                 <th>Edificio</th>
                                 <th width="50">Foto</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php }  ?>
+
                             </tr>
                         </thead>
                         <tfoot>
@@ -102,8 +108,11 @@
                                 <th>Ubicación</th>
                                 <th>Edificio</th>
                                 <th width="50">Foto</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
                             </tr>
                         </tfoot>
                         <tbody>
@@ -143,20 +152,17 @@
                                             </center>
                                         </td>
                                     <?php } ?>
-                                    <td>
-                                        <center>
-                                            <a href="<?php echo site_url('redhumeda/editar/' . $red->id_redhumeda) ?>" class="btn btn-info btn-circle">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_redhumeda').value=<?php echo $red->id_redhumeda ?>">
-                                                <i class="fas fa-trash" style="color: #fff;"></i>
-                                            </a>
+                                    <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                        <td>
                                             <center>
-                                    </td>
+                                                <a href="<?php echo site_url('redhumeda/editar/' . $red->id_redhumeda) ?>" class="btn btn-info btn-circle">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } ?>
+
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -176,8 +182,11 @@
                                 <th>Comentario</th>
                                 <th>Estado</th>
                                 <th width="50">Foto</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
                             </tr>
                         </thead>
                         <tfoot>
@@ -190,8 +199,11 @@
                                 <th>Comentario</th>
                                 <th>Estado</th>
                                 <th width="50">Foto</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
                             </tr>
                         </tfoot>
                         <tbody>
@@ -244,18 +256,17 @@
                                             </center>
                                         </td>
                                     <?php } ?>
-                                    <td>
-                                        <center>
-                                            <a href="<?php echo site_url('extintor/editar/' . $red->id_extintor) ?>" class="btn btn-info btn-circle">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_extintor').value=<?php echo $red->id_extintor ?>">
-                                            <i class="fas fa-trash" style="color: #fff;"></i>
-                                        </a>
-                                    </td>
+                                    <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                        <td>
+                                            <center>
+                                                <a href="<?php echo site_url('extintor/editar/' . $red->id_extintor) ?>" class="btn btn-info btn-circle">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } ?>
+
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -277,8 +288,10 @@
                                 <th width="50">Investigación</th>
                                 <th width="50">InformeP</th>
                                 <th width="50">InformeC</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
                             </tr>
                         </thead>
                         <tfoot>
@@ -293,8 +306,10 @@
                                 <th width="50">Investigación</th>
                                 <th width="50">InformeP</th>
                                 <th width="50">InformeC</th>
-                                <th width="50">Modificar</th>
-                                <th width="50">Eliminar</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
                             </tr>
                         </tfoot>
                         <tbody>
@@ -366,28 +381,102 @@
                                             <?php } ?>
                                         </center>
                                     </td>
+                                    <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
 
-                                    <td>
-                                        <center>
-                                            <a href="<?php echo site_url('accidente/editar/' . $obj->id_accidente) ?>" class="btn btn-info btn-circle">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <a class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteAccidenteModal" style="cursor: pointer;" onclick="javascript:document.getElementById('delete_accidente').value=<?php echo $obj->id_accidente ?>">
-                                                <i class="fas fa-trash" style="color: #fff;"></i>
-                                            </a>
-                                        </center>
-                                    </td>
+
+                                        <td>
+                                            <center>
+                                                <a href="<?php echo site_url('accidente/editar/' . $obj->id_accidente) ?>" class="btn btn-info btn-circle">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } ?>
                                 </tr>
                             <?php } ?>
                         </tbody>
                     </table>
                 </div>
 
+                <div class="tab-pane fade" id="riesgos" role="tabpanel" aria-labelledby="riesgos-tab">
 
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+                        <h1 class="h3 mb-0 text-gray-800">
+                            Riesgos presentes en este edificio
+                        </h1>
+                        <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                                Asignar riesgo
+                            </button>
+                        <?php } ?>
+
+                    </div>
+
+                    <table class="table table-striped table-bordered table-sm" id="dataTable1" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="50">Icono</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th width="50">Icono</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+                                    <th width="50">Modificar</th>
+                                <?php } ?>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <?php foreach ($riesgo as $ries) { ?>
+                                <tr>
+                                    <?php if ($ries->imagen != null) {  ?>
+                                        <td>
+                                            <center>
+                                                <a class="btn btn-success btn-circle" data-toggle="modal" data-target="#imagenModalriesgo" style="cursor: pointer;" onclick="javascript:document.getElementById('imagenDeriesgo').src= '<?php echo base_url() . 'assets/upload/' . $ries->imagen ?>'  ">
+                                                    <i class="fas fa-image" style="color: #fff;"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } else { ?>
+                                        <td>
+                                            <center>
+                                                <a class="btn btn-warning btn-circle">
+                                                    <i class="fas fa-times" style="color: #fff;"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } ?>
+                                    <td> <?php echo $ries->nombre ?> </td>
+                                    <td> <?php echo $ries->descripcion ?> </td>
+                                    <?php if ($this->session->userdata('is_logged') && $this->session->tipo_usuario != '0') {    ?>
+
+
+
+                                        <td>
+                                            <center>
+                                                <a href="<?php echo site_url('riesgo/editar/' . $ries->id_riesgo) ?>" class="btn btn-info btn-circle">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    <?php } ?>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
 
 
             </div>
